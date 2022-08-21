@@ -41,6 +41,7 @@ input[type="text"] {
 
 input[type="text"]::placeholder{
     color: #91aaaa9d;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 input[type="text"]:hover, input[type="text"]:focus {

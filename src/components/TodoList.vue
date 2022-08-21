@@ -13,18 +13,19 @@
 			/>
 			<button 
 				class="addButton"
-				@click="addItem"
+				@click="addItem(inputValue, textAreaValue)"
 			>
 				Add
 			</button> 
 		</div> 
 		<ul>
 			<TodoListItem
-				v-for="item in list"
+				v-for="item in listHistory"
 				v-model="item.selected"
 				:key="item.id"
 				:item="item"
-				@delete="deleteItem"
+				@delete="deleteItem(item.id)"
+				@edit="editItem(item.id)"
 			>
 				<template v-slot:inputField>
 					<input/>
@@ -44,53 +45,53 @@ import TodoListItem from './TodoListItem.vue'
 import TodoInput from './TodoInput.vue'
 import TodoTextArea from './TodoTextArea.vue'
 
-let nextTodoId = 1
-
 export default {
 	name: 'TodoList',
+	
 	components: {
 		TodoInput, TodoListItem, TodoTextArea
 	},
 	data() {
 		return {
 			inputValue: '',
-			textAreaValue: '',
-			list: [
-				{value: 'abc', selected: false, id: nextTodoId++, description: 'hello world'},
-				{value: 'zxc', selected: false, id: nextTodoId++, description: 'hello world1'},
-				{value: 'asd', selected: false, id: nextTodoId++, description: 'hello world2'},
-				{value: '123', selected: false, id: nextTodoId++, description: 'hello world3'}	
-			]
+			textAreaValue: ''
 		}
 	},
 	methods: {
-		deleteItem(idDelete) {
-			this.list = this.list.filter( item => {
-				return item.id !== idDelete
-			})
+		editItem(id) {
+			this.$store.dispatch('editItem', id)
+			let newInputValue = this.$store.list.find(item => item.id === id)
+			this.inputValue = newInputValue.value;
+			this.textAreaValue = newInputValue.description
 		},
-		addItem() {
+		deleteItem(id) {
+			this.$store.dispatch('removeItem', id)
+		},
+		addItem(inputValue, textAreaValue) {
 			if(!this.inputValue.length) {
 				return;
 			}
-			this.list.push({value: this.inputValue, selected: false, id: nextTodoId++, description: this.textAreaValue}),
+			this.$store.dispatch('addItem', {inputValue, textAreaValue}),
 			this.inputValue = '',
 			this.textAreaValue =''
 		}
 	},
 	computed: {
         selectedItems(){ 
-          return this.list.filter(item => item.selected)
+          return this.listHistory.filter(item => item.selected)
         },
         changeTitle() {
-          if(this.selectedItems.length == this.list.length) {
+          if(this.selectedItems.length == this.listHistory.length) {
 			return 'green'
-			}else if (this.selectedItems.length >= this.list.length / 2 && this.list.length !=0 ) {
+			}else if (this.selectedItems.length >= this.listHistory.length / 2 && this.listHistory.length !=0 ) {
 				return 'yellow'
 			}else{
 				return 'red'
 			}
-        }
+        },
+		listHistory() {
+			return this.$store.getters.getListHistory
+		},
     }
 }
 </script>
@@ -127,11 +128,11 @@ export default {
 
 h1{
     display: inline;
-    font-size: 40px;
+    font-size: 45px;
 }
 
 .header {
-    margin: 20px;
+    margin-bottom: 20px;
 }
 
 ul {

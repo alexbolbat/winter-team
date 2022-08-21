@@ -37,11 +37,14 @@ textarea {
     border: #66bfbf solid 1px;
     padding-left: 10px;
     color: #66bfbf;
-    width: 450px
+    width: 450px;
+    height: 50px;
 }
 
 textarea::placeholder{
     color: #91aaaa9d;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-top: 5px;
 }
 
 textarea:hover, textarea:focus {

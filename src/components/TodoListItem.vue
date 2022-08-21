@@ -18,9 +18,10 @@
     <div class="deadlineDate">
       <slot name="deadlineDate"/>
     </div>
-    <a href="#" @click="$emit('delete', item.id)"><img src="../assets/delete.png" height="15px"></a>
+    <a href="#edit" @click="$emit('edit', item.id)"><img src="../assets/edit.png" height="15px"></a>
+    <a href="#delete" @click="$emit('delete', item.id)"><img src="../assets/delete.png" height="15px"></a>
     <p v-show="isDescriptionVisible && item.description">
-      <span>Details:</span> {{item.description}}
+      <span>Details:</span> {{item.description}} 
     </p>
   </li>
 </template>
@@ -59,17 +60,21 @@ input[type="checkbox"]:focus-visible {
 label {
   margin-left: 10px;
   margin-right: 5px;
+  font-size: 20px;
 }
 
 p {
   border-radius: 15px;
   border: #66bfbf dashed 1px;
-  background-color: #91aaaa2a;
+  background-color: #91aaaa15;
   word-wrap: break-word;
   word-break: break-all;
   padding: 10px;
 }
 
+a:first-of-type {
+  margin-right: 8px;
+}
 p span {
   font-weight: bold;
 }
@@ -81,9 +86,11 @@ p span {
   border-radius: 15px;
   border: #66bfbf dashed 1px;
   width: 120px;
+  height: 25px;
   margin: 10px;
   padding-right: 10px;
   padding-left: 10px;
+  color:#66bfbf;
 }
 
 .deadlineDate input {
@@ -93,6 +100,8 @@ p span {
   padding-right: 5px;
   padding-left: 8px;
   margin-right: 15px;
+  color: #66bfbf;
+  height: 25px;
 }
 
 .inputField input:focus, .inputField input:hover, 

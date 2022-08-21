@@ -1,21 +1,14 @@
 <template>
   <div id="app">
-    <TodoList/>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">Task History</router-link>
+    </nav>
+    <router-view/>
   </div>
 </template>
 
-<script>
-import TodoList from './components/TodoList.vue'
-
-export default {
-	components: {
-		TodoList
-	}
-}
-</script>
-
-<style lang="scss">
-@import "~bootstrap/scss/bootstrap";
+<style>
 
 body {
   background: rgb(234,246,246);
@@ -23,7 +16,7 @@ body {
 }
 
 #app {
-  margin: 100px auto;
+   margin: 100px auto;
   text-align: center;
   background-color: #fcfefe;
   max-width: 900px;
@@ -33,4 +26,17 @@ body {
   box-shadow: 0px 0px 15px 0px rgba(37,69,69,0.25);
 }
 
+nav {
+  padding: 30px;
+  font-size: 25px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2d4d4d;
+}
+
+nav a.router-link-exact-active {
+  color: #66bfbf;
+}
 </style>
