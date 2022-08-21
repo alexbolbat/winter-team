@@ -2,25 +2,25 @@
   <div class="todo">
     <h1 :class="getCompletedAmount">Todo list</h1>
     <hr />
-    <TodoForm @add-todo="addTodo">
+    <todo-form @add-todo="addTodo">
       <template v-slot:start="{ startDate, setStart }">
         <b>start date:</b>
         <input
           type="date"
           :value="startDate"
-          @input="(e) => setStart(e.target.value)"
+          @input="e => setStart(e.target.value)"
         />
       </template>
-      <template v-slot:deadline="{ deadline, setDeadline }"
-        ><b>deadline date:</b>
+      <template v-slot:deadline="{ deadline, setDeadline }">
+        <b>deadline date:</b>
         <input
           type="date"
           :value="deadline"
-          @input="(e) => setDeadline(e.target.value)"
+          @input="e => setDeadline(e.target.value)"
         />
       </template>
-    </TodoForm>
-    <TodoList
+    </todo-form>
+    <todo-list
       :todoList="todoList"
       :removeTodo="removeTodo"
       :changeCompleted="changeCompleted"
@@ -29,36 +29,36 @@
 </template>
 
 <script>
-import TodoList from "./TodoList.vue";
-import TodoForm from "./TodoForm.vue";
+import TodoList from './TodoList.vue';
+import TodoForm from './TodoForm.vue';
 export default {
-  name: "TodosPage",
+  name: 'TodosPage',
   components: { TodoList, TodoForm },
   data() {
     return {
       todoList: [
-        { id: 1, title: "buy 2 forks", details: "1dasddddd", completed: false },
+        { id: 1, title: 'buy 2 forks', details: '1dasddddd', completed: false },
         {
           id: 2,
-          title: "sell all tomatos",
-          details: "2dasddddd",
+          title: 'sell all tomatos',
+          details: '2dasddddd',
           completed: false,
-          deadline: "2022-08-10",
+          deadline: '2022-08-10'
         },
         {
           id: 3,
-          title: "visit dantist",
-          details: "3dasddddd",
+          title: 'visit dantist',
+          details: '3dasddddd',
           completed: false,
-          startDate: "2022-08-10",
+          startDate: '2022-08-10'
         },
         {
           id: 4,
-          title: "jump as hight as i can",
-          details: "4dasddddd",
-          completed: false,
-        },
-      ],
+          title: 'jump as hight as i can',
+          details: '4dasddddd',
+          completed: false
+        }
+      ]
     };
   },
   methods: {
@@ -68,30 +68,29 @@ export default {
       }
     },
     removeTodo(id) {
-      this.todoList = this.todoList.filter((item) => item.id !== id);
+      this.todoList = this.todoList.filter(item => item.id !== id);
     },
     changeCompleted(item) {
       item.completed = !item.completed;
-    },
+    }
   },
   computed: {
     getCompletedAmount() {
-      const amount = this.todoList.filter((item) => item.completed).length;
+      const amount = this.todoList.filter(item => item.completed).length;
 
       if (amount < 1 && this.todoList.length) {
-        return "red";
+        return 'red';
       } else if (
         amount >= this.todoList.length / 2 &&
         amount !== this.todoList.length
       ) {
-        return "yellow";
+        return 'yellow';
       } else if (amount === this.todoList.length && this.todoList.length) {
-        return "green";
+        return 'green';
       }
-      console.log(amount);
-      return "regular";
-    },
-  },
+      return 'regular';
+    }
+  }
 };
 </script>
 

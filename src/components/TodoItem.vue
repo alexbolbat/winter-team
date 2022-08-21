@@ -5,33 +5,32 @@
         <div>
           <input
             :id="item.id"
-            @click="changeCompleted(item)"
             :checked="item.completed"
             type="checkbox"
+            @click="changeCompleted(item)"
           />
-          <span @click="onClickTitle" :class="[{ completed: item.completed }]">
+          <span :class="[{ completed: item.completed }]" @click="onClickTitle">
             {{ index + 1 + ". " + item.title }}
           </span>
         </div>
         <slot />
       </div>
-      <TodoDetails :item="item" v-show="showDetails" />
+      <todo-details v-show="showDetails" :item="item" />
     </div>
   </li>
 </template>
 
 <script>
-import TodoDetails from "./TodoDetails.vue";
+import TodoDetails from './TodoDetails.vue';
 export default {
-  name: "TodoItem",
+  name: 'TodoItem',
   data() {
     return { showDetails: false };
   },
-  props: ["item", "index", "changeCompleted"],
+  props: ['item', 'index', 'changeCompleted'],
   methods: {
     onClickTitle() {
       this.showDetails = !this.showDetails;
-      console.log(this.showDetails);
     },
   },
   components: { TodoDetails },

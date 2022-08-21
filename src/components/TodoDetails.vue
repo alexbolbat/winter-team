@@ -1,17 +1,17 @@
 <template>
   <div class="todo-item__details">
     <div>
-      {{ item.startDate ? "Start date: " + item.startDate : "No start date" }}
+      {{ item.startDate ? 'Start date: ' + item.startDate : 'No start date' }}
     </div>
     <div>
-      {{ item.deadline ? "Deadline date: " + item.deadline : "No deadline" }}
+      {{ item.deadline ? 'Deadline date: ' + item.deadline : 'No deadline' }}
     </div>
-    <p>{{ item.details ? item.details : "No details" }}</p>
+    <p>{{ item.details ? item.details : 'No details' }}</p>
   </div>
 </template>
 
 <script>
-export default { name: "TodoDetails", props: ["item"] };
+export default { name: 'TodoDetails', props: ['item'] };
 </script>
 
 <style lang="scss" scoped>

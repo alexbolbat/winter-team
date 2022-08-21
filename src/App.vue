@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <TodosPage />
+    <todos-page />
   </div>
 </template>
+
 <script>
-import "./components/TodosPage";
-import TodosPage from "./components/TodosPage.vue";
+import './components/TodosPage';
+import TodosPage from './components/TodosPage.vue';
 export default {
-  name: "App",
+  name: 'App',
   components: { TodosPage },
 };
 </script>
