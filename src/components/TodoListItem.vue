@@ -123,7 +123,7 @@ p span {
 .inputField input:focus, .inputField input:hover, 
 .inputField input:focus-visible, .deadlineDate input:focus, 
 .deadlineDate input:hover, .deadlineDate input:focus-visible{
-    outline-offset: none;
-    outline: none;
+  outline-offset: none;
+  outline: none;
 }
 </style>

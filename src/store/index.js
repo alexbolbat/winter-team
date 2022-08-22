@@ -6,10 +6,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     list: [
-      { value: 'abc', selected: false, id: 1, description: 'hello world' },
-      { value: 'zxc', selected: false, id: Math.floor(Math.random() * 100), description: 'hello world1' },
-      { value: 'asd', selected: false, id: Math.floor(Math.random() * 100), description: 'hello world2' },
-      { value: '123', selected: false, id: Math.floor(Math.random() * 100), description: 'hello world3' }		
+      { value: 'Buy coffee', selected: false, id: Math.floor(Math.random() * 100), description: 'arabica' },
+      { value: 'Pet the cat', selected: false, id: Math.floor(Math.random() * 100), description: 'also give the cat treats' },
+      { value: 'Visit doctor', selected: false, id: Math.floor(Math.random() * 100), description: 'at 12 o`clock' },
+      { value: 'Pay internet', selected: false, id: Math.floor(Math.random() * 100), description: 'withdraw money' }		
     ]
   },
   getters: {
@@ -20,13 +20,13 @@ export default new Vuex.Store({
     REMOVE_ITEM (state, itemId) {
       state.list = state.list.filter(item => item.id !== itemId);
     },
-    EDIT_ITEM (state, { inputValue, id, textAreaValue }) {
-      const item = state.find(item => item.id === id);
-      Vue.set(item, 'value', inputValue);
-      Vue.set(item, 'description', textAreaValue);
+    CONFIRM_ITEM (state, data) {
+      const item = state.list.find(item => item.id === data.id);
+      Vue.set(item, 'value', data.value);
+      Vue.set(item, 'description', data.description);
+      Vue.set(item, 'id', data.id);
     },
     ADD_ITEM (state, { inputValue, textAreaValue }) {
-      console.log('mutations', inputValue, textAreaValue);
       state.list.push({ value: inputValue, selected: false, id: Math.floor(Math.random() * 100), description: textAreaValue });
     }
   },
@@ -34,12 +34,12 @@ export default new Vuex.Store({
     removeItem (context, id) {
       context.commit('REMOVE_ITEM', id);
     },
-    editItem (context, { inputValue, id, textAreaValue }) {
-      context.commit('EDIT_ITEM', { inputValue, id, textAreaValue });
+    confirmItem (context, data) {
+      context.commit('CONFIRM_ITEM', data);
     },
     addItem(context, { inputValue, textAreaValue }) {
       context.commit('ADD_ITEM', { inputValue, textAreaValue });
-    }
+    },
   },
   modules: {
   }

@@ -18,7 +18,15 @@
       <todo-text-area
         v-model="textAreaValue"
       />
-      <button 
+      <button
+        v-if="isEditActive"
+        class="saveButton"
+        @click="confirmEdit()"
+      >
+        Save
+      </button>
+      <button
+        v-else
         class="addButton"
         @click="addItem(inputValue, textAreaValue)"
       >
@@ -32,7 +40,7 @@
         v-model="item.selected"
         :item="item"
         @delete="deleteItem(item.id)"
-        @edit="editItem(item.id)"
+        @edit="editItem(item)"
       >
         <template v-slot:inputField>
           <input />
@@ -60,19 +68,23 @@ export default {
   data() {
     return {
       inputValue: '',
-      textAreaValue: ''
+      textAreaValue: '',
+      isEditActive: false,
+      itemToEditId: '',
     };
   },
   methods: {
-    editItem(id) {
-      const newInputValue = this.listHistory.find(item => {
-        if (item.id === id) {
-          return item;
-        }
-      });
-      this.inputValue = newInputValue.value;
-      this.textAreaValue = newInputValue.description;
-      this.$store.dispatch('editItem', id);
+    editItem(item) {
+      this.isEditActive = true;
+      this.inputValue = item.value;
+      this.textAreaValue = item.description;
+      this.itemToEditId = item.id;
+    },
+    confirmEdit() {
+      const data = { id: this.itemToEditId, value: this.inputValue, description: this.textAreaValue };
+      this.$store.dispatch('confirmItem', data);
+      this.isEditActive = false;
+      this.itemToEditId = false;
     },
     deleteItem(id) {
       this.$store.dispatch('removeItem', id);
@@ -109,44 +121,62 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .red{
-    color: #f76b8a;
+  color: #f76b8a;
 }
 .yellow{
-    color: #f5dc51;
+  color: #f5dc51;
 }
 .green{
-    color:#66bf75;
+  color:#66bf75;
 }
 
 .addButton{
-    height: 30px;
-    width: 70px;
-    border-radius: 15px;
-    border: #66bfbf solid 1px;
-    cursor: pointer;
-    color: #66bfbf;
-    background-color: #fcfefe;
+  height: 30px;
+  width: 70px;
+  border-radius: 15px;
+  border: #66bfbf solid 1px;
+  cursor: pointer;
+  color: #66bfbf;
+  background-color: #fcfefe;
 	margin-bottom: 20px;
 }
 
 .addButton:hover{
-    background-color: #66bfbf;
-    color: #fcfefe;
-    transition: background-color 0.5s ease-out;
-    box-shadow: 0px 0px 7px 0px rgba(102,191,191,0.56);
+  background-color: #66bfbf;
+  color: #fcfefe;
+  transition: background-color 0.5s ease-out;
+  box-shadow: 0px 0px 7px 0px rgba(102,191,191,0.56);
+}
+
+.saveButton {
+  height: 30px;
+  width: 70px;
+  border-radius: 15px;
+  border: #8ebf66 solid 1px;
+  cursor: pointer;
+  color: #8ebf66;
+  background-color: #fcfefe;
+	margin-bottom: 20px;
+}
+
+.saveButton:hover {
+  background-color: #8ebf66;
+  color: #fcfefe;
+  transition: background-color 0.5s ease-out;
+  box-shadow: 0px 0px 7px 0px #8ebf6686;
 }
 
 h1{
-    display: inline;
-    font-size: 45px;
+  display: inline;
+  font-size: 45px;
 }
 
 .header {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0px;
+  list-style-type: none;
+  padding: 0px;
 }
 </style>
