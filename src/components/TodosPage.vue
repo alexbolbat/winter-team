@@ -1,6 +1,8 @@
 <template>
   <div class="todo">
-    <h1 :class="getCompletedAmount">Todo list</h1>
+    <h1 :class="getCompletedAmount">
+      Todo list
+    </h1>
     <hr />
     <todo-form @add-todo="addTodo">
       <template v-slot:start="{ startDate, setStart }">
@@ -78,7 +80,9 @@ export default {
     getCompletedAmount() {
       const amount = this.todoList.filter(item => item.completed).length;
 
-      if (amount < 1 && this.todoList.length) {
+      if (!this.todoList.length) {
+        return 'regular';
+      } else if (amount < this.todoList.length / 2) {
         return 'red';
       } else if (
         amount >= this.todoList.length / 2 &&

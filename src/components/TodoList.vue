@@ -1,6 +1,9 @@
 <template>
   <div>
-    <ul v-if="todoList.length" class="todo-list">
+    <ul
+      v-if="todoList.length"
+      class="todo-list"
+    >
       <todo-item
         v-for="(item, index) of todoList"
         :key="item.id"
@@ -10,11 +13,15 @@
         :changeCompleted="changeCompleted"
       >
         <template v-slot:default>
-          <button @click.stop="removeTodo(item.id)">Remove</button>
+          <button @click.stop="removeTodo(item.id)">
+            Remove
+          </button>
         </template>
       </todo-item>
     </ul>
-    <p v-else>No todos</p>
+    <p v-else>
+      No todos
+    </p>
   </div>
 </template>
 
@@ -23,7 +30,7 @@ import TodoItem from './TodoItem.vue';
 export default {
   name: 'TodoList',
   components: { TodoItem },
-  props: ['todoList', 'removeTodo', 'changeCompleted'],
+  props: ['todoList', 'removeTodo', 'changeCompleted']
 };
 </script>
 

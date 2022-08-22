@@ -9,13 +9,19 @@
             type="checkbox"
             @click="changeCompleted(item)"
           />
-          <span :class="[{ completed: item.completed }]" @click="onClickTitle">
-            {{ index + 1 + ". " + item.title }}
+          <span
+            :class="{ completed: item.completed }"
+            @click="onClickTitle"
+          >
+            {{ index + 1 + '. ' + item.title }}
           </span>
         </div>
         <slot />
       </div>
-      <todo-details v-show="showDetails" :item="item" />
+      <todo-details
+        v-show="showDetails"
+        :item="item"
+      />
     </div>
   </li>
 </template>
@@ -31,9 +37,9 @@ export default {
   methods: {
     onClickTitle() {
       this.showDetails = !this.showDetails;
-    },
+    }
   },
-  components: { TodoDetails },
+  components: { TodoDetails }
 };
 </script>
 

@@ -16,7 +16,9 @@
       rows="5"
     />
     <span>
-      <button type="submit">Add todo</button>
+      <button type="submit">
+        Add todo
+      </button>
     </span>
 
     <slot
