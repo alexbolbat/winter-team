@@ -85,6 +85,8 @@ export default {
       this.$store.dispatch('confirmItem', data);
       this.isEditActive = false;
       this.itemToEditId = false;
+      this.inputValue = '',
+      this.textAreaValue = '';
     },
     deleteItem(id) {
       this.$store.dispatch('removeItem', id);

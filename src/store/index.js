@@ -24,7 +24,6 @@ export default new Vuex.Store({
       const item = state.list.find(item => item.id === data.id);
       Vue.set(item, 'value', data.value);
       Vue.set(item, 'description', data.description);
-      Vue.set(item, 'id', data.id);
     },
     ADD_ITEM (state, { inputValue, textAreaValue }) {
       state.list.push({ value: inputValue, selected: false, id: Math.floor(Math.random() * 100), description: textAreaValue });
