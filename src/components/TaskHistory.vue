@@ -15,7 +15,7 @@
 export default {
   computed: {
     listHistory() {
-      return this.$store.getters.getListHistory
+      return this.$store.getters.listListHistory
     },
   }
 }
