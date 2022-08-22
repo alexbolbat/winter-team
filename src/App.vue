@@ -1,28 +1,28 @@
 <template>
   <div id="app">
-    <todos-page />
+    <nav>
+      <router-link to="/">
+        Home
+      </router-link> |
+      <router-link to="/task-history">
+        Task History
+      </router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
-<script>
-import './components/TodosPage';
-import TodosPage from './components/TodosPage.vue';
-export default {
-  name: 'App',
-  components: { TodosPage },
-};
-</script>
-
-<style lang="scss">
-@import "~bootstrap/scss/bootstrap";
-
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 li,
 ul,
@@ -33,5 +33,6 @@ p {
 }
 button {
   height: 40px;
+  margin-right: 10px;
 }
 </style>

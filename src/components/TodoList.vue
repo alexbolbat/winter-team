@@ -1,23 +1,15 @@
 <template>
   <div>
     <ul
-      v-if="todoList.length"
+      v-if="todos.length"
       class="todo-list"
     >
       <todo-item
-        v-for="(item, index) of todoList"
+        v-for="(item, index) of todos"
         :key="item.id"
         :item="item"
         :index="index"
-        :removeTodo="removeTodo"
-        :changeCompleted="changeCompleted"
-      >
-        <template v-slot:default>
-          <button @click.stop="removeTodo(item.id)">
-            Remove
-          </button>
-        </template>
-      </todo-item>
+      />
     </ul>
     <p v-else>
       No todos
@@ -26,11 +18,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import TodoItem from './TodoItem.vue';
+
 export default {
   name: 'TodoList',
   components: { TodoItem },
-  props: ['todoList', 'removeTodo', 'changeCompleted']
+  computed: mapGetters(['todos'])
 };
 </script>
 

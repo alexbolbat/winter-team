@@ -7,7 +7,7 @@
             :id="item.id"
             :checked="item.completed"
             type="checkbox"
-            @click="changeCompleted(item)"
+            @click="changeCompleted(item.id)"
           />
           <span
             :class="{ completed: item.completed }"
@@ -16,27 +16,74 @@
             {{ index + 1 + '. ' + item.title }}
           </span>
         </div>
-        <slot />
+        <div>
+          <button @click.stop="onClickEdit">
+            Edit
+          </button>
+          <button @click.stop="removeTodo(item.id)">
+            Remove
+          </button>
+        </div>
       </div>
       <todo-details
         v-show="showDetails"
         :item="item"
       />
     </div>
+    <form
+      v-show="showEditor"
+      class="edit-popup"
+      @submit.prevent="onSubmit"
+    >
+      <p>Popup</p>
+      <input
+        v-model="title"
+        type="text"
+      />
+      <textarea
+        v-model="description"
+        cols="30"
+        rows="10"
+      />
+      <button type="submit">
+        Edit
+      </button>
+    </form>
   </li>
 </template>
 
 <script>
 import TodoDetails from './TodoDetails.vue';
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'TodoItem',
   data() {
-    return { showDetails: false };
+    return {
+      title: this.item.title,
+      description: this.item.description,
+      showDetails: false,
+      showEditor: false
+    };
   },
-  props: ['item', 'index', 'changeCompleted'],
+  props: ['item', 'index'],
   methods: {
+    ...mapMutations(['changeCompleted', 'removeTodo', 'editTodo']),
     onClickTitle() {
       this.showDetails = !this.showDetails;
+    },
+    onClickEdit() {
+      this.showEditor = !this.showEditor;
+    },
+    onSubmit() {
+      if (this.title.trim()) {
+        this.editTodo({
+          id: this.item.id,
+          newTitle: this.title,
+          newDescription: this.description
+        });
+        this.showEditor = false;
+      }
     }
   },
   components: { TodoDetails }
@@ -60,5 +107,13 @@ export default {
 }
 .completed {
   text-decoration: line-through;
+}
+.edit-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > * {
+    margin-top: 10px;
+  }
 }
 </style>

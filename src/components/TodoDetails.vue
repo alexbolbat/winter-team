@@ -6,7 +6,9 @@
     <div>
       {{ item.deadline || 'No deadline' }}
     </div>
-    <p>{{ item.details || 'No details' }}</p>
+    <p>
+      {{ item.description || 'No details' }}
+    </p>
   </div>
 </template>
 

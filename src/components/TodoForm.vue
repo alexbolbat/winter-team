@@ -35,10 +35,13 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'TodoForm',
   data() {
     return {
+      id: 0,
       title: '',
       description: '',
       startDate: '',
@@ -46,14 +49,14 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['addTodo']),
     onSubmit() {
-      this.$emit('add-todo', {
+      this.addTodo({
         id: Date.now(),
         title: this.title,
-        details: this.description,
+        description: this.title,
         startDate: this.startDate,
-        deadline: this.deadline,
-        completed: false
+        deadline: this.deadline
       });
       this.title = '';
       this.description = '';
