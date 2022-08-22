@@ -1,7 +1,7 @@
 <template>
   <div>
     <input
-      :value="newItem"
+      :value="value"
       type="text"
       class="input"
       placeholder="type your plan title here"
@@ -13,11 +13,6 @@
 <script>
 export default {
   name:'TodoInput',
-  data() {
-    return {
-      newItem: ''
-    }
-  },
   props: {
     value: {
       type: String,

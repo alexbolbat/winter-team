@@ -1,7 +1,7 @@
 <template>
   <div>
     <textarea 
-      :value="areaValue"
+      :value="value"
       :maxlength="max"
       class="textArea" 
       placeholder="max 150 characters"
@@ -17,7 +17,6 @@ export default {
   name:'TodoTextArea',
   data() {
     return {
-      areaValue: '',
       max: 150
     }
   },
