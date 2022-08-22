@@ -1,8 +1,15 @@
 <template>
   <div>
     <div class="header">
-      <img id="logo" src="../assets/evaluation.png" height="45px" alt="todo"/>
-      <h1 :class="changeTitleColor">TODO List</h1>
+      <img
+        id="logo"
+        src="../assets/evaluation.png"
+        height="45px"
+        alt="todo"
+      />
+      <h1 :class="changeTitleColor">
+        TODO List
+      </h1>
     </div>
     <div>
       <todo-input
@@ -28,22 +35,21 @@
         @edit="editItem(item.id)"
       >
         <template v-slot:inputField>
-          <input/>
+          <input />
         </template>
 
         <template v-slot:deadlineDate>
-          <input type="date"/>
+          <input type="date" />
         </template>
-
       </todo-list-item>
     </ul>
   </div>
 </template>
 
 <script>
-import TodoListItem from './TodoListItem.vue'
-import TodoInput from './TodoInput.vue'
-import TodoTextArea from './TodoTextArea.vue'
+import TodoListItem from './TodoListItem.vue';
+import TodoInput from './TodoInput.vue';
+import TodoTextArea from './TodoTextArea.vue';
 
 export default {
   name: 'TodoList',
@@ -55,49 +61,49 @@ export default {
     return {
       inputValue: '',
       textAreaValue: ''
-    }
+    };
   },
   methods: {
     editItem(id) {
       const newInputValue = this.listHistory.find(item => {
         if (item.id === id) {
-          return item
+          return item;
         }
       });
       this.inputValue = newInputValue.value;
       this.textAreaValue = newInputValue.description;
-      this.$store.dispatch('editItem', id)
+      this.$store.dispatch('editItem', id);
     },
     deleteItem(id) {
-      this.$store.dispatch('removeItem', id)
+      this.$store.dispatch('removeItem', id);
     },
     addItem(inputValue, textAreaValue) {
       if(!this.inputValue.length) {
         return;
       }
-      this.$store.dispatch('addItem', { inputValue, textAreaValue })
+      this.$store.dispatch('addItem', { inputValue, textAreaValue });
       this.inputValue = '',
-      this.textAreaValue =''
+      this.textAreaValue = '';
     }
   },
   computed: {
     selectedItems(){ 
-      return this.listHistory.filter(item => item.selected)
+      return this.listHistory.filter(item => item.selected);
     },
     changeTitleColor() {
       if(this.selectedItems.length == this.listHistory.length) {
-        return 'green'
-      }else if (this.selectedItems.length >= this.listHistory.length / 2 && this.listHistory.length !=0 ) {
-        return 'yellow'
+        return 'green';
+      }else if (this.selectedItems.length >= this.listHistory.length / 2 && this.listHistory.length != 0 ) {
+        return 'yellow';
       }else{
-        return 'red'
+        return 'red';
       }
     },
     listHistory() {
-      return this.$store.getters.listListHistory
+      return this.$store.getters.listListHistory;
     },
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -21,10 +21,10 @@ export default {
   },
   computed: {
     item(id) {
-      return this.$store.getters.item(id)
+      return this.$store.getters.item(id);
     },
   }
-}
+};
 </script>
 
 <style scoped>

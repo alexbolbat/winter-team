@@ -13,13 +13,29 @@
       {{item.value}}
     </label>
     <div class="inputField">
-      <slot name="inputField"/>
+      <slot name="inputField" />
     </div>
     <div class="deadlineDate">
-      <slot name="deadlineDate"/>
+      <slot name="deadlineDate" />
     </div>
-    <a href="#edit" @click="$emit('edit', item.id)"><img src="../assets/edit.png" height="15px"></a>
-    <a href="#delete" @click="$emit('delete', item.id)"><img src="../assets/delete.png" height="15px"></a>
+    <a
+      href="#edit"
+      @click="$emit('edit', item.id)"
+    >
+      <img
+        src="../assets/edit.png"
+        height="15px"
+      />
+    </a>
+    <a
+      href="#delete"
+      @click="$emit('delete', item.id)"
+    >
+      <img
+        src="../assets/delete.png"
+        height="15px"
+      />
+    </a>
     <p v-show="isDescriptionVisible && item.description">
       <span>Details:</span> {{item.description}} 
     </p>
@@ -31,7 +47,7 @@ export default {
   data() {
     return {
       isDescriptionVisible: false,
-    }
+    };
   } ,
   name: 'TodoListItem',
   props: {
@@ -40,7 +56,7 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
 
 <style scoped>

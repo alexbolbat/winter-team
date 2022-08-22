@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <task-history/>
+    <task-history />
   </div>
 </template>
 
@@ -11,5 +11,5 @@ export default {
   components: {
     TaskHistory
   }
-}
+};
 </script>

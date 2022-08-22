@@ -8,7 +8,7 @@
       cols="20" 
       rows="2"
       @input="$emit('input', $event.target.value)"
-    ></textarea>    
+    />    
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       max: 150
-    }
+    };
   },
   props: {
     value: {
@@ -27,7 +27,7 @@ export default {
     },
   },
 
-}
+};
 </script>
 
 <style scoped>

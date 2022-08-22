@@ -1,12 +1,17 @@
 <template>
   <ul>
-    <li v-for="item in listHistory"
-        :key="item.id"
-        :item="item"
-        class="taskHistory"
+    <li
+      v-for="item in listHistory"
+      :key="item.id"
+      :item="item"
+      class="taskHistory"
     >
-      <span class="title">Title: {{item.value}} </span><br>
-      <span class="description"><b>Description:</b> {{item.description}}</span>
+      <span class="title">
+        Title: {{item.value}}
+      </span><br />
+      <span class="description">
+        <b>Description:</b> {{item.description}}
+      </span>
     </li>
   </ul>
 </template>
@@ -15,10 +20,10 @@
 export default {
   computed: {
     listHistory() {
-      return this.$store.getters.listListHistory
+      return this.$store.getters.listListHistory;
     },
   }
-}
+};
 </script>
 
 <style>
