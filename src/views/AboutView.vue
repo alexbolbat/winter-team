@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <TaskHistory/>
+    <task-history/>
   </div>
 </template>
 
@@ -8,8 +8,8 @@
 import TaskHistory from '../components/TaskHistory.vue';
 
 export default {
-	components: {
-		TaskHistory
-	}
+  components: {
+    TaskHistory
+  }
 }
 </script>

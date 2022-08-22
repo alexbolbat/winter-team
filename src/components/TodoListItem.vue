@@ -3,7 +3,7 @@
     <input 
       :id="item.id" 
       :value="item.value"
-      type ="checkbox" 
+      type="checkbox" 
       @input="$emit('input', $event.target.checked)"
     />
     <label 

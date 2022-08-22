@@ -1,34 +1,34 @@
 <template>
-    <div>
-        <textarea 
-            :value="areaValue"
-            :maxlength="max"
-            class="textArea" 
-            placeholder="max 150 characters"
-            cols="20" 
-            rows="2"
-            @input="$emit('input', $event.target.value)"
-        ></textarea>    
-    </div>
+  <div>
+    <textarea 
+      :value="areaValue"
+      :maxlength="max"
+      class="textArea" 
+      placeholder="max 150 characters"
+      cols="20" 
+      rows="2"
+      @input="$emit('input', $event.target.value)"
+    ></textarea>    
+  </div>
 </template>
 
 <script>
-    export default {
-        name:'TodoTextArea',
-        data() {
-            return {
-                areaValue: '',
-                max: 150
-            }
-        },
-        props: {
-            value: {
-                type: String,
-                default: ''
-            },
-        },
-
+export default {
+  name:'TodoTextArea',
+  data() {
+    return {
+      areaValue: '',
+      max: 150
     }
+  },
+  props: {
+    value: {
+      type: String,
+      default: ''
+    },
+  },
+
+}
 </script>
 
 <style scoped>

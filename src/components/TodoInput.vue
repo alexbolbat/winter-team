@@ -1,31 +1,31 @@
 <template>
-    <div>
-        <input
-            :value="newItem"
-            type="text"
-            class="input"
-            placeholder="type your plan title here"
-            @input="$emit('input', $event.target.value)"
-        />    
-    </div>
+  <div>
+    <input
+      :value="newItem"
+      type="text"
+      class="input"
+      placeholder="type your plan title here"
+      @input="$emit('input', $event.target.value)"
+    />    
+  </div>
 </template>
 
 <script>
-    export default {
-        name:'TodoInput',
-        data() {
-            return {
-                newItem: ''
-            }
-        },
-        props: {
-            value: {
-                type: String,
-                default: ''
-            }
-        },
-
+export default {
+  name:'TodoInput',
+  data() {
+    return {
+      newItem: ''
     }
+  },
+  props: {
+    value: {
+      type: String,
+      default: ''
+    }
+  },
+
+}
 </script>
 
 <style scoped>
