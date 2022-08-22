@@ -2,7 +2,7 @@
   <div>
     <div class="header">
       <img id="logo" src="../assets/evaluation.png" height="45px" alt="todo"/>
-      <h1 :class="changeTitle">TODO List</h1>
+      <h1 :class="changeTitleColor">TODO List</h1>
     </div>
     <div>
       <todo-input
@@ -59,11 +59,14 @@ export default {
   },
   methods: {
     editItem(id) {
-      this.$store.dispatch('editItem', id)
-      const newInputValue = this.$store.list.find(item => item.id === id)
+      const newInputValue = this.listHistory.find(item => {
+        if (item.id === id) {
+          return item
+        }
+      });
       this.inputValue = newInputValue.value;
-      this.textAreaValue = newInputValue.description
-      console.log(this.inputValue)
+      this.textAreaValue = newInputValue.description;
+      this.$store.dispatch('editItem', id)
     },
     deleteItem(id) {
       this.$store.dispatch('removeItem', id)
@@ -72,7 +75,7 @@ export default {
       if(!this.inputValue.length) {
         return;
       }
-      this.$store.dispatch('addItem', { inputValue, textAreaValue }),
+      this.$store.dispatch('addItem', { inputValue, textAreaValue })
       this.inputValue = '',
       this.textAreaValue =''
     }
@@ -81,7 +84,7 @@ export default {
     selectedItems(){ 
       return this.listHistory.filter(item => item.selected)
     },
-    changeTitle() {
+    changeTitleColor() {
       if(this.selectedItems.length == this.listHistory.length) {
         return 'green'
       }else if (this.selectedItems.length >= this.listHistory.length / 2 && this.listHistory.length !=0 ) {
@@ -91,7 +94,7 @@ export default {
       }
     },
     listHistory() {
-      return this.$store.getters.getListHistory
+      return this.$store.getters.listListHistory
     },
   }
 }

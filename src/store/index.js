@@ -13,20 +13,17 @@ export default new Vuex.Store({
     ]
   },
   getters: {
-    getListHistory: state => state.list,
+    item: state => id => state.find(item => item.id === id),
+    listListHistory: state => state.list,
   },
   mutations: { 
-    REMOVE_ITEM (state, idDelete) {
-      state.list = state.list.filter(item => {
-        return item.id !== idDelete;
-      });
+    REMOVE_ITEM (state, itemId) {
+      state.list = state.list.filter(item => item.id !== itemId)
     },
-    EDIT_ITEM (state, id) {
-      console.log(id)
-      state.list = state.list.find(item => {
-        item.id === id;
-        Vue.set(state.list, id, item)
-      });
+    EDIT_ITEM (state, { inputValue, id, textAreaValue }) {
+      const item = state.find(item => item.id === id)
+      Vue.set(item, 'value', inputValue)
+      Vue.set(item, 'description', textAreaValue)
     },
     ADD_ITEM (state, { inputValue, textAreaValue }) {
       console.log('mutations', inputValue, textAreaValue)
@@ -37,8 +34,8 @@ export default new Vuex.Store({
     removeItem (context, id) {
       context.commit('REMOVE_ITEM', id)
     },
-    editItem (context, id) {
-      context.commit('EDIT_ITEM', id)
+    editItem (context, { inputValue, id, textAreaValue }) {
+      context.commit('EDIT_ITEM', { inputValue, id, textAreaValue })
     },
     addItem(context, { inputValue, textAreaValue }) {
       context.commit('ADD_ITEM', { inputValue, textAreaValue })
