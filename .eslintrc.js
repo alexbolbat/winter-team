@@ -13,25 +13,28 @@ module.exports = {
     complexity: 'warn', // Limit Cyclomatic Complexity
     curly: 'warn', // Enforce Usage of Spacing in Template Strings
     'default-case': 'warn', // Require Default Case in Switch Statements
-    'max-classes-per-file': ['warn', 1], // enforce a maximum number of classes per file
-    'no-bitwise': 'warn', // disallow bitwise operators
-    'no-cond-assign': 'warn', // disallow assignment operators in conditional statements
-    'no-empty': 'warn', // disallow empty block statements
     'lines-between-class-members': [
       // require or disallow an empty line between class members
       'error',
       'always',
       { exceptAfterSingleLine: true }
     ],
+    'max-classes-per-file': ['warn', 1], // enforce a maximum number of classes per file
+    'no-bitwise': 'warn', // disallow bitwise operators
+    'no-cond-assign': 'warn', // disallow assignment operators in conditional statements
+    'no-empty': 'warn', // disallow empty block statements
     'newline-before-return': 'off', // require an empty line before
     'no-new-wrappers': 'warn', // Disallow Primitive Wrapper Instances
     'no-var': 'warn',
+    'object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
     'object-shorthand': 'warn', // Require Object Literal Shorthand Syntax
     'one-var': ['error', 'never'], // enforce variables to be declared either together or separately in functions
     'prefer-const': 'warn', // Suggest using const
     'quote-props': ['warn', 'as-needed'], // require quotes around object literal property names
     radix: 'warn', // Require Radix Parameter
+    semi: [2, 'always'],
     'space-before-function-paren': 'off', // Require or disallow a space before function parenthesis
+    'space-infix-ops': 'error',
     'spaced-comment': [
       // Requires or disallows a whitespace (space or tab) beginning a comment
       'warn',
@@ -68,19 +71,19 @@ module.exports = {
         alphabetical: false
       }
     ],
-    // 'vue/html-self-closing': [
-    //   'warn',
-    //   {
-    //     // Enforce self-closing style
-    //     html: {
-    //       void: 'always',
-    //       normal: 'always',
-    //       component: 'always'
-    //     },
-    //     svg: 'always',
-    //     math: 'always'
-    //   }
-    // ],
+    'vue/html-self-closing': [
+      'warn',
+      {
+        // Enforce self-closing style
+        html: {
+          void: 'always',
+          normal: 'always',
+          component: 'always'
+        },
+        svg: 'always',
+        math: 'always'
+      }
+    ],
     'vue/html-closing-bracket-newline': [
       'warn',
       {
@@ -132,6 +135,29 @@ module.exports = {
       }
     ],
     'vue/component-definition-name-casing': ['error', 'PascalCase'], // Enforce specific casing for component definition name
-    'vue/no-spaces-around-equal-signs-in-attribute': ['error'] // Disallow spaces around equal signs in attribute
+    'vue/no-spaces-around-equal-signs-in-attribute': ['error'], // Disallow spaces around equal signs in attribute
+    'vue/max-attributes-per-line': ['error', {
+      singleline: {
+        max: 1
+      },      
+      multiline: {
+        max: 1
+      }
+    }],
+    'vue/html-closing-bracket-spacing': ['error', {
+      startTag: 'never',
+      endTag: 'never',
+      selfClosingTag: 'always'
+    }],
+    'vue/multiline-html-element-content-newline': ['error', {
+      ignoreWhenEmpty: true,
+      ignores: ['pre', 'textarea'],
+      allowEmptyLines: false
+    }],
+    'vue/singleline-html-element-content-newline': ['error', {
+      ignoreWhenNoAttributes: true,
+      ignoreWhenEmpty: true,
+      ignores: ['pre', 'textarea']
+    }]
   }
 };
