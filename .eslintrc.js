@@ -9,7 +9,9 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
+    'arrow-spacing': ['error', { before: true, after: true }],
     'brace-style': 'warn', // Require Brace Style
+    'comma-spacing': ['error', { before: false, after: true }],
     complexity: 'warn', // Limit Cyclomatic Complexity
     curly: 'warn', // Enforce Usage of Spacing in Template Strings
     'default-case': 'warn', // Require Default Case in Switch Statements
