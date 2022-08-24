@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   pages: {
@@ -8,10 +8,10 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
-    types.forEach(type => addStyleResource(config.module.rule('sass').oneOf(type)))
+    const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
+    types.forEach(type => addStyleResource(config.module.rule('sass').oneOf(type)));
   }
-}
+};
 
 function addStyleResource (rule) {
   rule.use('style-resource')
@@ -20,5 +20,5 @@ function addStyleResource (rule) {
       patterns: [
         path.resolve(__dirname, 'src/styles/index.scss')
       ]
-    })
+    });
 }

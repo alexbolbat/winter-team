@@ -1,8 +1,18 @@
 <template>
   <div>
-    <h2><a href="/">Home</a></h2>
-    <input v-model="queryValue" type="text" class="searchInput"  />
-    <button @click="queryInput">Search</button>
+    <h2>
+      <a href="/">
+        Home
+      </a>
+    </h2>
+    <input
+      v-model="queryValue"
+      type="text"
+      class="searchInput"
+    />
+    <button @click="queryInput">
+      Search
+    </button>
   </div>
 </template>
 
@@ -12,13 +22,13 @@ export default {
   data() {
     return {
       queryValue: ''
-    }
+    };
   },
   methods: {
     queryInput() {
       this.$router.push({ name: 'search', query: { keywords: this.queryValue } });
-      this.queryValue = ''
+      this.queryValue = '';
     }
   }
-}
+};
 </script>
