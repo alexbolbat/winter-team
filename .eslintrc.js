@@ -9,7 +9,9 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
+    'arrow-spacing': ['error', { before: true, after: true }],
     'brace-style': 'warn', // Require Brace Style
+    'comma-spacing': ['error', { before: false, after: true }],
     complexity: 'warn', // Limit Cyclomatic Complexity
     curly: 'warn', // Enforce Usage of Spacing in Template Strings
     'default-case': 'warn', // Require Default Case in Switch Statements
@@ -20,6 +22,7 @@ module.exports = {
       { exceptAfterSingleLine: true }
     ],
     'max-classes-per-file': ['warn', 1], // enforce a maximum number of classes per file
+    'key-spacing': ['error', { beforeColon: false, afterColon: true }],
     'no-bitwise': 'warn', // disallow bitwise operators
     'no-cond-assign': 'warn', // disallow assignment operators in conditional statements
     'no-empty': 'warn', // disallow empty block statements
@@ -33,6 +36,7 @@ module.exports = {
     'quote-props': ['warn', 'as-needed'], // require quotes around object literal property names
     radix: 'warn', // Require Radix Parameter
     semi: [2, 'always'],
+    'space-before-blocks': 1,
     'space-before-function-paren': 'off', // Require or disallow a space before function parenthesis
     'space-infix-ops': 'error',
     'spaced-comment': [
