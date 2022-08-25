@@ -7,17 +7,21 @@
 
 <script>
 import TheHeader from './components/TheHeader.vue';
-import { mapGetters,  mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
     TheHeader
   },
-  methods:mapActions(['fetchPopular','searchMovies']),
-  computed:mapGetters(['popularMovies','searchedMovies']),
+  methods:{ 
+    ...mapActions('popularMovies',['fetchPopular']),
+    ...mapActions('searchMovies',['searchMovies']) 
+  },
   async mounted(){
-    await this.fetchPopular(1);
-    await this.fetchPopular(3);
+    await this.fetchPopular(1); 
+    await this.fetchPopular(2); 
+    await this.searchMovies({ query:'Pirates',page:1 });
+    await this.searchMovies({ query:'Pirates',page:2 });
   }
 
 };
