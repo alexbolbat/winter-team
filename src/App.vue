@@ -16,8 +16,8 @@ export default {
   methods:mapActions(['fetchPopular','searchMovies']),
   computed:mapGetters(['popularMovies','searchedMovies']),
   async mounted(){
-    this.fetchPopular(1);
-    this.searchMovies({ query:'A',page:1 });
+    await this.fetchPopular(1);
+    await this.fetchPopular(3);
   }
 
 };
