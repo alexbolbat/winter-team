@@ -12,12 +12,6 @@
         </a>
       </v-toolbar-title>
       <v-spacer />
-      <!-- <v-text-field
-        v-model="queryValue"
-        label="find your film"
-        solo
-        hide-details="auto"
-      /> -->
       <input
         v-model="queryValue" 
         type="text" 
