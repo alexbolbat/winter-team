@@ -1,5 +1,6 @@
 import { apiKey, apiLang, apiURL } from '../../config/apiConfig';
 import axios from 'axios';
+import Vue from 'vue';
 
 export default {
   namespaced: true,
@@ -8,26 +9,28 @@ export default {
   },
   getters: {
     searchedMovies(state) {
-      return state.searchedMovies.flat();
+      return state.searchedMovies;
     }
   },
-  mutations: { 
+  mutations: {
     setMovies(state, { searched, page }) {
-      state.searchedMovies[page - 1] =  searched;
-    },
- 
+      Vue.set(state.popularMovies, page, searched);
+    }
   },
   actions: {
-    async searchMovies({ commit }, { query, page } ) {
-      const searched = await axios.get(`${apiURL}/search/movie`,
-        {
-          params: { api_key: apiKey,
-            page,
-            query,
-            language: apiLang,
-            include_adult: false } });
-      commit('setMovies', { searched: searched.data.results.map(item => (
-        { id: item.id,
+    async searchMovies({ commit }, { query, page }) {
+      const searched = await axios.get(`${apiURL}/search/movie`, {
+        params: {
+          api_key: apiKey,
+          page,
+          query,
+          language: apiLang,
+          include_adult: false
+        }
+      });
+      commit('setMovies', {
+        searched: searched.data.results.map(item => ({
+          id: item.id,
           title: item.title,
           overview: item.overview,
           backdropPath: item.backdrop_path,
@@ -36,9 +39,8 @@ export default {
           releaseDate: item.release_date,
           voteAverage: item.vote_average
         })),
-      page }) ;
-    },
- 
-  },
+        page
+      });
+    }
+  }
 };
- 
