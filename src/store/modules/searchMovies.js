@@ -14,7 +14,7 @@ export default {
   },
   mutations: {
     setMovies(state, { searched, page }) {
-      Vue.set(state.popularMovies, page, searched);
+      Vue.set(state.searchedMovies, page, searched);
     }
   },
   actions: {
