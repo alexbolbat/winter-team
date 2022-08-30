@@ -7,9 +7,21 @@ module.exports = {
       title: 'Vue Internship',
     }
   },
+
   chainWebpack: config => {
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
     types.forEach(type => addStyleResource(config.module.rule('sass').oneOf(type)));
+  },
+
+  transpileDependencies: [
+    'vuetify'
+  ],
+
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'scss',
+      patterns: []
+    }
   }
 };
 
