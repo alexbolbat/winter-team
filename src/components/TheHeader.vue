@@ -53,7 +53,10 @@ export default {
 
 <style lang="scss" scoped>
 .theme--light.v-toolbar.v-sheet {
-    background-color: #6bc5da;
+  background-color: #6bc5da;
+  width: 1170px;
+  margin: 0 auto;
+  border-radius: 5px;
 };
 .theme--light.v-btn.v-btn--has-bg {
   margin-left: -10px;
