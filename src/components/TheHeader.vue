@@ -55,6 +55,9 @@ export default {
 <style lang="scss" scoped>
 .theme--light.v-toolbar.v-sheet {
   background-color: #6bc5da;
+  width: 1170px;
+  margin: 0 auto;
+  border-radius: 5px;
 }
 .theme--light.v-btn.v-btn--has-bg {
   margin-left: -10px;
@@ -69,11 +72,9 @@ export default {
   color: #22748c;
   transition: ease-in 0.25s;
 }
-
 .v-sheet.v-toolbar:not(.v-sheet--outlined) {
   box-shadow: none;
 }
-
 .inputField {
   height: 35px;
   background-color: #ffffff;
@@ -84,13 +85,11 @@ export default {
   color: #6bc5da;
   border: 1px solid #22748c;
 }
-
 input[type='text']:hover,
 input[type='text']:focus {
   outline-offset: none;
   outline: none;
 }
-
 input[type='text']::placeholder {
   color: #6bc6dab7;
 }
