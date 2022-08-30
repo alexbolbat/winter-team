@@ -43,7 +43,7 @@ export default {
   methods: {
     queryInput() {
       this.$router.push({
-        name: 'search',
+        path: '/search',
         query: { keywords: this.queryValue }
       });
       this.queryValue = '';
