@@ -6,9 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'home',
-    redirect: { name: 'popular', query: { page: 1 } },
-    component: () => import('../views/HomePage.vue')
+    redirect: { name: 'popular', query: { page: 1 } }
   },
   {
     path: '/search',
@@ -19,7 +17,7 @@ const routes = [
   {
     path: '/popular',
     name: 'popular',
-    component: () => import('../components/PopularFilmList.vue'),
+    component: () => import('../components/PopularMovies.vue'),
     props: true
   }
 ];

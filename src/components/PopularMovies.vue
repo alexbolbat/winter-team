@@ -1,41 +1,30 @@
 <template>
   <div>
-    <v-container class="d-flex flex-wrap justify-center">
-      <movie-list-item
-        v-for="item in popularMovies[page]"
-        :key="item.id"
-        :item="item"
-      />
-    </v-container>
-    <span @click="choosePage">
-      <v-pagination
-        v-model="page"
-        :length="500"
-        :total-visible="7"
-        class="mb-7"
-      />
-    </span>
+    <movies-list
+      :page="page"
+      :movies="popularMovies[page]"
+      @choose-page="choosePage"
+    />
   </div>
 </template>
 
 <script>
-import MovieListItem from '../components/MovieListItem.vue';
 import { mapActions, mapGetters } from 'vuex';
+import MoviesList from './MoviesList.vue';
 export default {
   data() {
     return {
       page: Number(this.$route.query.page)
     };
   },
-  components: {
-    MovieListItem
-  },
+  components: { MoviesList },
   computed: {
     ...mapGetters('popularMovies', ['popularMovies'])
   },
   methods: {
     ...mapActions('popularMovies', ['fetchPopular']),
-    async choosePage() {
+    async choosePage(page) {
+      this.page = page;
       this.$router.push({ path: '/popular', query: { page: this.page } });
       await this.fetchPopular(this.page);
     }
@@ -44,7 +33,9 @@ export default {
     await this.fetchPopular(this.page);
   },
   async beforeRouteUpdate(to, from, next) {
-    to.query.page === 1 && (this.page = 1);
+    if (to.query.page === 1) {
+      this.page = 1;
+    }
     next();
   }
 };

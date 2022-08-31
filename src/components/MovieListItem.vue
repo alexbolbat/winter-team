@@ -1,34 +1,26 @@
 <template>
   <v-card
     width="242"
-    class="movie-list-item mr-16 mb-7"
+    class="movie-list-item mb-7"
   >
     <v-img
       height="318"
-      :src="`${'https://image.tmdb.org/t/p/w500' + item.posterPath}`"
+      :src="`${apiImg + item.posterPath}`"
     />
-    <v-card-title class="text-subtitle-1 pa-0 ml-2 pt-5 font-weight-bold">
-      {{
-        item.title.length > 25
-          ? item.title.slice(0, 25).trim() + '...'
-          : item.title
-      }}
-    </v-card-title>
+    <h5 class="title text-subtitle-1 pa-0 ml-2 pt-5 font-weight-bold">
+      {{ item.title }}
+    </h5>
 
     <v-container class="d-flex pa-0 py-3 align-center justify-space-between">
       <div class="font-weight-bold text-subtitle-1 ml-2">
-        {{ item.releaseDate.slice(0, 4) }}
+        {{ new Date(item.releaseDate).getFullYear() }}
       </div>
       <div class="d-flex align-center flex-row-reverse">
         <span
           class="float-end red white--text font-weight-bold rounded-xl py-0,5 px-2 mx-1"
           :class="colorFilmScore(item.voteAverage)"
         >
-          {{
-            String(item.voteAverage).length === 1
-              ? item.voteAverage + '.0'
-              : item.voteAverage
-          }}
+          {{ item.voteAverage.toFixed(1) }}
         </span>
         <v-rating
           :value="item.voteAverage / 2"
@@ -45,10 +37,13 @@
 </template>
 
 <script>
+import { apiImg } from '../config/apiConfig';
 export default {
   name: 'MovieListItem',
-  components: {},
-  props: ['item'],
+  data() {
+    return { apiImg };
+  },
+  props: { item: { type: Object, required: true } },
   methods: {
     colorFilmScore(score) {
       if (!score) {
@@ -68,12 +63,15 @@ export default {
 </script>
 
 <style lang="scss">
-@media (min-width: 960px) {
+@media (min-width: 1185px) {
   .container {
     max-width: 1185px;
   }
-  .movie-list-item:nth-child(4n) {
-    margin-right: 0 !important;
-  }
+}
+.title {
+  white-space: nowrap;
+  width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
