@@ -16,7 +16,7 @@
       </h5>
 
       <v-row class="genres ma-0 text-subtitle-1">
-        {{ genres(item.genreIds) }}
+        {{ genres(item.genreIds).join(', ') }}
       </v-row>
       <v-row class="justify-space-between ma-0 mt-3">
         <div class="font-weight-bold text-subtitle-1">

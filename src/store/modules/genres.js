@@ -10,8 +10,7 @@ export default {
       return genreIds =>
         state.genres
           .filter(genre => genreIds.find(genreId => genreId === genre.id))
-          .map(item => item.name)
-          .join(', ');
+          .map(item => item.name);
     }
   },
   mutations: {
