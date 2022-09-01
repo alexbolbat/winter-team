@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     ...mapActions('popularMovies', ['fetchPopular']),
+    ...mapActions(['fetchGenres']),
     async choosePage(page) {
       this.page = page;
       this.$router.push({ path: '/popular', query: { page: this.page } });
@@ -31,6 +32,7 @@ export default {
   },
   async mounted() {
     await this.fetchPopular(this.page);
+    await this.fetchGenres();
   },
   async beforeRouteUpdate(to, from, next) {
     if (Number(to.query.page) === 1) {
