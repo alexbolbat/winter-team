@@ -33,7 +33,8 @@ export default {
     await this.fetchPopular(this.page);
   },
   async beforeRouteUpdate(to, from, next) {
-    if (to.query.page === 1) {
+    if (Number(to.query.page) === 1) {
+      await this.fetchPopular(1);
       this.page = 1;
     }
     next();
