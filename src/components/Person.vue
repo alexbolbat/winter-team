@@ -6,7 +6,7 @@
       <v-col  cols="4">
         <v-img
           max-width="350px"
-          :src="`${apiImg+ personDetails.profilePath}`"
+          :src="`${apiImg}/${personDetails.profilePath}`"
         />
       </v-col>
       <v-col cols="8">
@@ -48,7 +48,6 @@ export default {
   },
   computed: {
     personDetails() {
-      console.log(this.$store.getters['personDetails/person']);
       return this.$store.getters['personDetails/person'];
     },
   },

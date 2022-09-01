@@ -6,7 +6,7 @@
       <v-col cols="4">
         <v-img
           max-width="350px"
-          :src="`${apiImg + movieDetails.posterPath}`"
+          :src="`${apiImg}/${movieDetails.posterPath}`"
         />
       </v-col>
       <v-col cols="8">
@@ -25,6 +25,7 @@
         </h3>
         <v-rating
           :value="movieDetails.voteAverage /2"
+          readonly
           color="#1a5769"
           background-color="#1a5769"
           size="25"
