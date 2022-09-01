@@ -2,7 +2,7 @@
   <div>
     <movies-list
       :page="page"
-      :movies="popularMovies[page]"
+      :movies="popularMovies[page] || []"
       @choose-page="choosePage"
     />
   </div>

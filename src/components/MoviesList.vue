@@ -24,7 +24,7 @@ import MovieListItem from './MovieListItem.vue';
 export default {
   name: 'MoviesList',
   props: {
-    movies: { type: Array, required: true }, // I don`nt know why undefined(((
+    movies: { type: Array, required: true }, 
     page: { type: Number, required: true }
   },
   components: { MovieListItem },
