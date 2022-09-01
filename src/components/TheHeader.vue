@@ -99,6 +99,6 @@ input[type="text"]::placeholder{
   margin-top: 5px;
   display: block;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 </style>

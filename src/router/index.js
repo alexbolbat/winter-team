@@ -17,6 +17,18 @@ const routes = [
     name: 'search',
     component: () => import('../views/SearchPage.vue'),
     props: true
+  },
+  {
+    path: '/movie/:id',
+    name: 'movie',
+    component: () => import('../components/Movie.vue'),
+    props: true
+  },
+  {
+    path: '/person/:id',
+    name: 'person',
+    component: () => import('../components/Person.vue'),
+    props: true
   }
 ];
 
