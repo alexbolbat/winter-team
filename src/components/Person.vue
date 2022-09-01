@@ -48,7 +48,6 @@ export default {
   },
   computed: {
     personDetails() {
-      console.log(this.$store.getters['personDetails/person']);
       return this.$store.getters['personDetails/person'];
     },
   },
