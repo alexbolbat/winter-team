@@ -3,6 +3,7 @@
     width="242"
     class="movie-list-item mb-7"
     :loading="isLoading"
+    @click="filmID(item.id)"
   >
     <v-img
       height="318"
@@ -72,12 +73,13 @@ export default {
       }
       return 'ember';
     },
-    loaded() {
-      this.isLoading = false;
-    },
+
     filmID(id) {
       this.$router.push({ path: '/movie/' + id });
       this.$store.dispatch('movieDetails/fetchMovie', id);
+    },
+    loaded() {
+      this.isLoading = false;
     }
   }
 };

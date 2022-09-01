@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-toolbar height="80">
+    <v-toolbar 
+      height="80"
+      color="#6bc5da"
+      class="rounded mx-auto"
+    >
       <v-toolbar-title class="text-uppercase">
         <router-link to="/">
           <img
@@ -13,7 +17,7 @@
       <input
         v-model="queryValue"
         type="text"
-        class="inputField"
+        class="inputField rounded pl-1"
         placeholder="find your film here"
       />
       <v-btn
@@ -25,8 +29,9 @@
       </v-btn>
     </v-toolbar>
 
-    <img
-      class="banner"
+    <v-img
+      class="mx-auto mt-2"
+      max-width="1170"
       src="../assets/main page banner.svg"
     />
   </div>
@@ -53,11 +58,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.theme--light.v-toolbar.v-sheet {
-  background-color: #6bc5da;
-  width: 1170px;
-  margin: 0 auto;
-  border-radius: 5px;
+@media (min-width: 960px) {
+  .theme--light.v-toolbar.v-sheet {
+    max-width: 1170px;
+  }
 }
 .theme--light.v-btn.v-btn--has-bg {
   margin-left: -10px;
@@ -79,9 +83,6 @@ export default {
   height: 35px;
   background-color: #ffffff;
   width: 450px;
-  padding-left: 5px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
   color: #6bc5da;
   border: 1px solid #22748c;
 }
@@ -93,10 +94,5 @@ input[type='text']:focus {
 input[type='text']::placeholder {
   color: #6bc6dab7;
 }
-.banner {
-  margin-top: 5px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 </style>
