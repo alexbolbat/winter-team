@@ -1,6 +1,6 @@
 <template>
   <v-container
-    class="mt-1 pa-4 rounded"
+    class="mt-2 pa-4 rounded"
   >
     <v-row>
       <v-col  cols="4">
@@ -74,7 +74,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @media (min-width: 1185px) {
   .container {
     max-width: 1185px;
