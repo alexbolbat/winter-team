@@ -59,7 +59,7 @@ export default {
       return 'ember';
     },
     filmID(id) {
-      this.$router.push({ path: '/movie' + '/' + id });
+      this.$router.push({ path: '/movie/' + id });
       this.$store.dispatch('movieDetails/fetchMovie', id);
     }
   },
