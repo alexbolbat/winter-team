@@ -74,6 +74,10 @@ export default {
     },
     loaded() {
       this.isLoading = false;
+    },
+    filmID(id) {
+      this.$router.push({ path: '/movie/' + id });
+      this.$store.dispatch('movieDetails/fetchMovie', id);
     }
   }
 };
