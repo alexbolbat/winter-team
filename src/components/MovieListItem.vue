@@ -2,10 +2,12 @@
   <v-card
     width="242"
     class="movie-list-item mb-7"
+    :loading="isLoading"
   >
     <v-img
       height="318"
       :src="apiImg + item.posterPath"
+      @load="loaded"
     />
 
     <v-card-text>
@@ -50,7 +52,10 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'MovieListItem',
   data() {
-    return { apiImg };
+    return {
+      isLoading: true,
+      apiImg
+    };
   },
   props: { item: { type: Object, required: true } },
   computed: { ...mapGetters(['genres']) },
@@ -66,6 +71,9 @@ export default {
         return 'green';
       }
       return 'ember';
+    },
+    loaded() {
+      this.isLoading = false;
     }
   }
 };
