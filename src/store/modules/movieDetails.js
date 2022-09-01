@@ -5,37 +5,35 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
-    choosedMovie: {}
+    movie: {}
   },
   getters: {
-    choosedMovie(state) {
-      return state.choosedMovie;
+    movie(state) {
+      return state.movie;
     }
   },
   mutations: {
-    SET_MOVIE(state, choosed) {
-      Vue.set(state.choosedMovie, 'movie', choosed );
+    SET_MOVIE(state, data) {
+      Vue.set(state, 'movie', data );
     }
   },
   actions: {
     async fetchMovie({ commit }, id) {
-      const choosed = await axios.get(`${apiURL}/movie/${id}`, {
+      const { data } = await axios.get(`${apiURL}/movie/${id}`, {
         params: {
           api_key: apiKey,
           language: apiLang,
         }
       });
       commit('SET_MOVIE', {
-        choosed: {
-          title: choosed.data.title,
-          overview: choosed.data.overview,
-          backdropPath: choosed.data.backdrop_path,
-          genreIds: choosed.data.genres,
-          posterPath: choosed.data.poster_path,
-          releaseDate: choosed.data.release_date,
-          voteAverage: choosed.data.vote_average,
-          tagline: choosed.data.tagline
-        }
+        title: data.title,
+        overview: data.overview,
+        backdropPath: data.backdrop_path,
+        genreIds: data.genres,
+        posterPath: data.poster_path,
+        releaseDate: data.release_date,
+        voteAverage: data.vote_average,
+        tagline: data.tagline
       });
     }
   }  

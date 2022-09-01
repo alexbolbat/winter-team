@@ -6,33 +6,33 @@
       <v-col  cols="4">
         <v-img
           max-width="350px"
-          :src="`${apiImg+ choosedPerson.person.choosed.profilePath}`"
+          :src="`${apiImg+ personDetails.profilePath}`"
         />
       </v-col>
       <v-col cols="8">
         <h1 class="display-3 font-weight-medium">
-          {{choosedPerson.person.choosed.name}}
+          {{personDetails.name}}
         </h1>
         <h2 
           class="mb-2 font-weight-light display-1"
         >
-          {{choosedPerson.person.choosed.birthPlace}}
+          {{personDetails.birthPlace}}
         </h2>
         <span
-          v-show="choosedPerson.person.choosed.birthday != null"
+          v-show="personDetails.birthday != null"
           class="font-weight-medium title"
         >
-          {{`Birthday: ${formattingDate(choosedPerson.person.choosed.birthday)}`}}
+          {{`Birthday: ${formattingDate(personDetails.birthday)}`}}
         </span>
         <br />
         <span
-          v-show="choosedPerson.person.choosed.deathday != null"
+          v-show="personDetails.deathday != null"
           class="mb-2 font-weight-medium title"
         >
-          {{`Deathday: ${formattingDate(choosedPerson.person.choosed.deathday)}`}}
+          {{`Deathday: ${formattingDate(personDetails.deathday)}`}}
         </span>
         <p class="pr-10 mt-2 text-justify">
-          {{choosedPerson.person.choosed.biography}}
+          {{personDetails.biography}}
         </p>
       </v-col>
     </v-row>
@@ -47,8 +47,9 @@ export default {
     return { apiImg };
   },
   computed: {
-    choosedPerson() {
-      return this.$store.getters['choosedPerson/choosedPerson'];
+    personDetails() {
+      console.log(this.$store.getters['personDetails/person']);
+      return this.$store.getters['personDetails/person'];
     },
   },
   methods: {
