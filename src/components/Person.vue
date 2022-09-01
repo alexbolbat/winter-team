@@ -1,11 +1,12 @@
 <template>
   <v-container
-    class="mt-2 pa-4 rounded"
+    class="mt-2 mb-6 pa-4 rounded"
   >
     <v-row>
       <v-col  cols="4">
         <v-img
           max-width="350px"
+          :lazy-src="`${apiImg}/${personDetails.profilePath}`"
           :src="`${apiImg}/${personDetails.profilePath}`"
         />
       </v-col>
@@ -36,6 +37,38 @@
         </p>
       </v-col>
     </v-row>
+    <v-row
+      class="mb-4"
+    >
+      <v-slide-group>
+        <v-card
+          v-for="item in filmography"
+          :key="item.id"
+          :item="item"
+          max-width="230px"
+          class="ma-4 rounded"
+          @click="filmID(item.id)"
+        >
+          <v-img
+            max-width="auto"
+            max-height="280px"
+            :lazy-src="`${apiImg}/${item.posterPath}`"
+            :src="`${apiImg}/${item.posterPath}`"
+          />
+          <v-card-text
+            class="font-weight-bold text-center text-truncate"
+          >
+            {{item.title}}
+            <br />
+            <span
+              class="font-weight-light caption text-center"
+            >
+              {{item.character}}
+            </span>
+          </v-card-text>
+        </v-card>
+      </v-slide-group>
+    </v-row>
   </v-container>
 </template>
 
@@ -50,8 +83,15 @@ export default {
     personDetails() {
       return this.$store.getters['personDetails/person'];
     },
+    filmography() {
+      return this.$store.getters['personFilmography/filmography'];
+    }
   },
   methods: {
+    filmID(id) {
+      this.$router.push({ path: '/movie/' + id });
+      this.$store.dispatch('movieDetails/fetchMovie', id);
+    },
     formattingDate(date) {
       const fomatting = new Date(date);
       const months = [
