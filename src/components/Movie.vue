@@ -38,6 +38,38 @@
         </p>
       </v-col>
     </v-row>
+    <v-row
+      class="mb-4"
+    >
+      <v-slide-group>
+        <v-card
+          v-for="item in castDetails"
+          :key="item.id"
+          :item="item"
+          max-width="230px"
+          class="ma-4 rounded"
+          @click="personID(item.id)"
+        >
+          <v-img
+            max-width="auto"
+            max-height="280px"
+            :lazy-src="`${apiImg}/${item.profilePath}`"
+            :src="`${apiImg}/${item.profilePath}`"
+          />
+          <v-card-text
+            class="font-weight-bold text-center text-truncate"
+          >
+            {{item.name}}
+            <br />
+            <span
+              class="font-weight-light caption text-center"
+            >
+              {{item.character}}
+            </span>
+          </v-card-text>
+        </v-card>
+      </v-slide-group>
+    </v-row>
   </v-container>
 </template>
 
@@ -51,6 +83,16 @@ export default {
   computed: {
     movieDetails() {
       return this.$store.getters['movieDetails/movie'];
+    },
+    castDetails() {
+      return this.$store.getters['movieCast/cast'];
+    }
+  },
+  methods: {
+    personID(id) {
+      this.$router.push({ path: '/person/' + id });
+      this.$store.dispatch('personDetails/fetchPerson', id);
+      this.$store.dispatch('personFilmography/fetchFilmography', id);
     }
   }
 };
