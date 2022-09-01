@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     choosedMovie() {
-      return this.$store.getters['choosedMovie/choosedMovie'];
+      return this.$store.getters['movieDetails/choosedMovie'];
     }
   }
 };

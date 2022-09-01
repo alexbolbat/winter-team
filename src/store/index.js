@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import popularMovies from './modules/popularMovies';
 import searchMovies from './modules/searchMovies';
-import choosedMovie from './modules/choosedMovie';
+import movieDetails from './modules/movieDetails';
 import choosedPerson from './modules/choosedPerson';
 
 
@@ -12,7 +12,7 @@ export default new Vuex.Store({
   modules: {
     popularMovies,
     searchMovies,
-    choosedMovie,
+    movieDetails,
     choosedPerson,
   }
 });

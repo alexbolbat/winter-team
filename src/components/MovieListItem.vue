@@ -60,7 +60,7 @@ export default {
     },
     filmID(id) {
       this.$router.push({ path: '/movie' + '/' + id });
-      this.$store.dispatch('choosedMovie/choosedMovie', id);
+      this.$store.dispatch('movieDetails/choosedMovie', id);
     }
   },
   computed: {}
