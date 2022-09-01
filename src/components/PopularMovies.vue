@@ -12,6 +12,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import MoviesList from './MoviesList.vue';
 export default {
+  name: 'PopularMovies',
   data() {
     return {
       page: Number(this.$route.query.page)
