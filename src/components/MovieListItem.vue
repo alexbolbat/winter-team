@@ -5,7 +5,7 @@
   >
     <v-img
       height="318"
-      :src="`${apiImg + item.posterPath}`"
+      :src="apiImg + item.posterPath"
     />
     <h5 class="title text-subtitle-1 pa-0 ml-2 pt-5 font-weight-bold">
       {{ item.title }}
