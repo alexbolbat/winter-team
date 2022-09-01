@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <v-app>
     <the-header />
     <br />
     <router-view />
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -12,7 +12,6 @@ import TheHeader from './components/TheHeader.vue';
 export default {
   components: {
     TheHeader
-  },
+  }
 };
-
 </script>

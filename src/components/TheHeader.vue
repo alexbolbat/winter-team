@@ -1,20 +1,18 @@
 <template>
   <div>
-    <v-toolbar 
-      height="80"
-    >
+    <v-toolbar height="80">
       <v-toolbar-title class="text-uppercase">
-        <a href="/">
-          <img 
-            src="../assets/Logo.svg" 
+        <router-link to="/">
+          <img
+            src="../assets/Logo.svg"
             alt="logo"
           />
-        </a>
+        </router-link>
       </v-toolbar-title>
       <v-spacer />
       <input
-        v-model="queryValue" 
-        type="text" 
+        v-model="queryValue"
+        type="text"
         class="inputField"
         placeholder="find your film here"
       />
@@ -26,10 +24,10 @@
         Search
       </v-btn>
     </v-toolbar>
-    
-    <img 
-      class="banner" 
-      src="../assets/main page banner.svg" 
+
+    <img
+      class="banner"
+      src="../assets/main page banner.svg"
     />
   </div>
 </template>
@@ -44,7 +42,10 @@ export default {
   },
   methods: {
     queryInput() {
-      this.$router.push({ name: 'search', query: { keywords: this.queryValue } });
+      this.$router.push({
+        path: '/search',
+        query: { keywords: this.queryValue }
+      });
       this.queryValue = '';
     }
   }
@@ -57,7 +58,7 @@ export default {
   width: 1170px;
   margin: 0 auto;
   border-radius: 5px;
-};
+}
 .theme--light.v-btn.v-btn--has-bg {
   margin-left: -10px;
   color: #ffffff;
@@ -66,39 +67,36 @@ export default {
   border: 1px solid #22748c;
 }
 .theme--light.v-btn.v-btn--has-bg:hover {
-    background-color: #a2dfec;
-    opacity: 1;
-    color: #22748c;
-    transition: ease-in 0.25s;
+  background-color: #a2dfec;
+  opacity: 1;
+  color: #22748c;
+  transition: ease-in 0.25s;
 }
-
 .v-sheet.v-toolbar:not(.v-sheet--outlined) {
   box-shadow: none;
 }
-
-.inputField{
+.inputField {
   height: 35px;
   background-color: #ffffff;
   width: 450px;
   padding-left: 5px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  color:#6bc5da;
+  color: #6bc5da;
   border: 1px solid #22748c;
 }
-
-input[type="text"]:hover, input[type="text"]:focus {
+input[type='text']:hover,
+input[type='text']:focus {
   outline-offset: none;
   outline: none;
 }
-
-input[type="text"]::placeholder{
+input[type='text']::placeholder {
   color: #6bc6dab7;
 }
-.banner{
+.banner {
   margin-top: 5px;
   display: block;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 </style>
