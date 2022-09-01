@@ -29,9 +29,7 @@
           size="25"
         />
         <span class="font-weight-bold title">
-          {{String(choosedMovie.movie.choosed.voteAverage).length === 1
-            ? choosedMovie.movie.choosed.voteAverage + '.0'
-            : choosedMovie.movie.choosed.voteAverage}}
+          {{choosedMovie.movie.choosed.voteAverage.toFixed(1)}}
         </span> 
         <p class="pr-10 mt-2 text-justify">
           {{choosedMovie.movie.choosed.overview}}

@@ -19,7 +19,7 @@ export default {
   },
   actions: {
     async fetchMovie({ commit }, id) {
-      const choosed = await axios.get(`${apiURL}/movie/` + id, {
+      const choosed = await axios.get(`${apiURL}/movie/${id}`, {
         params: {
           api_key: apiKey,
           language: apiLang,
