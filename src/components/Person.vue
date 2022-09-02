@@ -3,7 +3,7 @@
     class="mt-2 mb-6 pa-4 rounded"
   >
     <v-row>
-      <v-col  cols="4">
+      <v-col cols="4">
         <v-img
           max-width="350px"
           :lazy-src="`${apiImg}/${personDetails.profilePath}`"
@@ -40,7 +40,10 @@
     <v-row
       class="mb-4"
     >
-      <v-slide-group>
+      <v-slide-group
+        :key="personDetails.id"
+        class="rounded mx-2"
+      >
         <v-card
           v-for="item in filmography"
           :key="item.id"
@@ -55,6 +58,16 @@
             :lazy-src="`${apiImg}/${item.posterPath}`"
             :src="`${apiImg}/${item.posterPath}`"
           />
+          <div
+            v-show="item.posterPath === null"
+          >
+            <v-img
+              max-width="auto"
+              max-height="280px"
+              lazy-src="../assets/not-found.svg"
+              src="../assets/not-found.svg"
+            />         
+          </div>
           <v-card-text
             class="font-weight-bold text-center text-truncate"
           >
@@ -115,7 +128,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media (min-width: 1185px) {
   .container {
     max-width: 1170px;
@@ -130,8 +143,11 @@ export default {
     color: #412631;
   }
   
-  
   h3, p, span{
     color: #1a5769;
   }
+  .v-item-group {
+    background-color: #1a576980;
+    max-width: 1145px;
+}
   </style>
