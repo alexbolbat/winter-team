@@ -34,3 +34,11 @@ export default {
   }
 };
 </script>
+
+<style>
+@media (min-width: 1185px) {
+  .container {
+    max-width: 1185px;
+  }
+}
+</style>
