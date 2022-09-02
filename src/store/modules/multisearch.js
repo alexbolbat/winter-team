@@ -5,24 +5,31 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
+    totalMultisearchedPages: 0,
     multisearchResults: []
   },
   getters: {
     multisearchedResults(state) {
       return state.multisearchResults;
+    },
+    totalMultisearchedPages(state) {
+      return state.totalMultisearchedPages;
     }
   },
   mutations: {
     setMultisearched(state, { searched, page }) {
       Vue.set(state.multisearchResults, page, searched);
     },
+    setTotalMultisearchedPages(state, total) {
+      state.totalMultisearchedPages = total;
+    },
     removePreviosResult(state) {
       state.multisearchResults = [];
+      state.totalMultisearchedPages = 0;
     }
   },
   actions: {
     async fetchMultisearch({ commit }, { query, page }) {
-      console.log('multi');
       const searched = await axios.get(`${apiURL}/search/multi`, {
         params: {
           api_key: apiKey,
@@ -43,10 +50,12 @@ export default {
           profilePath: item.profile_path,
           releaseDate: item.release_date,
           voteAverage: item.vote_average,
-          popularity: item.popularity
+          popularity: item.popularity,
+          firstAirDate: item.first_air_date
         })),
         page
       });
+      commit('setTotalMultisearchedPages', searched.data.total_pages);
     }
   }
 };

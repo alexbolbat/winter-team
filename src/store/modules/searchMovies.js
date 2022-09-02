@@ -5,17 +5,25 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
+    totalSearchedPages: 0,
     searchedMovies: []
   },
   getters: {
     searchedMovies(state) {
       return state.searchedMovies;
+    },
+    totalSearchedPages(state) {
+      return state.totalSearchedPages;
     }
   },
   mutations: {
     setMovies(state, { searched, page }) {
       Vue.set(state.searchedMovies, page, searched);
     },
+    setTotalPages(state, total) {
+      state.totalSearchedPages = total;
+    },
+
     removePreviosResult(state) {
       state.searchedMovies = [];
     }
@@ -42,6 +50,7 @@ export default {
         })),
         page
       });
+      commit('setTotalPages', searched.data.total_pages);
     }
   }
 };

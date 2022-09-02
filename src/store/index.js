@@ -16,7 +16,6 @@ export default new Vuex.Store({
     searchMovies,
     movieDetails,
     personDetails,
-
     genres,
     multisearch
 

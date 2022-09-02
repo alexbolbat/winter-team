@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="movies.length">
     <v-container class="d-flex flex-wrap justify-space-between pa-0 pt-3">
       <movie-list-item
         v-for="item in movies"
@@ -9,12 +9,18 @@
     </v-container>
     <v-pagination
       :value="page"
-      :length="500"
+      :length="totalPages"
       :total-visible="7"
       class="mb-7"
       @input="choosePage"
     />
   </div>
+  <v-container
+    v-else
+    class="text-h1"
+  >
+    {{ 'No results' }}
+  </v-container>
 </template>
 
 <script>
@@ -23,6 +29,7 @@ import MovieListItem from './MovieListItem.vue';
 export default {
   name: 'MoviesList',
   props: {
+    totalPages: { type: Number, required: true },
     movies: { type: Array, required: true },
     page: { type: Number, required: true }
   },
@@ -31,14 +38,16 @@ export default {
     choosePage(page) {
       this.$emit('choose-page', Number(page));
     }
+  },
+  mounted() {
   }
 };
 </script>
 
-<style>
-@media (min-width: 1185px) {
+<style scoped>
+@media (min-width: 960px) {
   .container {
-    max-width: 1185px;
+    max-width: 1170px;
   }
 }
 </style>

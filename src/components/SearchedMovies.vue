@@ -1,6 +1,9 @@
 <template>
   <div>
     <movies-list
+      :totalPages="
+        isMultisearch === 'true' ? totalMultisearchedPages : totalSearchedPages
+      "
       :page="page"
       :movies="
         isMultisearch === 'true'
@@ -26,8 +29,11 @@ export default {
   },
   components: { MoviesList },
   computed: {
-    ...mapGetters('searchMovies', ['searchedMovies']),
-    ...mapGetters('multisearch', ['multisearchedResults'])
+    ...mapGetters('searchMovies', ['searchedMovies', 'totalSearchedPages']),
+    ...mapGetters('multisearch', [
+      'multisearchedResults',
+      'totalMultisearchedPages'
+    ])
   },
   methods: {
     ...mapActions('searchMovies', ['fetchMovies']),
@@ -45,8 +51,8 @@ export default {
     }
   },
   async mounted() {
+    console.log(this.totalSearchedPages);
     if (this.isMultisearch === 'true') {
-   
       await this.fetchMultisearch({ page: this.page, query: this.keywords });
     } else {
       await this.fetchMovies({ page: this.page, query: this.keywords });

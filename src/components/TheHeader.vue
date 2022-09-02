@@ -16,6 +16,7 @@
       <v-spacer />
       <v-checkbox
         v-model="isMultisearch"
+        :value="isMulti"
         class="pr-5"
         label="Multisearch"
         hide-details
@@ -50,7 +51,7 @@ export default {
   data() {
     return {
       queryValue: '',
-      isMultisearch: this.$route.query.multisearch || false
+      isMultisearch: false
     };
   },
 
@@ -63,14 +64,16 @@ export default {
         query: {
           keywords: this.queryValue,
           page: 1,
-          multisearch: this.isMultisearch
+          multisearch: this.isMultisearch || false
         }
       });
       this.queryValue = '';
     }
   },
-  updated() {
-    console.log(this.$route.query);
+  computed: {
+    isMulti() {
+      return this.$route.query.multisearch === 'true';
+    }
   }
 };
 </script>
