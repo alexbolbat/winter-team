@@ -5,24 +5,25 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
-    searchedMovies: []
+    multisearchResults: []
   },
   getters: {
-    searchedMovies(state) {
-      return state.searchedMovies;
+    multisearchedResults(state) {
+      return state.multisearchResults;
     }
   },
   mutations: {
-    setMovies(state, { searched, page }) {
-      Vue.set(state.searchedMovies, page, searched);
+    setMultisearched(state, { searched, page }) {
+      Vue.set(state.multisearchResults, page, searched);
     },
     removePreviosResult(state) {
-      state.searchedMovies = [];
+      state.multisearchResults = [];
     }
   },
   actions: {
-    async fetchMovies({ commit }, { query, page }) {
-      const searched = await axios.get(`${apiURL}/search/movie`, {
+    async fetchMultisearch({ commit }, { query, page }) {
+      console.log('multi');
+      const searched = await axios.get(`${apiURL}/search/multi`, {
         params: {
           api_key: apiKey,
           page,
@@ -31,14 +32,18 @@ export default {
           include_adult: false
         }
       });
-      commit('setMovies', {
+      commit('setMultisearched', {
         searched: searched.data.results.map(item => ({
           id: item.id,
+          mediaType: item.media_type,
           title: item.title,
+          name: item.name,
           genreIds: item.genre_ids,
           posterPath: item.poster_path,
+          profilePath: item.profile_path,
           releaseDate: item.release_date,
-          voteAverage: item.vote_average
+          voteAverage: item.vote_average,
+          popularity: item.popularity
         })),
         page
       });

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="d-flex flex-wrap justify-space-between">
+    <v-container class="d-flex flex-wrap justify-space-between pa-0 pt-3">
       <movie-list-item
         v-for="item in movies"
         :key="item.id"
@@ -35,10 +35,10 @@ export default {
 };
 </script>
 
-<style>
-@media (min-width: 1185px) {
+<style scoped>
+@media (min-width: 960px) {
   .container {
-    max-width: 1185px;
+    max-width: 1170px;
   }
 }
 </style>

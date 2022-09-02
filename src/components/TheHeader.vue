@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar 
+    <v-toolbar
       height="80"
       color="#6bc5da"
       class="rounded mx-auto"
@@ -14,6 +14,12 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer />
+      <v-checkbox
+        v-model="isMultisearch"
+        class="pr-5"
+        label="Multisearch"
+        hide-details
+      />
       <input
         v-model="queryValue"
         type="text"
@@ -38,21 +44,33 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
   name: 'TheHeader',
   data() {
     return {
-      queryValue: ''
+      queryValue: '',
+      isMultisearch: this.$route.query.multisearch || false
     };
   },
+
   methods: {
+    ...mapMutations('searchMovies', ['removePreviosResult']),
     queryInput() {
+      this.removePreviosResult();
       this.$router.push({
         path: '/search',
-        query: { keywords: this.queryValue }
+        query: {
+          keywords: this.queryValue,
+          page: 1,
+          multisearch: this.isMultisearch
+        }
       });
       this.queryValue = '';
     }
+  },
+  updated() {
+    console.log(this.$route.query);
   }
 };
 </script>
@@ -94,5 +112,4 @@ input[type='text']:focus {
 input[type='text']::placeholder {
   color: #6bc6dab7;
 }
-
 </style>
