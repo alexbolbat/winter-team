@@ -35,10 +35,10 @@ export default {
 };
 </script>
 
-<style scoped>
-@media (min-width: 960px) {
+<style>
+@media (min-width: 1185px) {
   .container {
-    max-width: 1170px;
+    max-width: 1185px;
   }
 }
 </style>
