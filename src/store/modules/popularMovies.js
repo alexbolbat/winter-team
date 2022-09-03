@@ -20,7 +20,12 @@ export default {
   actions: {
     async fetchPopular({ commit }, page) {
       const popular = await axios.get(`${apiURL}/movie/popular`, {
-        params: { api_key: apiKey, page, language: apiLang }
+        params: {
+          api_key: apiKey,
+          page,
+          language: apiLang,
+          include_adult: false
+        }
       });
 
       commit('setMovies', {

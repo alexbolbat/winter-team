@@ -24,7 +24,9 @@ export default {
     return {
       page: Number(this.$route.query.page),
       keywords: this.$route.query.keywords,
-      isMultisearch: this.$route.query.multisearch
+      isMultisearch: this.$route.query.multisearch,
+      year: this.$route.query.year,
+      region: this.$route.query.region
     };
   },
   components: { MoviesList },
@@ -48,26 +50,57 @@ export default {
           multisearch: this.isMultisearch
         }
       });
+    },
+    async getPage() {
+      if (this.isMultisearch === 'true') {
+        if (this.region) {
+          await this.fetchMultisearch({
+            page: this.page,
+            query: this.keywords,
+            region: this.region
+          });
+        } else {
+          await this.fetchMultisearch({
+            page: this.page,
+            query: this.keywords
+          });
+        }
+      } else {
+        if (this.region && !this.year) {
+          await this.fetchMovies({
+            page: this.page,
+            query: this.keywords,
+            region: this.region
+          });
+        } else if (this.year && !this.region) {
+          await this.fetchMovies({
+            page: this.page,
+            query: this.keywords,
+            year: this.year
+          });
+        } else if (this.region && this.year) {
+          await this.fetchMovies({
+            page: this.page,
+            query: this.keywords,
+            region: this.region,
+            year: this.year
+          });
+        } else {
+          await this.fetchMovies({ page: this.page, query: this.keywords });
+        }
+      }
     }
   },
   async mounted() {
-    console.log(this.totalSearchedPages);
-    if (this.isMultisearch === 'true') {
-      await this.fetchMultisearch({ page: this.page, query: this.keywords });
-    } else {
-      await this.fetchMovies({ page: this.page, query: this.keywords });
-    }
+    this.getPage();
   },
   async beforeRouteUpdate(to, from, next) {
     this.page = Number(to.query.page);
     this.keywords = to.query.keywords;
     this.isMultisearch = to.query.multisearch;
-
-    if (this.isMultisearch === 'true') {
-      await this.fetchMultisearch({ page: this.page, query: this.keywords });
-    } else {
-      await this.fetchMovies({ page: this.page, query: this.keywords });
-    }
+    this.region = to.query.region;
+    this.year = to.query.year;
+    this.getPage();
     next();
   }
 };

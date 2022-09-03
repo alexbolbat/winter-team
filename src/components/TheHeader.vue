@@ -14,18 +14,46 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer />
+      <v-select
+        class="select ma-0 pa-0 mr-4"
+        :items="isoCodes"
+        :value="isRegion"
+        item-text="name"
+        item-value="iso"
+        label="Filter by regions"
+        persistent-hint
+        single-line
+        hide-details
+        @change="onRegion"
+      />
+      <v-select
+        class="select ma-0 pa-0 mr-4"
+        :value="isYear"
+        :items="years"
+        item-text="name"
+        item-value="value"
+        label="Filter by years"
+        persistent-hint
+        single-line
+        hide-details
+        @change="onYear"
+      />
       <v-checkbox
-        v-model="isMultisearch"
+        v-show="!year"
+        v-model="multisearch"
         :value="isMulti"
         class="pr-5"
         label="Multisearch"
         hide-details
+        persistent-hint
+        single-line
       />
       <input
-        v-model="queryValue"
+        :value="queryValue"
         type="text"
         class="inputField rounded pl-1"
         placeholder="find your film here"
+        @input="onQuery"
       />
       <v-btn
         height="35px"
@@ -46,33 +74,77 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import { isoCodes } from '../config/isoCodes';
+import { years } from '../config/years';
 export default {
   name: 'TheHeader',
   data() {
     return {
       queryValue: '',
-      isMultisearch: false
+      multisearch: this.isMulti,
+      isoCodes,
+      years,
+      region: '',
+      year: ''
     };
   },
 
   methods: {
     ...mapMutations('searchMovies', ['removePreviosResult']),
+    ...mapMutations('multisearch', ['removePreviosResult']),
     queryInput() {
       this.removePreviosResult();
-      this.$router.push({
-        path: '/search',
-        query: {
-          keywords: this.queryValue,
-          page: 1,
-          multisearch: this.isMultisearch || false
-        }
-      });
+
+      if (!this.region && this.region !== null) {
+        this.region = this.isRegion;
+      }
+      if (!this.multisearch) {
+        this.multisearch = this.isMulti;
+      }
+      const query = {
+        page: 1,
+        keywords: this.queryValue,
+        multisearch: this.multisearch || false
+      };
+      if (this.region) {
+        query.region = this.region;
+      }
+      if (this.year) {
+        query.year = this.year;
+        query.multisearch = false;
+      }
+
+      if (this.queryValue.trim()) {
+        this.$router.push({
+          path: '/search',
+          query
+        });
+      }
       this.queryValue = '';
+    },
+    onRegion(e) {
+      this.region = e;
+    },
+    onYear(e) {
+      this.multisearch = false;
+      this.year = e;
+    },
+    onQuery(e) {
+      if (!this.year && this.year !== null) {
+        this.year = this.isYear;
+      }
+      this.queryValue = e.target.value;
     }
   },
   computed: {
     isMulti() {
       return this.$route.query.multisearch === 'true';
+    },
+    isYear() {
+      return this.$route.query.year;
+    },
+    isRegion() {
+      return this.$route.query.region;
     }
   }
 };
@@ -103,7 +175,7 @@ export default {
 .inputField {
   height: 35px;
   background-color: #ffffff;
-  width: 450px;
+  width: 300px;
   color: #6bc5da;
   border: 1px solid #22748c;
 }
@@ -114,5 +186,8 @@ input[type='text']:focus {
 }
 input[type='text']::placeholder {
   color: #6bc6dab7;
+}
+.select {
+  max-width: 150px;
 }
 </style>

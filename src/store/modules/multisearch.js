@@ -29,12 +29,13 @@ export default {
     }
   },
   actions: {
-    async fetchMultisearch({ commit }, { query, page }) {
+    async fetchMultisearch({ commit }, { query, page, region }) {
       const searched = await axios.get(`${apiURL}/search/multi`, {
         params: {
           api_key: apiKey,
           page,
           query,
+          region,
           language: apiLang,
           include_adult: false
         }

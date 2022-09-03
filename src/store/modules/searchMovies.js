@@ -29,14 +29,17 @@ export default {
     }
   },
   actions: {
-    async fetchMovies({ commit }, { query, page }) {
+    async fetchMovies({ commit }, { query, page, region, year }) {
+      console.log('fetch', region, year);
       const searched = await axios.get(`${apiURL}/search/movie`, {
         params: {
           api_key: apiKey,
-          page,
-          query,
           language: apiLang,
-          include_adult: false
+          query,
+          page,
+          include_adult: false,
+          region,
+          year: Number(year)
         }
       });
       commit('setMovies', {

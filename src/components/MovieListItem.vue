@@ -120,7 +120,7 @@ export default {
       if (mediaType === 'person') {
         this.$router.push({ path: '/person/' + this.item.id });
         this.$store.dispatch('personDetails/fetchPerson', this.item.id);
-      } else if (mediaType === 'movie' || undefined) {
+      } else if (mediaType === 'movie' || mediaType === undefined) {
         this.$router.push({ path: '/movie/' + this.item.id });
         this.$store.dispatch('movieDetails/fetchMovie', this.item.id);
       }

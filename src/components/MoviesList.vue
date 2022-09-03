@@ -15,12 +15,6 @@
       @input="choosePage"
     />
   </div>
-  <v-container
-    v-else
-    class="text-h1"
-  >
-    {{ 'No results' }}
-  </v-container>
 </template>
 
 <script>
@@ -39,8 +33,7 @@ export default {
       this.$emit('choose-page', Number(page));
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
