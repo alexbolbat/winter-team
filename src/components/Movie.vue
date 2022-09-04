@@ -65,6 +65,7 @@
             v-show="item.profilePath === null"
           >
             <v-img
+              class="mb-5"
               max-width="auto"
               max-height="280px"
               lazy-src="../assets/not-found.svg"
@@ -85,6 +86,51 @@
         </v-card>
       </v-slide-group>
     </v-row>
+    <v-row>
+      <v-card
+        v-for="item in reviews"
+        :key="item.id"
+        :item="item"
+        class="mb-3 mx-2"
+        width="100%"
+      >
+        <v-card-actions>
+          <v-list-item class="grow">
+            <v-list-item-avatar color="blue-grey lighten-2">
+              <v-img
+                class="elevation-6"
+                :src="`${apiImg}/${item.avatarPath}`"
+              />
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{item.author}}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card-actions>
+        <v-card-text class="text-caption font-weight-medium">
+          <p 
+            v-if="!showAll[item.id]"
+            :key="item.id"
+          >
+            {{(item.content).slice(0, 600)}} 
+            <span
+              v-if="(item.content).length > 600"
+              class="font-weight-bold ml-2 text-uppercase showMore"
+              @click="showMore(item.id)"
+            >
+              ...show full review
+            </span>
+          </p> 
+          <p 
+            v-if="showAll[item.id]"
+          > 
+            {{item.content}} 
+          </p>
+        </v-card-text>
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 
@@ -93,7 +139,10 @@ import { apiImg } from '../config/apiConfig';
 
 export default {
   data() {
-    return { apiImg };
+    return { 
+      apiImg,
+      showAll: {},
+    };
   },
   computed: {
     movieDetails() {
@@ -101,6 +150,9 @@ export default {
     },
     castDetails() {
       return this.$store.getters['movieCast/cast'];
+    },
+    reviews() {
+      return this.$store.getters['movieReviews/reviews'];
     }
   },
   methods: {
@@ -108,7 +160,10 @@ export default {
       this.$router.push({ path: '/person/' + id });
       this.$store.dispatch('personDetails/fetchPerson', id);
       this.$store.dispatch('personFilmography/fetchFilmography', id);
-    }
+    },
+    showMore(id) {
+      this.$set(this.showAll, id, true);
+    },
   }
 };
 </script>
@@ -140,5 +195,10 @@ h3, p, span{
 .v-item-group {
     background-color: #1a576980;
     max-width: 1145px;
+}
+
+.showMore {
+  color: #6bc6da;
+  cursor: pointer;
 }
 </style>

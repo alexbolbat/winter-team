@@ -62,6 +62,7 @@
             v-show="item.posterPath === null"
           >
             <v-img
+              class="mb-5"
               max-width="auto"
               max-height="280px"
               lazy-src="../assets/not-found.svg"
@@ -105,6 +106,7 @@ export default {
       this.$router.push({ path: '/movie/' + id });
       this.$store.dispatch('movieDetails/fetchMovie', id);
       this.$store.dispatch('movieCast/fetchCast', id);
+      this.$store.dispatch('movieReviews/fetchRewiews', id);
     },
     formattingDate(date) {
       const fomatting = new Date(date);

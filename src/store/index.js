@@ -7,6 +7,7 @@ import personDetails from './modules/personDetails';
 import personFilmography from './modules/personFilmography';
 import movieCast from './modules/movieCast';
 import genres from './modules/genres';
+import movieReviews from './modules/movieReviews';
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     personDetails,
     personFilmography,
     movieCast,
-    genres
+    genres,
+    movieReviews
   }
 });
