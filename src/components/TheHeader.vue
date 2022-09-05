@@ -14,7 +14,7 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer />
-      <v-select
+      <v-autocomplete
         class="select ma-0 pa-0 mr-4"
         :items="isoCodes"
         :value="isRegion"
@@ -26,7 +26,8 @@
         hide-details
         @change="onRegion"
       />
-      <v-select
+      <v-autocomplete
+        v-show="!multisearch"
         class="select ma-0 pa-0 mr-4"
         :value="isYear"
         :items="years"
@@ -39,14 +40,13 @@
         @change="onYear"
       />
       <v-checkbox
-        v-show="!year"
-        v-model="multisearch"
         :value="isMulti"
         class="pr-5"
         label="Multisearch"
         hide-details
         persistent-hint
         single-line
+        @change="onMulti" 
       />
       <input
         :value="queryValue"
@@ -93,12 +93,10 @@ export default {
     ...mapMutations('searchMovies', ['removePreviosResult']),
     ...mapMutations('multisearch', ['removePreviosResult']),
     queryInput() {
-      this.removePreviosResult();
-
       if (!this.region && this.region !== null) {
         this.region = this.isRegion;
       }
-      if (!this.multisearch) {
+      if (!this.multisearch && this.multisearch !== null) {
         this.multisearch = this.isMulti;
       }
       const query = {
@@ -111,10 +109,10 @@ export default {
       }
       if (this.year) {
         query.year = this.year;
-        query.multisearch = false;
       }
 
       if (this.queryValue.trim()) {
+        this.removePreviosResult();
         this.$router.push({
           path: '/search',
           query
@@ -126,12 +124,18 @@ export default {
       this.region = e;
     },
     onYear(e) {
-      this.multisearch = false;
       this.year = e;
     },
+    onMulti(e) {
+      this.year = null;
+      this.multisearch = e;
+    },
     onQuery(e) {
-      if (!this.year && this.year !== null) {
-        this.year = this.isYear;
+      if (!this.multisearch) {
+        this.multisearch = this.isMulti;
+      }
+      if (this.isMulti) {
+        this.year = null;
       }
       this.queryValue = e.target.value;
     }
@@ -146,6 +150,9 @@ export default {
     isRegion() {
       return this.$route.query.region;
     }
+  },
+  updated() {
+    console.log(this.multisearch);
   }
 };
 </script>
@@ -188,6 +195,6 @@ input[type='text']::placeholder {
   color: #6bc6dab7;
 }
 .select {
-  max-width: 150px;
+  width: 150px;
 }
 </style>

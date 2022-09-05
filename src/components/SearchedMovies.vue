@@ -52,42 +52,25 @@ export default {
       });
     },
     async getPage() {
+      const payload = {
+        page: this.page,
+        query: this.keywords
+      };
       if (this.isMultisearch === 'true') {
         if (this.region) {
-          await this.fetchMultisearch({
-            page: this.page,
-            query: this.keywords,
-            region: this.region
-          });
-        } else {
-          await this.fetchMultisearch({
-            page: this.page,
-            query: this.keywords
-          });
+          payload.region = this.region;
         }
+        await this.fetchMultisearch(payload);
       } else {
         if (this.region && !this.year) {
-          await this.fetchMovies({
-            page: this.page,
-            query: this.keywords,
-            region: this.region
-          });
+          payload.region = this.region;
         } else if (this.year && !this.region) {
-          await this.fetchMovies({
-            page: this.page,
-            query: this.keywords,
-            year: this.year
-          });
+          payload.year = this.year;
         } else if (this.region && this.year) {
-          await this.fetchMovies({
-            page: this.page,
-            query: this.keywords,
-            region: this.region,
-            year: this.year
-          });
-        } else {
-          await this.fetchMovies({ page: this.page, query: this.keywords });
+          payload.region = this.region;
+          payload.year = this.year;
         }
+        await this.fetchMovies(payload);
       }
     }
   },
@@ -95,11 +78,12 @@ export default {
     this.getPage();
   },
   async beforeRouteUpdate(to, from, next) {
-    this.page = Number(to.query.page);
-    this.keywords = to.query.keywords;
-    this.isMultisearch = to.query.multisearch;
-    this.region = to.query.region;
-    this.year = to.query.year;
+    const { query } = to;
+    this.page = Number(query.page);
+    this.keywords = query.keywords;
+    this.isMultisearch = query.multisearch;
+    this.region = query.region;
+    this.year = query.year;
     this.getPage();
     next();
   }
