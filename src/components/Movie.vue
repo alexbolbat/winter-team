@@ -39,7 +39,7 @@
           size="25"
         />
         <span class="font-weight-bold title">
-          {{movieDetails.voteAverage.toFixed(1)}}
+          {{movieDetails.voteAverage&&movieDetails.voteAverage.toFixed(1)}}
         </span> 
         <p class="pr-10 mt-2 text-justify">
           {{movieDetails.overview}}
