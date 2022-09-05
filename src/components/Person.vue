@@ -53,14 +53,14 @@
           @click="filmID(item.id)"
         >
           <v-img
+            v-if="item.posterPath"
             max-width="auto"
             max-height="280px"
             :src="`${apiImg}/${item.posterPath}`"
           />
           <img
-            max-width="auto"
-            max-height="280px"
-            lazy-src="../assets/not-found.svg"
+            v-else
+            height="280px"
             src="../assets/not-found.svg"
           />         
           <v-card-text
@@ -119,6 +119,10 @@ export default {
       const month = months[fomatting.getMonth()];
       return `${fomatting.getDate()} ${month} ${fomatting.getFullYear()}`;
     }
+  },
+  mounted() {
+    this.$store.dispatch('personDetails/fetchPerson', this.$route.params.id);
+    this.$store.dispatch('personFilmography/fetchFilmography', this.$route.params.id);
   }
 };
 </script>

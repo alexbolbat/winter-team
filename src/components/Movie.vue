@@ -95,7 +95,7 @@ export default {
     },
     castDetails() {
       return this.$store.getters['movieCast/cast'];
-    }
+    },
   },
   methods: {
     personID(id) {
@@ -103,6 +103,10 @@ export default {
       this.$store.dispatch('personDetails/fetchPerson', id);
       this.$store.dispatch('personFilmography/fetchFilmography', id);
     }
+  },
+  mounted() {
+    this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
+    this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
   }
 };
 </script>
