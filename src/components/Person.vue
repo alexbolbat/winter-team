@@ -55,19 +55,14 @@
           <v-img
             max-width="auto"
             max-height="280px"
-            :lazy-src="`${apiImg}/${item.posterPath}`"
             :src="`${apiImg}/${item.posterPath}`"
           />
-          <div
-            v-show="item.posterPath === null"
-          >
-            <v-img
-              max-width="auto"
-              max-height="280px"
-              lazy-src="../assets/not-found.svg"
-              src="../assets/not-found.svg"
-            />         
-          </div>
+          <img
+            max-width="auto"
+            max-height="280px"
+            lazy-src="../assets/not-found.svg"
+            src="../assets/not-found.svg"
+          />         
           <v-card-text
             class="font-weight-bold text-center text-truncate"
           >
