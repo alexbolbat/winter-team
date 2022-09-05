@@ -8,6 +8,8 @@ import personFilmography from './modules/personFilmography';
 import movieCast from './modules/movieCast';
 import genres from './modules/genres';
 import movieReviews from './modules/movieReviews';
+import tvDetails from './modules/tvDetails';
+import tvCast from './modules/tvCast';
 
 Vue.use(Vuex);
 
@@ -20,6 +22,8 @@ export default new Vuex.Store({
     personFilmography,
     movieCast,
     genres,
-    movieReviews
+    movieReviews, 
+    tvDetails,
+    tvCast
   }
 });

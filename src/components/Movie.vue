@@ -47,43 +47,11 @@
         :key="movieDetails.id"
         class="rounded mx-2"
       >
-        <v-card
+        <cast-component 
           v-for="item in castDetails"
           :key="item.id"
           :item="item"
-          max-width="230px"
-          class="ma-4 rounded"
-          @click="personID(item.id)"
-        >
-          <v-img
-            max-width="auto"
-            max-height="280px"
-            :lazy-src="`${apiImg}/${item.profilePath}`"
-            :src="`${apiImg}/${item.profilePath}`"
-          />
-          <div
-            v-show="item.profilePath === null"
-          >
-            <v-img
-              class="mb-5"
-              max-width="auto"
-              max-height="280px"
-              lazy-src="../assets/not-found.svg"
-              src="../assets/not-found.svg"
-            />         
-          </div>
-          <v-card-text
-            class="font-weight-bold text-center text-truncate"
-          >
-            {{item.name}}
-            <br />
-            <span
-              class="font-weight-light caption text-center"
-            >
-              {{item.character}}
-            </span>
-          </v-card-text>
-        </v-card>
+        />
       </v-slide-group>
     </v-row>
     <v-row>
@@ -136,6 +104,7 @@
 
 <script>
 import { apiImg } from '../config/apiConfig';
+import castComponent from './castComponent.vue';
 
 export default {
   data() {
@@ -144,6 +113,7 @@ export default {
       showAll: {},
     };
   },
+  components: { castComponent },
   computed: {
     movieDetails() {
       return this.$store.getters['movieDetails/movie'];
@@ -156,11 +126,6 @@ export default {
     }
   },
   methods: {
-    personID(id) {
-      this.$router.push({ path: '/person/' + id });
-      this.$store.dispatch('personDetails/fetchPerson', id);
-      this.$store.dispatch('personFilmography/fetchFilmography', id);
-    },
     showMore(id) {
       this.$set(this.showAll, id, true);
     },
