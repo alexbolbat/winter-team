@@ -82,6 +82,10 @@ export default {
       return this.$store.getters['tvCast/cast'];
     }
   },
+  mounted() {
+    this.$store.dispatch('tvDetails/fetchTV', this.$route.params.id);
+    this.$store.dispatch('tvCast/fetchCast', this.$route.params.id);
+  }
 };
  
 </script>
