@@ -21,7 +21,14 @@
         <h3 class="font-weight-regular mb-2">
           Year: {{new Date(movieDetails.releaseDate).getFullYear()}}
           <br />
-          Genres: {{movieDetails.genreIds.map(item => item.name).join(', ').toLowerCase()}}
+          Genres: {{
+            movieDetails.genreIds
+              ? movieDetails.genreIds
+                .map(item => item.name)
+                .join(', ')
+                .toLowerCase()
+              : 'No genres'
+          }}
         </h3>
         <v-rating
           :value="movieDetails.voteAverage /2"
@@ -104,9 +111,9 @@ export default {
       this.$router.push({ path: '/person/' + id });
     }
   },
-  mounted() {
-    this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
-    this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
+  async mounted() {
+    await this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
+    await this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
   },
 };
 </script>
