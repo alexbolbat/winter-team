@@ -100,8 +100,6 @@ export default {
   methods: {
     personID(id) {
       this.$router.push({ path: '/person/' + id });
-      this.$store.dispatch('personDetails/fetchPerson', id);
-      this.$store.dispatch('personFilmography/fetchFilmography', id);
     }
   },
   mounted() {

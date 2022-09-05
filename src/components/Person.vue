@@ -98,8 +98,6 @@ export default {
   methods: {
     filmID(id) {
       this.$router.push({ path: '/movie/' + id });
-      this.$store.dispatch('movieDetails/fetchMovie', id);
-      this.$store.dispatch('movieCast/fetchCast', id);
     },
     formattingDate(date) {
       const fomatting = new Date(date);
