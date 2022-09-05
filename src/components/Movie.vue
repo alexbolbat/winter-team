@@ -99,13 +99,15 @@ export default {
   },
   methods: {
     personID(id) {
+      this.$store.commit('personDetails/RESET_STATE');
+      this.$store.commit('movieDetails/RESET_STATE');
       this.$router.push({ path: '/person/' + id });
     }
   },
   mounted() {
     this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
     this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
-  }
+  },
 };
 </script>
 

@@ -96,7 +96,9 @@ export default {
     }
   },
   methods: {
-    filmID(id) {
+    filmID(id) {    
+      this.$store.commit('movieDetails/RESET_STATE');
+      this.$store.commit('personDetails/RESET_STATE');
       this.$router.push({ path: '/movie/' + id });
     },
     formattingDate(date) {
