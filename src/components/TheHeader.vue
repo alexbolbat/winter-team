@@ -46,7 +46,7 @@
         hide-details
         persistent-hint
         single-line
-        @change="onMulti" 
+        @change="onMulti"
       />
       <input
         :value="queryValue"
@@ -150,9 +150,6 @@ export default {
     isRegion() {
       return this.$route.query.region;
     }
-  },
-  updated() {
-    console.log(this.multisearch);
   }
 };
 </script>
