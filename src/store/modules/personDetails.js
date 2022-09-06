@@ -15,7 +15,10 @@ export default {
   mutations: {
     SET_PERSON(state, data) {
       Vue.set(state, 'person', data );
-    }
+    },
+    RESET_STATE(state) {
+      state.person = {};
+    },
   },
   actions: {
     async fetchPerson({ commit }, id) {

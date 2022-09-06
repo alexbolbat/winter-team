@@ -6,7 +6,6 @@
       <v-col cols="4">
         <v-img
           max-width="350px"
-          :lazy-src="`${apiImg}/${movieDetails.posterPath}`"
           :src="`${apiImg}/${movieDetails.posterPath}`"
         />
       </v-col>
@@ -22,7 +21,14 @@
         <h3 class="font-weight-regular mb-2">
           Year: {{new Date(movieDetails.releaseDate).getFullYear()}}
           <br />
-          Genres: {{movieDetails.genreIds.map(item => item.name).join(', ').toLowerCase()}}
+          Genres: {{
+            movieDetails.genreIds
+              ? movieDetails.genreIds
+                .map(item => item.name)
+                .join(', ')
+                .toLowerCase()
+              : 'No genres'
+          }}
         </h3>
         <v-rating
           :value="movieDetails.voteAverage /2"
@@ -33,7 +39,7 @@
           size="25"
         />
         <span class="font-weight-bold title">
-          {{movieDetails.voteAverage.toFixed(1)}}
+          {{movieDetails.voteAverage&&movieDetails.voteAverage.toFixed(1)}}
         </span> 
         <p class="pr-10 mt-2 text-justify">
           {{movieDetails.overview}}
@@ -153,18 +159,21 @@ export default {
     },
     reviews() {
       return this.$store.getters['movieReviews/reviews'];
-    }
   },
   methods: {
     personID(id) {
+      this.$store.commit('personDetails/RESET_STATE');
+      this.$store.commit('movieDetails/RESET_STATE');
       this.$router.push({ path: '/person/' + id });
-      this.$store.dispatch('personDetails/fetchPerson', id);
-      this.$store.dispatch('personFilmography/fetchFilmography', id);
     },
     showMore(id) {
       this.$set(this.showAll, id, true);
     },
-  }
+  },
+  async mounted() {
+    await this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
+    await this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
+  },
 };
 </script>
 
@@ -196,9 +205,12 @@ h3, p, span{
     background-color: #1a576980;
     max-width: 1145px;
 }
+<<<<<<< HEAD
 
 .showMore {
   color: #6bc6da;
   cursor: pointer;
 }
+=======
+>>>>>>> e8454212f073081a77c8a159d9a10561723f9d24
 </style>

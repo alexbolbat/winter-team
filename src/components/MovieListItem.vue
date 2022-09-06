@@ -78,6 +78,7 @@ export default {
       this.$router.push({ path: '/movie/' + id });
       this.$store.dispatch('movieDetails/fetchMovie', id);
       this.$store.dispatch('movieCast/fetchCast', id);
+      this.$store.dispatch('movieCast/fetchCast', id);
       this.$store.dispatch('movieReviews/fetchRewiews', id);
     },
     loaded() {

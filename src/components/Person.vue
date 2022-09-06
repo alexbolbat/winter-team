@@ -3,10 +3,9 @@
     class="mt-2 mb-6 pa-4 rounded"
   >
     <v-row>
-      <v-col cols="4">
+      <v-col  cols="4">
         <v-img
           max-width="350px"
-          :lazy-src="`${apiImg}/${personDetails.profilePath}`"
           :src="`${apiImg}/${personDetails.profilePath}`"
         />
       </v-col>
@@ -53,22 +52,16 @@
           @click="filmID(item.id)"
         >
           <v-img
+            v-if="item.posterPath"
             max-width="auto"
             max-height="280px"
-            :lazy-src="`${apiImg}/${item.posterPath}`"
             :src="`${apiImg}/${item.posterPath}`"
           />
-          <div
-            v-show="item.posterPath === null"
-          >
-            <v-img
-              class="mb-5"
-              max-width="auto"
-              max-height="280px"
-              lazy-src="../assets/not-found.svg"
-              src="../assets/not-found.svg"
-            />         
-          </div>
+          <img
+            v-else
+            height="280px"
+            src="../assets/not-found.svg"
+          />         
           <v-card-text
             class="font-weight-bold text-center text-truncate"
           >
@@ -102,11 +95,10 @@ export default {
     }
   },
   methods: {
-    filmID(id) {
+    filmID(id) {    
+      this.$store.commit('movieDetails/RESET_STATE');
+      this.$store.commit('personDetails/RESET_STATE');
       this.$router.push({ path: '/movie/' + id });
-      this.$store.dispatch('movieDetails/fetchMovie', id);
-      this.$store.dispatch('movieCast/fetchCast', id);
-      this.$store.dispatch('movieReviews/fetchRewiews', id);
     },
     formattingDate(date) {
       const fomatting = new Date(date);
@@ -126,6 +118,10 @@ export default {
       const month = months[fomatting.getMonth()];
       return `${fomatting.getDate()} ${month} ${fomatting.getFullYear()}`;
     }
+  },
+  mounted() {
+    this.$store.dispatch('personDetails/fetchPerson', this.$route.params.id);
+    this.$store.dispatch('personFilmography/fetchFilmography', this.$route.params.id);
   }
 };
 </script>
