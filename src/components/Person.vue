@@ -5,8 +5,13 @@
     <v-row>
       <v-col  cols="4">
         <v-img
+          v-if="personDetails.profilePath"
           max-width="350px"
           :src="`${apiImg}/${personDetails.profilePath}`"
+        />
+        <img 
+          v-else
+          src="../assets/not-found.svg"
         />
       </v-col>
       <v-col cols="8">

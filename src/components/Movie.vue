@@ -5,8 +5,13 @@
     <v-row>
       <v-col cols="4">
         <v-img
+          v-if="movieDetails.posterPath"
           max-width="350px"
           :src="`${apiImg}/${movieDetails.posterPath}`"
+        />
+        <img 
+          v-else
+          src="../assets/not-found.svg"
         />
       </v-col>
       <v-col cols="8">
@@ -71,6 +76,7 @@
             v-else
             height="280px"
             src="../assets/not-found.svg"
+            alt="not-found"
           />
           <v-card-text
             class="font-weight-bold text-center text-truncate"
@@ -96,13 +102,6 @@
       >
         <v-card-actions>
           <v-list-item class="grow">
-            <v-list-item-avatar color="blue-grey lighten-2">
-              <v-img
-                v-if="item.avatarPath"
-                class="elevation-6"
-                :src="`${apiImg}/${item.avatarPath}`"
-              />
-            </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
                 {{item.author}}
