@@ -7,7 +7,7 @@ import personDetails from './modules/personDetails';
 import personFilmography from './modules/personFilmography';
 import movieCast from './modules/movieCast';
 import genres from './modules/genres';
-
+import movieReviews from './modules/movieReviews';
 import multisearch from './modules/multisearch';
 
 Vue.use(Vuex);
@@ -21,7 +21,7 @@ export default new Vuex.Store({
     personFilmography,
     movieCast,
     genres,
+    movieReviews,
     multisearch
-
   }
 });

@@ -3,11 +3,16 @@
     class="mt-2 mb-6 pa-4 rounded"
   >
     <v-row>
-      <v-col cols="4">
+      <v-col  cols="4">
         <v-img
+          v-if="personDetails.profilePath"
           max-width="350px"
-          :lazy-src="`${apiImg}/${personDetails.profilePath}`"
           :src="`${apiImg}/${personDetails.profilePath}`"
+        />
+        <img 
+          v-else
+          width="350px"
+          src="../assets/not-found.svg"
         />
       </v-col>
       <v-col cols="8">

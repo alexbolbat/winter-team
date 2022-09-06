@@ -5,8 +5,14 @@
     <v-row>
       <v-col cols="4">
         <v-img
+          v-if="movieDetails.posterPath"
           max-width="350px"
           :src="`${apiImg}/${movieDetails.posterPath}`"
+        />
+        <img 
+          v-else
+          width="350px"
+          src="../assets/not-found.svg"
         />
       </v-col>
       <v-col cols="8">
@@ -71,7 +77,8 @@
             v-else
             height="280px"
             src="../assets/not-found.svg"
-          />         
+            alt="not-found"
+          />
           <v-card-text
             class="font-weight-bold text-center text-truncate"
           >
@@ -86,6 +93,45 @@
         </v-card>
       </v-slide-group>
     </v-row>
+    <v-row>
+      <v-card
+        v-for="item in reviews"
+        :key="item.id"
+        :item="item"
+        class="mb-3 mx-2"
+        width="100%"
+      >
+        <v-card-actions>
+          <v-list-item class="grow">
+            <v-list-item-content>
+              <v-list-item-title>
+                {{item.author}}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card-actions>
+        <v-card-text class="text-caption font-weight-medium">
+          <p 
+            v-if="!showAll[item.id]"
+            :key="item.id"
+          >
+            {{(item.content).slice(0, 600)}} 
+            <span
+              v-if="(item.content).length > 600"
+              class="font-weight-bold ml-2 text-uppercase showMore"
+              @click="showMore(item.id)"
+            >
+              ...show full review
+            </span>
+          </p> 
+          <p 
+            v-if="showAll[item.id]"
+          > 
+            {{item.content}} 
+          </p>
+        </v-card-text>
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 
@@ -94,7 +140,10 @@ import { apiImg } from '../config/apiConfig';
 
 export default {
   data() {
-    return { apiImg };
+    return { 
+      apiImg,
+      showAll: {},
+    };
   },
   computed: {
     movieDetails() {
@@ -103,17 +152,24 @@ export default {
     castDetails() {
       return this.$store.getters['movieCast/cast'];
     },
+    reviews() {
+      return this.$store.getters['movieReviews/reviews'];
+    },
   },
   methods: {
     personID(id) {
       this.$store.commit('personDetails/RESET_STATE');
       this.$store.commit('movieDetails/RESET_STATE');
       this.$router.push({ path: '/person/' + id });
-    }
+    },
+    showMore(id) {
+      this.$set(this.showAll, id, true);
+    },
   },
   async mounted() {
     await this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
     await this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
+    this.$store.dispatch('movieReviews/fetchRewiews', this.$route.params.id);
   },
 };
 </script>
@@ -146,4 +202,10 @@ h3, p, span{
     background-color: #1a576980;
     max-width: 1145px;
 }
+
+.showMore {
+  color: #6bc6da;
+  cursor: pointer;
+}
+
 </style>
