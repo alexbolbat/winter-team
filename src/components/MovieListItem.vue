@@ -77,6 +77,7 @@ export default {
     filmID(id) {
       this.$router.push({ path: '/movie/' + id });
       this.$store.dispatch('movieDetails/fetchMovie', id);
+      this.$store.dispatch('movieCast/fetchCast', id);
     },
     loaded() {
       this.isLoading = false;

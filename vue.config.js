@@ -4,7 +4,7 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main.js',
-      title: 'Vue Internship',
+      title: 'Winter films',
     }
   },
 
