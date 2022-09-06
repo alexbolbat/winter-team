@@ -62,22 +62,16 @@
           @click="personID(item.id)"
         >
           <v-img
+            v-if="item.profilePath"
             max-width="auto"
             max-height="280px"
-            :lazy-src="`${apiImg}/${item.profilePath}`"
             :src="`${apiImg}/${item.profilePath}`"
           />
-          <div
-            v-show="item.profilePath === null"
-          >
-            <v-img
-              class="mb-5"
-              max-width="auto"
-              max-height="280px"
-              lazy-src="../assets/not-found.svg"
-              src="../assets/not-found.svg"
-            />         
-          </div>
+          <img
+            v-else
+            height="280px"
+            src="../assets/not-found.svg"
+          />
           <v-card-text
             class="font-weight-bold text-center text-truncate"
           >
@@ -104,6 +98,7 @@
           <v-list-item class="grow">
             <v-list-item-avatar color="blue-grey lighten-2">
               <v-img
+                v-if="item.avatarPath"
                 class="elevation-6"
                 :src="`${apiImg}/${item.avatarPath}`"
               />
@@ -174,7 +169,7 @@ export default {
   async mounted() {
     await this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
     await this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
-    await this.$store.dispatch('movieReviews/fetchReviews');
+    this.$store.dispatch('movieReviews/fetchRewiews', this.$route.params.id);
   },
 };
 </script>
