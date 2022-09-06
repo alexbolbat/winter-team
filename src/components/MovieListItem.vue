@@ -113,20 +113,20 @@ export default {
       }
       return 'ember';
     },
-filmID(id) {
+    filmID(id) {
       this.$router.push({ path: '/movie/' + id });
       this.$store.dispatch('movieDetails/fetchMovie', id);
-      this.$store.dispatch('movieCast/fetchCast', id); },
+      this.$store.dispatch('movieCast/fetchCast', id);
+    },
     onClickItem(mediaType) {
       if (mediaType === 'person') {
         this.$router.push({ path: '/person/' + this.item.id });
-        this.$store.dispatch('personDetails/fetchPerson', this.item.id);
       } else if (mediaType === 'movie' || mediaType === undefined) {
         this.$router.push({ path: '/movie/' + this.item.id });
-        this.$store.dispatch('movieDetails/fetchMovie', this.item.id);
+      } else if (mediaType === 'tv') {
+        this.$router.push({ path: '/tv/' + this.item.id });
       }
-
-   
+    },
     loaded() {
       this.isLoading = false;
     }
