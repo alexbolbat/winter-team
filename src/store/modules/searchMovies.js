@@ -30,7 +30,6 @@ export default {
   },
   actions: {
     async fetchMovies({ commit }, { query, page, region, year }) {
-      console.log('fetch', region, year, query);
       const searched = await axios.get(`${apiURL}/search/movie`, {
         params: {
           api_key: apiKey,

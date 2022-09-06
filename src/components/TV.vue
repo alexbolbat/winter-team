@@ -5,9 +5,14 @@
     <v-row>
       <v-col cols="4">
         <v-img
+          v-if="tvDetails.posterPath"
           max-width="350px"
-          :lazy-src="`${apiImg}/${tvDetails.posterPath}`"
           :src="`${apiImg}/${tvDetails.posterPath}`"
+        />
+        <img 
+          v-else
+          width="350px"
+          src="../assets/not-found.svg"
         />
       </v-col>
       <v-col cols="8">
@@ -28,7 +33,13 @@
           <br />
           Episodes: {{tvDetails.episodes}}
           <br />
-          Genres: {{tvDetails.genreIds.map(item => item.name).join(', ').toLowerCase()}}
+          Genres: {{
+            tvDetails.genreIds
+              ?tvDetails.genreIds
+                .map(item => item.name)
+                .join(', ').toLowerCase()
+              : 'No genres'
+          }}
         </h3>
         <v-rating
           :value="tvDetails.voteAverage /2"
@@ -39,7 +50,7 @@
           size="25"
         />
         <span class="font-weight-bold title">
-          {{tvDetails.voteAverage.toFixed(1)}}
+          {{tvDetails.voteAverage&&tvDetails.voteAverage.toFixed(1)}}
         </span> 
         <p class="pr-10 mt-2 text-justify">
           {{tvDetails.overview}}
