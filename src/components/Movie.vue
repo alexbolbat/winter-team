@@ -159,6 +159,7 @@ export default {
     },
     reviews() {
       return this.$store.getters['movieReviews/reviews'];
+    },
   },
   methods: {
     personID(id) {
@@ -173,6 +174,7 @@ export default {
   async mounted() {
     await this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
     await this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
+    await this.$store.dispatch('movieReviews/fetchReviews');
   },
 };
 </script>
@@ -205,12 +207,10 @@ h3, p, span{
     background-color: #1a576980;
     max-width: 1145px;
 }
-<<<<<<< HEAD
 
 .showMore {
   color: #6bc6da;
   cursor: pointer;
 }
-=======
->>>>>>> e8454212f073081a77c8a159d9a10561723f9d24
+
 </style>
