@@ -15,7 +15,10 @@ export default {
   mutations: {
     SET_MOVIE(state, data) {
       Vue.set(state, 'movie', data );
-    }
+    },
+    RESET_STATE(state) {
+      state.movie = {};
+    },
   },
   actions: {
     async fetchMovie({ commit }, id) {

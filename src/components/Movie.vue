@@ -5,9 +5,14 @@
     <v-row>
       <v-col cols="4">
         <v-img
+          v-if="movieDetails.posterPath"
           max-width="350px"
-          :lazy-src="`${apiImg}/${movieDetails.posterPath}`"
           :src="`${apiImg}/${movieDetails.posterPath}`"
+        />
+        <img 
+          v-else
+          width="350px"
+          src="../assets/not-found.svg"
         />
       </v-col>
       <v-col cols="8">
@@ -22,7 +27,14 @@
         <h3 class="font-weight-regular mb-2">
           Year: {{new Date(movieDetails.releaseDate).getFullYear()}}
           <br />
-          Genres: {{movieDetails.genreIds.map(item => item.name).join(', ').toLowerCase()}}
+          Genres: {{
+            movieDetails.genreIds
+              ? movieDetails.genreIds
+                .map(item => item.name)
+                .join(', ')
+                .toLowerCase()
+              : 'No genres'
+          }}
         </h3>
         <v-rating
           :value="movieDetails.voteAverage /2"
@@ -33,7 +45,7 @@
           size="25"
         />
         <span class="font-weight-bold title">
-          {{movieDetails.voteAverage.toFixed(1)}}
+          {{movieDetails.voteAverage&&movieDetails.voteAverage.toFixed(1)}}
         </span> 
         <p class="pr-10 mt-2 text-justify">
           {{movieDetails.overview}}
@@ -64,12 +76,6 @@
       >
         <v-card-actions>
           <v-list-item class="grow">
-            <v-list-item-avatar color="blue-grey lighten-2">
-              <v-img
-                class="elevation-6"
-                :src="`${apiImg}/${item.avatarPath}`"
-              />
-            </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
                 {{item.author}}
@@ -123,13 +129,23 @@ export default {
     },
     reviews() {
       return this.$store.getters['movieReviews/reviews'];
-    }
+    },
   },
   methods: {
+    personID(id) {
+      this.$store.commit('personDetails/RESET_STATE');
+      this.$store.commit('movieDetails/RESET_STATE');
+      this.$router.push({ path: '/person/' + id });
+    },
     showMore(id) {
       this.$set(this.showAll, id, true);
     },
-  }
+  },
+  async mounted() {
+    await this.$store.dispatch('movieDetails/fetchMovie', this.$route.params.id);
+    await this.$store.dispatch('movieCast/fetchCast', this.$route.params.id);
+    this.$store.dispatch('movieReviews/fetchRewiews', this.$route.params.id);
+  },
 };
 </script>
 
@@ -166,4 +182,5 @@ h3, p, span{
   color: #6bc6da;
   cursor: pointer;
 }
+
 </style>

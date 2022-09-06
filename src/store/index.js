@@ -10,6 +10,7 @@ import genres from './modules/genres';
 import movieReviews from './modules/movieReviews';
 import tvDetails from './modules/tvDetails';
 import tvCast from './modules/tvCast';
+import multisearch from './modules/multisearch';
 
 Vue.use(Vuex);
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     genres,
     movieReviews, 
     tvDetails,
-    tvCast
+    tvCast,
+    multisearch
   }
 });
