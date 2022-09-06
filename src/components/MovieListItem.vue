@@ -113,6 +113,10 @@ export default {
       }
       return 'ember';
     },
+filmID(id) {
+      this.$router.push({ path: '/movie/' + id });
+      this.$store.dispatch('movieDetails/fetchMovie', id);
+      this.$store.dispatch('movieCast/fetchCast', id); },
     onClickItem(mediaType) {
       if (mediaType === 'person') {
         this.$router.push({ path: '/person/' + this.item.id });
@@ -121,7 +125,8 @@ export default {
         this.$router.push({ path: '/movie/' + this.item.id });
         this.$store.dispatch('movieDetails/fetchMovie', this.item.id);
       }
-    },
+
+   
     loaded() {
       this.isLoading = false;
     }

@@ -4,6 +4,8 @@ import popularMovies from './modules/popularMovies';
 import searchMovies from './modules/searchMovies';
 import movieDetails from './modules/movieDetails';
 import personDetails from './modules/personDetails';
+import personFilmography from './modules/personFilmography';
+import movieCast from './modules/movieCast';
 import genres from './modules/genres';
 
 import multisearch from './modules/multisearch';
@@ -16,6 +18,8 @@ export default new Vuex.Store({
     searchMovies,
     movieDetails,
     personDetails,
+    personFilmography,
+    movieCast,
     genres,
     multisearch
 

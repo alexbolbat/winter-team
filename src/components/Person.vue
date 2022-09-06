@@ -1,11 +1,12 @@
 <template>
   <v-container
-    class="mt-2 pa-4 rounded"
+    class="mt-2 mb-6 pa-4 rounded"
   >
     <v-row>
-      <v-col  cols="4">
+      <v-col cols="4">
         <v-img
           max-width="350px"
+          :lazy-src="`${apiImg}/${personDetails.profilePath}`"
           :src="`${apiImg}/${personDetails.profilePath}`"
         />
       </v-col>
@@ -36,6 +37,46 @@
         </p>
       </v-col>
     </v-row>
+    <v-row
+      class="mb-4"
+    >
+      <v-slide-group
+        :key="personDetails.id"
+        class="rounded mx-2"
+      >
+        <v-card
+          v-for="item in filmography"
+          :key="item.id"
+          :item="item"
+          max-width="230px"
+          class="ma-4 rounded"
+          @click="filmID(item.id)"
+        >
+          <v-img
+            v-if="item.posterPath"
+            max-width="auto"
+            max-height="280px"
+            :src="`${apiImg}/${item.posterPath}`"
+          />
+          <img
+            v-else
+            height="280px"
+            src="../assets/not-found.svg"
+          />         
+          <v-card-text
+            class="font-weight-bold text-center text-truncate"
+          >
+            {{item.title}}
+            <br />
+            <span
+              class="font-weight-light caption text-center"
+            >
+              {{item.character}}
+            </span>
+          </v-card-text>
+        </v-card>
+      </v-slide-group>
+    </v-row>
   </v-container>
 </template>
 
@@ -50,8 +91,16 @@ export default {
     personDetails() {
       return this.$store.getters['personDetails/person'];
     },
+    filmography() {
+      return this.$store.getters['personFilmography/filmography'];
+    }
   },
   methods: {
+    filmID(id) {    
+      this.$store.commit('movieDetails/RESET_STATE');
+      this.$store.commit('personDetails/RESET_STATE');
+      this.$router.push({ path: '/movie/' + id });
+    },
     formattingDate(date) {
       const fomatting = new Date(date);
       const months = [
@@ -70,11 +119,15 @@ export default {
       const month = months[fomatting.getMonth()];
       return `${fomatting.getDate()} ${month} ${fomatting.getFullYear()}`;
     }
+  },
+  mounted() {
+    this.$store.dispatch('personDetails/fetchPerson', this.$route.params.id);
+    this.$store.dispatch('personFilmography/fetchFilmography', this.$route.params.id);
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media (min-width: 1185px) {
   .container {
     max-width: 1170px;
@@ -89,8 +142,11 @@ export default {
     color: #412631;
   }
   
-  
   h3, p, span{
     color: #1a5769;
   }
+  .v-item-group {
+    background-color: #1a576980;
+    max-width: 1145px;
+}
   </style>
