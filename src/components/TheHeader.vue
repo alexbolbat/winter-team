@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar 
+    <v-toolbar
       height="80"
       color="#6bc5da"
       class="rounded mx-auto"
@@ -14,11 +14,46 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer />
+      <v-autocomplete
+        class="select ma-0 pa-0 mr-4"
+        :items="isoCodes"
+        :value="isRegion"
+        item-text="name"
+        item-value="iso"
+        label="Filter by regions"
+        persistent-hint
+        single-line
+        hide-details
+        @change="onRegion"
+      />
+      <v-autocomplete
+        v-show="!multisearch"
+        class="select ma-0 pa-0 mr-4"
+        :value="isYear"
+        :items="years"
+        item-text="name"
+        item-value="value"
+        label="Filter by years"
+        persistent-hint
+        single-line
+        hide-details
+        @change="onYear"
+      />
+      <v-checkbox
+        :value="isMulti"
+        class="pr-5"
+        label="Multisearch"
+        hide-details
+        persistent-hint
+        single-line
+        @change="onMulti" 
+      />
       <input
-        v-model="queryValue"
+        :value="queryValue"
         type="text"
         class="inputField rounded pl-1"
         placeholder="find your film here"
+        @input="onQuery"
       />
       <v-btn
         height="35px"
@@ -38,21 +73,86 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+import { isoCodes } from '../config/isoCodes';
+import { years } from '../config/years';
 export default {
   name: 'TheHeader',
   data() {
     return {
-      queryValue: ''
+      queryValue: '',
+      multisearch: this.isMulti,
+      isoCodes,
+      years,
+      region: '',
+      year: ''
     };
   },
+
   methods: {
+    ...mapMutations('searchMovies', ['removePreviosResult']),
+    ...mapMutations('multisearch', ['removePreviosResult']),
     queryInput() {
-      this.$router.push({
-        path: '/search',
-        query: { keywords: this.queryValue }
-      });
+      if (!this.region && this.region !== null) {
+        this.region = this.isRegion;
+      }
+      if (!this.multisearch && this.multisearch !== null) {
+        this.multisearch = this.isMulti;
+      }
+      const query = {
+        page: 1,
+        keywords: this.queryValue,
+        multisearch: this.multisearch || false
+      };
+      if (this.region) {
+        query.region = this.region;
+      }
+      if (this.year) {
+        query.year = this.year;
+      }
+
+      if (this.queryValue.trim()) {
+        this.removePreviosResult();
+        this.$router.push({
+          path: '/search',
+          query
+        });
+      }
       this.queryValue = '';
+    },
+    onRegion(e) {
+      this.region = e;
+    },
+    onYear(e) {
+      this.year = e;
+    },
+    onMulti(e) {
+      this.year = null;
+      this.multisearch = e;
+    },
+    onQuery(e) {
+      if (!this.multisearch) {
+        this.multisearch = this.isMulti;
+      }
+      if (this.isMulti) {
+        this.year = null;
+      }
+      this.queryValue = e.target.value;
     }
+  },
+  computed: {
+    isMulti() {
+      return this.$route.query.multisearch === 'true';
+    },
+    isYear() {
+      return this.$route.query.year;
+    },
+    isRegion() {
+      return this.$route.query.region;
+    }
+  },
+  updated() {
+    console.log(this.multisearch);
   }
 };
 </script>
@@ -82,7 +182,7 @@ export default {
 .inputField {
   height: 35px;
   background-color: #ffffff;
-  width: 450px;
+  width: 300px;
   color: #6bc5da;
   border: 1px solid #22748c;
 }
@@ -94,5 +194,7 @@ input[type='text']:focus {
 input[type='text']::placeholder {
   color: #6bc6dab7;
 }
-
+.select {
+  width: 150px;
+}
 </style>

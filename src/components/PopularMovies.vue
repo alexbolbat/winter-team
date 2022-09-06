@@ -1,6 +1,7 @@
 <template>
   <div>
     <movies-list
+      :totalPages="500"
       :page="page"
       :movies="popularMovies[page] || []"
       @choose-page="choosePage"

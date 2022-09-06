@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/search',
     name: 'search',
-    component: () => import('../views/SearchPage.vue'),
+    component: () => import('../components/SearchedMovies.vue'),
     props: true
   },
   {
