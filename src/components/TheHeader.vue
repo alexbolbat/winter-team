@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       queryValue: '',
-      multisearch: this.isMulti,
+      multisearch: false,
       isoCodes,
       years,
       region: '',
@@ -96,7 +96,7 @@ export default {
       if (!this.region && this.region !== null) {
         this.region = this.isRegion;
       }
-      if (!this.multisearch && this.multisearch !== null) {
+      if (!this.multisearch && this.multisearch !== false) {
         this.multisearch = this.isMulti;
       }
       const query = {
@@ -128,12 +128,9 @@ export default {
     },
     onMulti(e) {
       this.year = null;
-      this.multisearch = e;
+      this.multisearch = !!e;
     },
     onQuery(e) {
-      if (!this.multisearch) {
-        this.multisearch = this.isMulti;
-      }
       if (this.isMulti) {
         this.year = null;
       }
