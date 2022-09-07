@@ -59,38 +59,11 @@
         :key="movieDetails.id"
         class="rounded mx-2"
       >
-        <v-card
+        <cast-component 
           v-for="item in castDetails"
           :key="item.id"
           :item="item"
-          max-width="230px"
-          class="ma-4 rounded"
-          @click="personID(item.id)"
-        >
-          <v-img
-            v-if="item.profilePath"
-            max-width="auto"
-            max-height="280px"
-            :src="`${apiImg}/${item.profilePath}`"
-          />
-          <img
-            v-else
-            height="280px"
-            src="../assets/not-found.svg"
-            alt="not-found"
-          />
-          <v-card-text
-            class="font-weight-bold text-center text-truncate"
-          >
-            {{item.name}}
-            <br />
-            <span
-              class="font-weight-light caption text-center"
-            >
-              {{item.character}}
-            </span>
-          </v-card-text>
-        </v-card>
+        />
       </v-slide-group>
     </v-row>
     <v-row>
@@ -137,6 +110,7 @@
 
 <script>
 import { apiImg } from '../config/apiConfig';
+import CastComponent from './CastComponent.vue';
 
 export default {
   data() {
@@ -145,6 +119,7 @@ export default {
       showAll: {},
     };
   },
+  components: { CastComponent },
   computed: {
     movieDetails() {
       return this.$store.getters['movieDetails/movie'];
