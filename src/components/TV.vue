@@ -76,7 +76,7 @@
 
 <script>
 import { apiImg } from '../config/apiConfig';
-import castComponent from './castComponent.vue';
+import CastComponent from './CastComponent.vue';
 
 export default {
   data() {
@@ -84,7 +84,7 @@ export default {
       apiImg,
     };
   },
-  components: { castComponent },
+  components: { CastComponent },
   computed: {
     tvDetails() {
       return this.$store.getters['tvDetails/tv'];

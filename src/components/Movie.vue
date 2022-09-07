@@ -110,7 +110,7 @@
 
 <script>
 import { apiImg } from '../config/apiConfig';
-import castComponent from './castComponent.vue';
+import CastComponent from './CastComponent.vue';
 
 export default {
   data() {
@@ -119,7 +119,7 @@ export default {
       showAll: {},
     };
   },
-  components: { castComponent },
+  components: { CastComponent },
   computed: {
     movieDetails() {
       return this.$store.getters['movieDetails/movie'];
