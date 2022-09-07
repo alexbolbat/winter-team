@@ -110,7 +110,7 @@
 
 <script>
 import { apiImg } from '../config/apiConfig';
-import CastComponent from './CastComponent.vue';
+import CastComponent from './СastComponent.vue';
 
 export default {
   data() {
