@@ -5,27 +5,34 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
-    person: {}
+    person: {},
+    filmography: []
   },
   getters: {
     person(state) {
       return state.person;
+    },
+    filmography(state) {
+      return state.filmography;
     }
   },
   mutations: {
     SET_PERSON(state, data) {
-      Vue.set(state, 'person', data );
+      Vue.set(state, 'person', data);
     },
     RESET_STATE(state) {
       state.person = {};
     },
+    SET_FILMOGRAPHY(state, data) {
+      Vue.set(state, 'filmography', data);
+    }
   },
   actions: {
     async fetchPerson({ commit }, id) {
       const { data } = await axios.get(`${apiURL}/person/${id}`, {
         params: {
           api_key: apiKey,
-          language: apiLang,
+          language: apiLang
         }
       });
       commit('SET_PERSON', {
@@ -36,6 +43,23 @@ export default {
         profilePath: data.profile_path,
         biography: data.biography
       });
+    },
+    async fetchFilmography({ commit }, id) {
+      const { data } = await axios.get(`${apiURL}/person/${id}/movie_credits`, {
+        params: {
+          api_key: apiKey,
+          language: apiLang
+        }
+      });
+      commit(
+        'SET_FILMOGRAPHY',
+        data.cast.map(item => ({
+          title: item.title,
+          posterPath: item.poster_path,
+          id: item.id,
+          character: item.character
+        }))
+      );
     }
-  },  
+  }
 };
