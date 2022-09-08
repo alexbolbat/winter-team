@@ -15,21 +15,20 @@
       </v-toolbar-title>
       <v-spacer />
       <v-autocomplete
+        v-model="region"
         class="select ma-0 pa-0 mr-4"
         :items="isoCodes"
-        :value="isRegion"
         item-text="name"
         item-value="iso"
         label="Filter by regions"
         persistent-hint
         single-line
         hide-details
-        @change="onRegion"
       />
       <v-autocomplete
         v-show="!multisearch"
+        v-model="year"
         class="select ma-0 pa-0 mr-4"
-        :value="isYear"
         :items="years"
         item-text="name"
         item-value="value"
@@ -37,23 +36,20 @@
         persistent-hint
         single-line
         hide-details
-        @change="onYear"
       />
       <v-checkbox
-        :value="isMulti"
+        v-model="multisearch"
         class="pr-5"
         label="Multisearch"
         hide-details
         persistent-hint
         single-line
-        @change="onMulti"
       />
       <input
-        :value="queryValue"
+        v-model="queryValue"
         type="text"
         class="inputField rounded pl-1"
         placeholder="find your film here"
-        @input="onQuery"
       />
       <v-btn
         height="35px"
@@ -81,7 +77,7 @@ export default {
   data() {
     return {
       queryValue: '',
-      multisearch: this.isMulti,
+      multisearch: false,
       isoCodes,
       years,
       region: '',
@@ -93,12 +89,6 @@ export default {
     ...mapMutations('searchMovies', ['removePreviosResult']),
     ...mapMutations('multisearch', ['removePreviosResult']),
     queryInput() {
-      if (!this.region && this.region !== null) {
-        this.region = this.isRegion;
-      }
-      if (!this.multisearch && this.multisearch !== null) {
-        this.multisearch = this.isMulti;
-      }
       const query = {
         page: 1,
         keywords: this.queryValue,
@@ -107,7 +97,7 @@ export default {
       if (this.region) {
         query.region = this.region;
       }
-      if (this.year) {
+      if (this.year && !this.multisearch) {
         query.year = this.year;
       }
 
@@ -119,25 +109,6 @@ export default {
         });
       }
       this.queryValue = '';
-    },
-    onRegion(e) {
-      this.region = e;
-    },
-    onYear(e) {
-      this.year = e;
-    },
-    onMulti(e) {
-      this.year = null;
-      this.multisearch = e;
-    },
-    onQuery(e) {
-      if (!this.multisearch) {
-        this.multisearch = this.isMulti;
-      }
-      if (this.isMulti) {
-        this.year = null;
-      }
-      this.queryValue = e.target.value;
     }
   },
   computed: {
@@ -149,6 +120,23 @@ export default {
     },
     isRegion() {
       return this.$route.query.region;
+    }
+  },
+  watch: {
+    isMulti() {
+      if (!this.multisearch) {
+        this.multisearch = this.isMulti;
+      }
+    },
+    isYear() {
+      if (!this.year) {
+        this.year = this.isYear;
+      }
+    },
+    isRegion() {
+      if (!this.region) {
+        this.region = this.isRegion;
+      }
     }
   }
 };
