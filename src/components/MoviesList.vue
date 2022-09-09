@@ -15,9 +15,17 @@
       @input="choosePage"
     />
   </div>
+
+  <v-container
+    v-else-if="!isLoading"
+    class="d-flex flex-wrap justify-space-between pa-0 pt-3 text-h2"
+  >
+    {{ 'No results' }}
+  </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import MovieListItem from './MovieListItem.vue';
 
 export default {
@@ -33,7 +41,9 @@ export default {
       this.$emit('choose-page', Number(page));
     }
   },
-  mounted() {}
+  computed: {
+    ...mapGetters('resultsList', ['isLoading'])
+  }
 };
 </script>
 
