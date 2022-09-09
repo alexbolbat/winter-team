@@ -1,5 +1,5 @@
 <template>
-  <div v-if="movies.length">
+  <div v-if="movies.length && !isLoading">
     <v-container class="d-flex flex-wrap justify-space-between pa-0 pt-3">
       <movie-list-item
         v-for="item in movies"
@@ -15,12 +15,23 @@
       @input="choosePage"
     />
   </div>
-
   <v-container
     v-else-if="!isLoading"
     class="d-flex flex-wrap justify-space-between pa-0 pt-3 text-h2"
   >
-    {{ 'No results' }}
+    No results
+  </v-container>
+  <v-container
+    v-else-if="isLoading"
+    class="d-flex flex-wrap justify-space-between pa-0 pt-3 text-h2"
+  >
+    <v-skeleton-loader
+      v-for="i in 8"
+      :key="i"
+      width="242"
+      height="468"
+      type="image, article"
+    />
   </v-container>
 </template>
 
@@ -47,10 +58,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @media (min-width: 960px) {
   .container {
     max-width: 1170px;
   }
+}
+.v-skeleton-loader__image {
+  height: 317px;
 }
 </style>
