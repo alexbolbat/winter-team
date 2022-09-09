@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
   <div v-if="movies.length && !isLoading">
     <v-container class="d-flex flex-wrap justify-space-between pa-0 pt-3">
@@ -40,7 +39,9 @@
       src="../assets/no-results.svg"
       alt="no-results"
     />
-    <div class="text-h2 font-weight-bold mt-2">Oops!</div>
+    <div class="text-h2 font-weight-bold mt-2">
+      Oops!
+    </div>
     <p class="text-h4 mt-4 error-text">
       Sorry, we can`t find the film you are searching for but you always can
       come back to main page
