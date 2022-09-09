@@ -138,9 +138,7 @@ h2 {
   color: #412631;
 }
 
-h3,
-p,
-span {
+h3 {
   color: #1a5769;
 }
 .v-item-group {
