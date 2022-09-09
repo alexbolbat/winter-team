@@ -45,7 +45,7 @@ export default {
       });
     },
     async fetchFilmography({ commit }, id) {
-      const { data } = await axios.get(`${apiURL}/person/${id}/movie_credits`, {
+      const { data } = await axios.get(`${apiURL}/person/${id}/combined_credits`, {
         params: {
           api_key: apiKey,
           language: apiLang
@@ -57,7 +57,9 @@ export default {
           title: item.title,
           posterPath: item.poster_path,
           id: item.id,
-          character: item.character
+          character: item.character,
+          mediaType: item.media_type,
+          creditID: item.credit_id
         }))
       );
     }
