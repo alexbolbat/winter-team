@@ -57,7 +57,7 @@
       >
         <cast-component
           v-for="item in castDetails"
-          :key="item.id"
+          :key="item.creditID"
           :item="item"
         />
       </v-slide-group>
