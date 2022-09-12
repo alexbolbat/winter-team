@@ -181,7 +181,7 @@ span {
 }
 
 .v-item-group {
-  background-color: #1a576980;
-  max-width: 1145px;
+  background-color: #1a576956;
+  max-width: 98%;
 }
 </style>
