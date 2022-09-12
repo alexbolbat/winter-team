@@ -20,19 +20,19 @@
         <h2 class="mb-2 font-weight-light display-1">
           {{ personDetails.birthPlace }}
         </h2>
-        <span
+        <p
           v-show="personDetails.birthday != null"
           class="font-weight-medium title"
         >
           {{ `Birthday: ${formattingDate(personDetails.birthday)}` }}
-        </span>
+        </p>
         <br />
-        <span
+        <p
           v-show="personDetails.deathday != null"
           class="mb-2 font-weight-medium title"
         >
           {{ `Deathday: ${formattingDate(personDetails.deathday)}` }}
-        </span>
+        </p>
         <p class="pr-10 mt-2 text-justify">
           {{ personDetails.biography }}
         </p>
@@ -138,7 +138,8 @@ h2 {
   color: #412631;
 }
 
-h3 {
+h3,
+p {
   color: #1a5769;
 }
 .v-item-group {
