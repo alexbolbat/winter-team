@@ -66,7 +66,8 @@ export default {
           name: item.name,
           profilePath: item.profile_path,
           id: item.id,
-          character: item.character
+          character: item.character,
+          creditID: item.credit_id
         }))
       );
     },

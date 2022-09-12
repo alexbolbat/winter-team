@@ -21,17 +21,26 @@
           {{ personDetails.birthPlace }}
         </h2>
         <span
-          v-show="personDetails.birthday != null"
+          v-if="personDetails.birthday != null && personDetails.deathday === null"
           class="font-weight-medium title"
         >
-          {{ `Birthday: ${formattingDate(personDetails.birthday)}` }}
+          {{`Age: ${calculatingAge()}`}}
+          <br />
+          {{`Birthday: ${formattingDate(personDetails.birthday)}`}}
         </span>
-        <br />
         <span
-          v-show="personDetails.deathday != null"
+          v-if="personDetails.deathday != null"
           class="mb-2 font-weight-medium title"
         >
-          {{ `Deathday: ${formattingDate(personDetails.deathday)}` }}
+          {{`Age: ${calculatingAge()}`}}
+          <br />
+          {{`${formattingDate(personDetails.birthday)} - ${formattingDate(personDetails.deathday)}`}}
+        </span>
+        <span
+          v-if="personDetails.birthday === null && personDetails.deathday === null"
+          class="mb-2 font-weight-medium title"
+        >
+          Sorry, we have no information about this person 😔
         </span>
         <p class="pr-10 mt-2 text-justify">
           {{ personDetails.biography }}
@@ -45,11 +54,11 @@
       >
         <v-card
           v-for="item in filmography"
-          :key="item.id"
+          :key="item.creditID"
           :item="item"
           max-width="230px"
           class="ma-4 rounded"
-          @click="filmID(item.id)"
+          @click="filmID(item.mediaType, item.id)"
         >
           <v-img
             v-if="item.posterPath"
@@ -63,6 +72,8 @@
             src="../assets/not-found.svg"
           />
           <v-card-text class="font-weight-bold text-center text-truncate">
+            {{(item.mediaType).toUpperCase()}}
+            <br />
             {{ item.title }}
             <br />
             <span class="font-weight-light caption text-center">
@@ -91,10 +102,14 @@ export default {
     }
   },
   methods: {
-    filmID(id) {
+    filmID(mediaType, id) {  
       this.$store.commit('movie/RESET_STATE');
-      this.$store.commit('person/RESET_STATE');
-      this.$router.push({ path: '/movie/' + id });
+      this.$store.commit('person/RESET_STATE');  
+      if (mediaType === 'movie' || mediaType === undefined) {
+        this.$router.push({ path: '/movie/' + id });
+      } else if (mediaType === 'tv') {
+        this.$router.push({ path: '/tv/' + id });
+      }
     },
     formattingDate(date) {
       const fomatting = new Date(date);
@@ -108,12 +123,24 @@ export default {
         'July',
         'August',
         'September',
+        'October',
         'November',
         'December'
       ];
       const month = months[fomatting.getMonth()];
       return `${fomatting.getDate()} ${month} ${fomatting.getFullYear()}`;
-    }
+    },
+    calculatingAge() {
+      if (this.personDetails.deathday === null) {
+        const ageMs = Date.now() - new Date(this.personDetails.birthday).getTime();
+        const ageDate = new Date(ageMs);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+      } else {
+        const ageMs = new Date(this.personDetails.deathday) - new Date(this.personDetails.birthday);
+        const ageDate = new Date(ageMs);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+      }
+    } 
   },
   mounted() {
     this.$store.dispatch('person/fetchPerson', this.$route.params.id);
