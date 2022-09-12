@@ -53,12 +53,12 @@
         </p>
       </v-col>
     </v-row>
-    <v-row class="mb-4">
-      <h3
-        class="font-weight-bold headline mx-auto"
+    <h3
+        class="font-weight-bold headline mb-4 text-center"
       >
         Top Billed Cast
       </h3>
+    <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="movieDetails.id"
         class="rounded mx-3"
@@ -70,12 +70,14 @@
         />
       </v-slide-group>
     </v-row>
-    <v-row>
-      <h3
-        class="font-weight-bold headline mx-auto mb-3"
+    <h3
+        class="font-weight-bold headline mx-auto mb-4 text-center"
       >
         Users often search with {{movieDetails.title}}
       </h3>
+    <v-row
+      class="justify-center"
+    >
       <v-slide-group
         :key="similar.id"
         class="rounded mx-3 mb-4"
