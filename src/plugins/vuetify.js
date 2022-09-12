@@ -8,7 +8,7 @@ export default new Vuetify({
     themes: {
       light: {
         header: '#6bc5da',
-        review: '#1a5769'
+        review: '#1976D2'
       },
       dark: {
         header: '#1a5769',

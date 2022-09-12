@@ -8,7 +8,13 @@
       <v-toolbar-title class="text-uppercase">
         <router-link to="/">
           <img
-            src="../assets/Logo.svg"
+            v-show="$vuetify.theme.dark"
+            src="../assets/LogoDark.svg"
+            alt="logo"
+          />
+          <img
+            v-show="!$vuetify.theme.dark"
+            src="../assets/LogoLight.svg"
             alt="logo"
           />
         </router-link>
@@ -23,9 +29,9 @@
             hint="This toggles the global state of the theme"
             hide-details
             inset
-            label="Theme"
           />
         </v-row>
+        <span>Theme</span>
       </div>
       <v-spacer />
       <v-autocomplete
@@ -150,6 +156,9 @@ export default {
         this.region = this.isRegion;
       }
     }
+  },
+  mounted() {
+    console.log(!this.$vuetify.theme.dark);
   }
 };
 </script>
