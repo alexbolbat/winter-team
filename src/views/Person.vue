@@ -74,7 +74,7 @@
           <v-card-text class="font-weight-bold text-center text-truncate">
             {{(item.mediaType).toUpperCase()}}
             <br />
-            {{ item.title }}
+            {{ item.title || item.name }}
             <br />
             <span class="font-weight-light caption text-center">
               {{ item.character }}
