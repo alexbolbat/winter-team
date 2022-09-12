@@ -4,7 +4,9 @@ import Vue from 'vue';
 
 export default {
   namespaced: true,
+
   state: { isLoading: true, totalPages: 0, searchedList: [] },
+
   getters: {
     searchedList(state) {
       return state.searchedList;
@@ -34,6 +36,7 @@ export default {
   actions: {
     async fetchPopular({ commit }, page) {
       commit('setLoading', true);
+
       const popular = await axios.get(`${apiURL}/movie/popular`, {
         params: {
           api_key: apiKey,
@@ -57,6 +60,7 @@ export default {
     },
     async fetchMovies({ commit }, { query, page, region, year }) {
       commit('setLoading', true);
+
       const searched = await axios.get(`${apiURL}/search/movie`, {
         params: {
           api_key: apiKey,
@@ -80,10 +84,12 @@ export default {
         page
       });
       commit('setTotalPages', searched.data.total_pages);
+
       commit('setLoading', false);
     },
     async fetchMultisearch({ commit }, { query, page, region }) {
       commit('setLoading', true);
+
       const searched = await axios.get(`${apiURL}/search/multi`, {
         params: {
           api_key: apiKey,
@@ -112,6 +118,7 @@ export default {
         page
       });
       commit('setTotalPages', searched.data.total_pages);
+
       commit('setLoading', false);
     }
   }

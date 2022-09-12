@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/html-indent -->
 <template>
   <v-container class="mt-2 mb-6 pa-4 rounded">
     <v-row>
@@ -27,9 +28,9 @@
           {{
             movieDetails.genreIds
               ? movieDetails.genreIds
-                .map(item => item.name)
-                .join(', ')
-                .toLowerCase()
+                  .map(item => item.name)
+                  .join(', ')
+                  .toLowerCase()
               : 'No genres'
           }}
         </h3>
