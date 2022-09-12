@@ -55,7 +55,12 @@
         </p>
       </v-col>
     </v-row>
-    <v-row class="mb-4">
+    <h3
+      class="font-weight-bold headline mx-auto mb-4 text-center"
+    >
+      Top Billed Cast
+    </h3>
+    <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="tvDetails.id"
         class="rounded mx-2"
@@ -66,6 +71,56 @@
           :item="item"
         />
       </v-slide-group>
+    </v-row>
+    <h3
+      class="font-weight-bold headline mx-auto mb-4 text-center"
+    >
+      Short seasons overview
+    </h3>
+    <v-row
+      class="mx-auto justify-center"
+    >
+      <v-card
+        v-for="item in tvDetails.seasonsInfo"
+        :key="item.id"
+        max-width="540px"
+        class="ma-2"
+      >
+        <v-row
+          class="pa-3"
+        >
+          <v-col cols="4">
+            <v-img
+              v-if="item.poster_path"
+              max-width="auto"
+              max-height="280px"
+              :src="`${apiImg}/${item.poster_path}`"
+            />
+            <img
+              v-else
+              height="280px"
+              src="../assets/not-found.svg"
+            />
+            <h2
+              class="text-center"
+            >
+              {{item.name}}
+            </h2>
+          </v-col>  
+          <v-col cols="8">  
+            <p
+              v-if="item.overview"
+            >
+              {{item.overview}}
+            </p>
+            <p
+              v-if="!item.overview"
+            >
+              We have no more information about this season
+            </p>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-row>
   </v-container>
 </template>
