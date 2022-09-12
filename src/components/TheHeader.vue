@@ -2,17 +2,37 @@
   <div>
     <v-toolbar
       height="80"
-      color="#6bc5da"
+      color="header"
       class="rounded mx-auto"
     >
       <v-toolbar-title class="text-uppercase">
         <router-link to="/">
           <img
-            src="../assets/Logo.svg"
+            v-show="$vuetify.theme.dark"
+            src="../assets/LogoDark.svg"
+            alt="logo"
+          />
+          <img
+            v-show="!$vuetify.theme.dark"
+            src="../assets/LogoLight.svg"
             alt="logo"
           />
         </router-link>
       </v-toolbar-title>
+      <v-spacer />
+      <div class="ma-0 pa-0 d-flex flex-column align-center">
+        <v-row class="ma-0 pa-0">
+          <v-switch
+            v-model="$vuetify.theme.dark"
+            color="white"
+            class="ma-0 pa-0 pl-3"
+            hint="This toggles the global state of the theme"
+            hide-details
+            inset
+          />
+        </v-row>
+        <span>Theme</span>
+      </div>
       <v-spacer />
       <v-autocomplete
         v-model="region"
@@ -136,24 +156,27 @@ export default {
         this.region = this.isRegion;
       }
     }
+  },
+  mounted() {
+    console.log(!this.$vuetify.theme.dark);
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @media (min-width: 960px) {
-  .theme--light.v-toolbar.v-sheet {
+  .v-toolbar.v-sheet {
     max-width: 1170px;
   }
 }
-.theme--light.v-btn.v-btn--has-bg {
+.v-btn.v-btn--has-bg {
   margin-left: -10px;
   color: #ffffff;
   background-color: #22748c;
   box-shadow: none;
   border: 1px solid #22748c;
 }
-.theme--light.v-btn.v-btn--has-bg:hover {
+.v-btn.v-btn--has-bg:hover {
   background-color: #a2dfec;
   opacity: 1;
   color: #22748c;
@@ -178,6 +201,6 @@ input[type='text']::placeholder {
   color: #6bc6dab7;
 }
 .select {
-  width: 150px;
+  width: 110px;
 }
 </style>

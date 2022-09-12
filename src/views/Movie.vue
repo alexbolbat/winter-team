@@ -83,6 +83,7 @@
           <p
             v-if="!showAll[item.id]"
             :key="item.id"
+            class="review--text"
           >
             {{ item.content.slice(0, 600) }}
             <span
