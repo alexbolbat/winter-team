@@ -102,7 +102,7 @@
               src="../assets/not-found.svg"
             />
             <h2
-              class="text-center"
+              class="text-center review--text"
             >
               {{item.name}}
             </h2>
@@ -110,11 +110,13 @@
           <v-col cols="8">  
             <p
               v-if="item.overview"
+              class="review--text"
             >
               {{item.overview}}
             </p>
             <p
               v-if="!item.overview"
+              class="review--text"
             >
               We have no more information about this season
             </p>
