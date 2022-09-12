@@ -1,22 +1,16 @@
 <template>
   <div>
     <movies-list
-      :totalPages="
-        isMultisearch === 'true' ? totalMultisearchedPages : totalSearchedPages
-      "
+      :totalPages="totalPages"
       :page="page"
-      :movies="
-        isMultisearch === 'true'
-          ? multisearchedResults[page] || []
-          : searchedMovies[page] || []
-      "
+      :movies="searchedList[page] || []"
       @choose-page="choosePage"
     />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import MoviesList from '../components/MoviesList.vue';
 export default {
   name: 'PopularMovies',
@@ -31,15 +25,11 @@ export default {
   },
   components: { MoviesList },
   computed: {
-    ...mapGetters('searchMovies', ['searchedMovies', 'totalSearchedPages']),
-    ...mapGetters('multisearch', [
-      'multisearchedResults',
-      'totalMultisearchedPages'
-    ])
+    ...mapGetters('resultsList', ['searchedList', 'totalPages'])
   },
   methods: {
-    ...mapActions('searchMovies', ['fetchMovies']),
-    ...mapActions('multisearch', ['fetchMultisearch']),
+    ...mapActions('resultsList', ['fetchMovies', 'fetchMultisearch']),
+    ...mapMutations('resultsList', ['removePreviosResult']),
     async choosePage(page) {
       this.page = page;
       this.$router.push({
@@ -75,6 +65,7 @@ export default {
     }
   },
   async mounted() {
+    this.removePreviosResult();
     this.getPage();
   },
   async beforeRouteUpdate(to, from, next) {

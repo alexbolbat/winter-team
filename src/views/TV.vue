@@ -1,7 +1,5 @@
 <template>
-  <v-container 
-    class="mt-2 mb-6 pa-4 rounded"
-  >
+  <v-container class="mt-2 mb-6 pa-4 rounded">
     <v-row>
       <v-col cols="4">
         <v-img
@@ -9,7 +7,7 @@
           max-width="350px"
           :src="`${apiImg}/${tvDetails.posterPath}`"
         />
-        <img 
+        <img
           v-else
           width="350px"
           src="../assets/not-found.svg"
@@ -17,32 +15,32 @@
       </v-col>
       <v-col cols="8">
         <h1 class="display-3 font-weight-medium">
-          {{tvDetails.name}}
+          {{ tvDetails.name }}
         </h1>
-        <h2
-          class="mb-2 font-weight-light display-1"
-        >
-          {{tvDetails.tagline}}
+        <h2 class="mb-2 font-weight-light display-1">
+          {{ tvDetails.tagline }}
         </h2>
         <h3 class="font-weight-regular mb-2">
-          In air from: {{new Date(tvDetails.inAir).getFullYear()}}
+          In air from: {{ new Date(tvDetails.inAir).getFullYear() }}
           <br />
-          Status: {{tvDetails.status}}
+          Status: {{ tvDetails.status }}
           <br />
-          Seasons: {{tvDetails.seasons}}
+          Seasons: {{ tvDetails.seasons }}
           <br />
-          Episodes: {{tvDetails.episodes}}
+          Episodes: {{ tvDetails.episodes }}
           <br />
-          Genres: {{
+          Genres:
+          {{
             tvDetails.genreIds
-              ?tvDetails.genreIds
+              ? tvDetails.genreIds
                 .map(item => item.name)
-                .join(', ').toLowerCase()
+                .join(', ')
+                .toLowerCase()
               : 'No genres'
           }}
         </h3>
         <v-rating
-          :value="tvDetails.voteAverage /2"
+          :value="tvDetails.voteAverage / 2"
           readonly
           half-increments
           color="#1a5769"
@@ -50,21 +48,19 @@
           size="25"
         />
         <span class="font-weight-bold title">
-          {{tvDetails.voteAverage&&tvDetails.voteAverage.toFixed(1)}}
-        </span> 
+          {{ tvDetails.voteAverage && tvDetails.voteAverage.toFixed(1) }}
+        </span>
         <p class="pr-10 mt-2 text-justify">
-          {{tvDetails.overview}}
+          {{ tvDetails.overview }}
         </p>
       </v-col>
     </v-row>
-    <v-row
-      class="mb-4"
-    >
+    <v-row class="mb-4">
       <v-slide-group
         :key="tvDetails.id"
         class="rounded mx-2"
       >
-        <cast-component 
+        <cast-component
           v-for="item in castDetails"
           :key="item.id"
           :item="item"
@@ -76,29 +72,28 @@
 
 <script>
 import { apiImg } from '../config/apiConfig';
-import CastComponent from './СastComponent.vue';
+import CastComponent from '../components/СastComponent.vue';
 
 export default {
   data() {
-    return { 
-      apiImg,
+    return {
+      apiImg
     };
   },
   components: { CastComponent },
   computed: {
     tvDetails() {
-      return this.$store.getters['tvDetails/tv'];
+      return this.$store.getters['tv/tv'];
     },
     castDetails() {
-      return this.$store.getters['tvCast/cast'];
+      return this.$store.getters['tv/cast'];
     }
   },
   mounted() {
-    this.$store.dispatch('tvDetails/fetchTV', this.$route.params.id);
-    this.$store.dispatch('tvCast/fetchCast', this.$route.params.id);
+    this.$store.dispatch('tv/fetchTV', this.$route.params.id);
+    this.$store.dispatch('tv/fetchCast', this.$route.params.id);
   }
 };
- 
 </script>
 
 <style lang="scss" scoped>
@@ -108,26 +103,28 @@ export default {
   }
 }
 
-.container{
+.container {
   background-color: #6bc6dad7;
 }
 
 .v-rating {
-    max-width: 50%; 
-    display: inline;
+  max-width: 50%;
+  display: inline;
 }
 
-h1, h2{
+h1,
+h2 {
   color: #412631;
 }
 
-
-h3, p, span{
+h3,
+p,
+span {
   color: #1a5769;
 }
 
 .v-item-group {
-    background-color: #1a576980;
-    max-width: 1145px;
+  background-color: #1a576980;
+  max-width: 1145px;
 }
 </style>

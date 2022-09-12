@@ -1,15 +1,13 @@
 <template>
-  <v-container
-    class="mt-2 mb-6 pa-4 rounded"
-  >
+  <v-container class="mt-2 mb-6 pa-4 rounded">
     <v-row>
-      <v-col  cols="4">
+      <v-col cols="4">
         <v-img
           v-if="personDetails.profilePath"
           max-width="350px"
           :src="`${apiImg}/${personDetails.profilePath}`"
         />
-        <img 
+        <img
           v-else
           width="350px"
           src="../assets/not-found.svg"
@@ -17,34 +15,30 @@
       </v-col>
       <v-col cols="8">
         <h1 class="display-3 font-weight-medium">
-          {{personDetails.name}}
+          {{ personDetails.name }}
         </h1>
-        <h2 
-          class="mb-2 font-weight-light display-1"
-        >
-          {{personDetails.birthPlace}}
+        <h2 class="mb-2 font-weight-light display-1">
+          {{ personDetails.birthPlace }}
         </h2>
         <span
           v-show="personDetails.birthday != null"
           class="font-weight-medium title"
         >
-          {{`Birthday: ${formattingDate(personDetails.birthday)}`}}
+          {{ `Birthday: ${formattingDate(personDetails.birthday)}` }}
         </span>
         <br />
         <span
           v-show="personDetails.deathday != null"
           class="mb-2 font-weight-medium title"
         >
-          {{`Deathday: ${formattingDate(personDetails.deathday)}`}}
+          {{ `Deathday: ${formattingDate(personDetails.deathday)}` }}
         </span>
         <p class="pr-10 mt-2 text-justify">
-          {{personDetails.biography}}
+          {{ personDetails.biography }}
         </p>
       </v-col>
     </v-row>
-    <v-row
-      class="mb-4"
-    >
+    <v-row class="mb-4">
       <v-slide-group
         :key="personDetails.id"
         class="rounded mx-2"
@@ -67,16 +61,12 @@
             v-else
             height="280px"
             src="../assets/not-found.svg"
-          />         
-          <v-card-text
-            class="font-weight-bold text-center text-truncate"
-          >
-            {{item.title}}
+          />
+          <v-card-text class="font-weight-bold text-center text-truncate">
+            {{ item.title }}
             <br />
-            <span
-              class="font-weight-light caption text-center"
-            >
-              {{item.character}}
+            <span class="font-weight-light caption text-center">
+              {{ item.character }}
             </span>
           </v-card-text>
         </v-card>
@@ -94,16 +84,16 @@ export default {
   },
   computed: {
     personDetails() {
-      return this.$store.getters['personDetails/person'];
+      return this.$store.getters['person/person'];
     },
     filmography() {
-      return this.$store.getters['personFilmography/filmography'];
+      return this.$store.getters['person/filmography'];
     }
   },
   methods: {
-    filmID(id) {    
-      this.$store.commit('movieDetails/RESET_STATE');
-      this.$store.commit('personDetails/RESET_STATE');
+    filmID(id) {
+      this.$store.commit('movie/RESET_STATE');
+      this.$store.commit('person/RESET_STATE');
       this.$router.push({ path: '/movie/' + id });
     },
     formattingDate(date) {
@@ -126,8 +116,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('personDetails/fetchPerson', this.$route.params.id);
-    this.$store.dispatch('personFilmography/fetchFilmography', this.$route.params.id);
+    this.$store.dispatch('person/fetchPerson', this.$route.params.id);
+    this.$store.dispatch('person/fetchFilmography', this.$route.params.id);
   }
 };
 </script>
@@ -138,20 +128,23 @@ export default {
     max-width: 1170px;
   }
 }
-  
-  .container{
-    background-color: #6bc6dad7;
-  }
-  
-  h1, h2{
-    color: #412631;
-  }
-  
-  h3, p, span{
-    color: #1a5769;
-  }
-  .v-item-group {
-    background-color: #1a576980;
-    max-width: 1145px;
+
+.container {
+  background-color: #6bc6dad7;
 }
-  </style>
+
+h1,
+h2 {
+  color: #412631;
+}
+
+h3,
+p,
+span {
+  color: #1a5769;
+}
+.v-item-group {
+  background-color: #1a576980;
+  max-width: 1145px;
+}
+</style>

@@ -87,7 +87,6 @@ export default {
 
   methods: {
     ...mapMutations('searchMovies', ['removePreviosResult']),
-    ...mapMutations('multisearch', ['removePreviosResult']),
     queryInput() {
       const query = {
         page: 1,
@@ -102,7 +101,6 @@ export default {
       }
 
       if (this.queryValue.trim()) {
-        this.removePreviosResult();
         this.$router.push({
           path: '/search',
           query

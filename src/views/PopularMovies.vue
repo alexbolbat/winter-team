@@ -3,15 +3,15 @@
     <movies-list
       :totalPages="500"
       :page="page"
-      :movies="popularMovies[page] || []"
+      :movies="searchedList[page] || []"
       @choose-page="choosePage"
     />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import MoviesList from './MoviesList.vue';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+import MoviesList from '../components/MoviesList.vue';
 export default {
   name: 'PopularMovies',
   data() {
@@ -21,10 +21,11 @@ export default {
   },
   components: { MoviesList },
   computed: {
-    ...mapGetters('popularMovies', ['popularMovies'])
+    ...mapGetters('resultsList', ['searchedList'])
   },
   methods: {
-    ...mapActions('popularMovies', ['fetchPopular']),
+    ...mapActions('resultsList', ['fetchPopular']),
+    ...mapMutations('resultsList', ['removePreviosResult']),
     async choosePage(page) {
       this.page = page;
       this.$router.push({ path: '/popular', query: { page: this.page } });
@@ -32,6 +33,7 @@ export default {
     }
   },
   async mounted() {
+    this.removePreviosResult();
     await this.fetchPopular(this.page);
   },
   async beforeRouteUpdate(to, from, next) {

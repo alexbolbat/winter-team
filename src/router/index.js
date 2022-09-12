@@ -11,31 +11,31 @@ const routes = [
   {
     path: '/search',
     name: 'search',
-    component: () => import('../components/SearchedMovies.vue'),
+    component: () => import('../views/SearchedMovies.vue'),
     props: true
   },
   {
     path: '/popular',
     name: 'popular',
-    component: () => import('../components/PopularMovies.vue'),
+    component: () => import('../views/PopularMovies.vue'),
     props: true
   },
   {
     path: '/movie/:id',
     name: 'movie',
-    component: () => import('../components/Movie.vue'),
+    component: () => import('../views/Movie.vue'),
     props: true
   },
   {
     path: '/person/:id',
     name: 'person',
-    component: () => import('../components/Person.vue'),
+    component: () => import('../views/Person.vue'),
     props: true
   },
   {
     path: '/tv/:id',
     name: 'tv',
-    component: () => import('../components/TV.vue'),
+    component: () => import('../views/TV.vue'),
     props: true
   }
 ];
