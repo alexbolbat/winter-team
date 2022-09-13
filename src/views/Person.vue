@@ -47,7 +47,7 @@
         </p>
       </v-col>
     </v-row>
-    <v-row class="mb-4">
+    <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="personDetails.id"
         class="rounded mx-3"
