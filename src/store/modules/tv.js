@@ -59,7 +59,8 @@ export default {
         voteAverage: data.vote_average,
         seasons: data.number_of_seasons,
         episodes: data.number_of_episodes,
-        inAir: data.first_air_date
+        inAir: data.first_air_date,
+        seasonsInfo: data.seasons
       });
     }
   }
