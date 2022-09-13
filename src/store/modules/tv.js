@@ -33,44 +33,52 @@ export default {
   },
   actions: {
     async fetchCast({ commit }, id) {
-      const { data } = await axios.get(`${apiURL}/tv/${id}/credits`, {
-        params: {
-          api_key: apiKey,
-          language: apiLang
-        }
-      });
-      commit(
-        'SET_CAST',
-        data.cast.map(item => ({
-          name: item.name,
-          profilePath: item.profile_path,
-          id: item.id,
-          character: item.character
-        }))
-      );
-      commit('SET_LOADING');
+      try {
+        const { data } = await axios.get(`${apiURL}/tv/${id}/credits`, {
+          params: {
+            api_key: apiKey,
+            language: apiLang
+          }
+        });
+        commit(
+          'SET_CAST',
+          data.cast.map(item => ({
+            name: item.name,
+            profilePath: item.profile_path,
+            id: item.id,
+            character: item.character
+          }))
+        );
+        commit('SET_LOADING');
+      } catch (error) {
+        alert('Can\'t download cast');
+      }
     },
     async fetchTV({ commit }, id) {
-      commit('SET_LOADING');
-      const { data } = await axios.get(`${apiURL}/tv/${id}`, {
-        params: {
-          api_key: apiKey,
-          language: apiLang
-        }
-      });
-      commit('SET_TV', {
-        name: data.name,
-        tagline: data.tagline,
-        overview: data.overview,
-        status: data.status,
-        posterPath: data.poster_path,
-        genreIds: data.genres,
-        voteAverage: data.vote_average,
-        seasons: data.number_of_seasons,
-        episodes: data.number_of_episodes,
-        inAir: data.first_air_date,
-        seasonsInfo: data.seasons
-      });
+      try {
+        commit('SET_LOADING');
+        const { data } = await axios.get(`${apiURL}/tv/${id}`, {
+          params: {
+            api_key: apiKey,
+            language: apiLang
+          }
+        });
+        commit('SET_TV', {
+          name: data.name,
+          tagline: data.tagline,
+          overview: data.overview,
+          status: data.status,
+          posterPath: data.poster_path,
+          genreIds: data.genres,
+          voteAverage: data.vote_average,
+          seasons: data.number_of_seasons,
+          episodes: data.number_of_episodes,
+          inAir: data.first_air_date,
+          seasonsInfo: data.seasons
+        });
+      } catch (error) {
+        alert('Can\'t download tv');
+      }
     }
   }
 };
