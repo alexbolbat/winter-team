@@ -76,15 +76,11 @@ export default {
     cardWidth() {
       switch (this.$vuetify.breakpoint.name) {
       case 'xs':
-        return 342;
       case 'sm':
         return 342;
       case 'md':
-        return 242;
       case 'lg':
-        return 242;
       case 'xl':
-        return 242;
       default:
         return 242;
       }

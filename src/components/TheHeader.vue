@@ -89,7 +89,9 @@
       :class="{ 'dropdown-after': menuOpen }"
       class="dropdown justify-center header"
     >
-      <div class="menu d-flex flex-column-reverse align-center">
+      <div
+        class="menu d-flex flex-column-reverse align-center justify-space-around"
+      >
         <div class="ma-0 pa-0 d-flex flex-column align-center">
           <v-row class="ma-0 pa-0">
             <v-switch
@@ -245,22 +247,25 @@ export default {
 .dropdown {
   max-width: 1170px;
   margin: 0 auto;
-  display: none !important;
+  display: none;
   background-color: #6bc5da;
 }
 .burger {
-  display: none !important;
+  display: none;
+}
+.select {
+  width: 110px;
 }
 @media (max-width: 1060px) {
   .nav-desktop {
     display: none !important;
   }
   .burger {
-    display: block !important;
+    display: block;
   }
   .select {
-    width: 300px !important;
-    margin-top: 30px !important;
+    flex: 0 1 auto;
+    width: 300px;
   }
   .inputField {
     margin-top: 30px;
@@ -269,11 +274,11 @@ export default {
     margin-top: -2px;
   }
   .dropdown-after {
-    height: 100vh !important;
-    display: flex !important;
+    height: 100vh;
+    display: flex;
   }
   .menu {
-    height: 400px;
+    height: 300px;
   }
   .banner {
     display: none;
@@ -309,8 +314,5 @@ input[type='text']:focus {
 }
 input[type='text']::placeholder {
   color: #6bc6dab7;
-}
-.select {
-  width: 110px;
 }
 </style>
