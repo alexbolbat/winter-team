@@ -136,6 +136,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: 1060px) {
+  .movie-list-item {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+}
+
 .title {
   white-space: nowrap;
   width: 95%;

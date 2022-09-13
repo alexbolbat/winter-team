@@ -251,6 +251,46 @@ export default {
 .select {
   width: 110px;
 }
+.dropdown {
+  max-width: 1170px;
+  margin: 0 auto;
+  display: none;
+  background-color: #6bc5da;
+}
+.burger {
+  display: none;
+}
+.select {
+  width: 110px;
+}
+@media (max-width: 1060px) {
+  .nav-desktop {
+    display: none !important;
+  }
+  .burger {
+    display: block;
+  }
+  .select {
+    flex: 0 1 auto;
+    width: 300px;
+  }
+  .inputField {
+    margin-top: 30px;
+  }
+  .v-btn.v-btn--has-bg {
+    margin-top: -2px;
+  }
+  .dropdown-after {
+    height: 100vh;
+    display: flex;
+  }
+  .menu {
+    height: 300px;
+  }
+  .banner {
+    display: none;
+  }
+}
 .v-btn.v-btn--has-bg {
   margin-left: -10px;
   color: #ffffff;
