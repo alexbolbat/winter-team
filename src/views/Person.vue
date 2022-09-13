@@ -20,6 +20,7 @@
         <h2 class="mb-2 font-weight-light display-1">
           {{ personDetails.birthPlace }}
         </h2>
+
         <p
           v-show="personDetails.birthday != null"
           class="font-weight-medium title"
@@ -33,23 +34,24 @@
         >
           {{ `Deathday: ${formattingDate(personDetails.deathday)}` }}
         </p>
+
         <p class="pr-10 mt-2 text-justify">
           {{ personDetails.biography }}
         </p>
       </v-col>
     </v-row>
-    <v-row class="mb-4">
+    <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="personDetails.id"
-        class="rounded mx-2"
+        class="rounded mx-3"
       >
         <v-card
           v-for="item in filmography"
-          :key="item.id"
+          :key="item.creditID"
           :item="item"
           max-width="230px"
           class="ma-4 rounded"
-          @click="filmID(item.id)"
+          @click="filmID(item.mediaType, item.id)"
         >
           <v-img
             v-if="item.posterPath"
@@ -63,7 +65,9 @@
             src="../assets/not-found.svg"
           />
           <v-card-text class="font-weight-bold text-center text-truncate">
-            {{ item.title }}
+            {{(item.mediaType).toUpperCase()}}
+            <br />
+            {{ item.title || item.name }}
             <br />
             <span class="font-weight-light caption text-center">
               {{ item.character }}
@@ -91,10 +95,14 @@ export default {
     }
   },
   methods: {
-    filmID(id) {
+    filmID(mediaType, id) {  
       this.$store.commit('movie/RESET_STATE');
-      this.$store.commit('person/RESET_STATE');
-      this.$router.push({ path: '/movie/' + id });
+      this.$store.commit('person/RESET_STATE');  
+      if (mediaType === 'movie' || mediaType === undefined) {
+        this.$router.push({ path: '/movie/' + id });
+      } else if (mediaType === 'tv') {
+        this.$router.push({ path: '/tv/' + id });
+      }
     },
     formattingDate(date) {
       const fomatting = new Date(date);
@@ -108,12 +116,24 @@ export default {
         'July',
         'August',
         'September',
+        'October',
         'November',
         'December'
       ];
       const month = months[fomatting.getMonth()];
       return `${fomatting.getDate()} ${month} ${fomatting.getFullYear()}`;
-    }
+    },
+    calculatingAge() {
+      if (this.personDetails.deathday === null) {
+        const ageMs = Date.now() - new Date(this.personDetails.birthday).getTime();
+        const ageDate = new Date(ageMs);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+      } else {
+        const ageMs = new Date(this.personDetails.deathday) - new Date(this.personDetails.birthday);
+        const ageDate = new Date(ageMs);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+      }
+    } 
   },
   mounted() {
     this.$store.dispatch('person/fetchPerson', this.$route.params.id);
@@ -123,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 1185px) {
+@media (min-width: 960px) {
   .container {
     max-width: 1170px;
   }
@@ -143,7 +163,7 @@ p {
   color: #1a5769;
 }
 .v-item-group {
-  background-color: #1a576980;
-  max-width: 1145px;
+  background-color: #1a576956;
+  max-width: 98%;
 }
 </style>

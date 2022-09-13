@@ -65,7 +65,7 @@ export default {
   name: 'MovieListItem',
   data() {
     return {
-      isLoading: this.item.profilePath || this.item.posterPath,
+      isLoading: !!(this.item.profilePath || this.item.posterPath),
       apiImg
     };
   },

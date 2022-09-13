@@ -7,7 +7,8 @@ export default {
   state: {
     movie: {},
     cast: [],
-    reviews: []
+    reviews: [],
+    similar: []
   },
   getters: {
     movie(state) {
@@ -18,6 +19,9 @@ export default {
     },
     reviews(state) {
       return state.reviews;
+    },
+    similar(state) {
+      return state.similar;
     }
   },
   mutations: {
@@ -32,6 +36,9 @@ export default {
     },
     SET_REVIEWS(state, data) {
       Vue.set(state, 'reviews', data);
+    },
+    SET_SIMILAR(state, data) {
+      Vue.set(state, 'similar', data);
     }
   },
   actions: {
@@ -66,7 +73,8 @@ export default {
           name: item.name,
           profilePath: item.profile_path,
           id: item.id,
-          character: item.character
+          character: item.character,
+          creditID: item.credit_id
         }))
       );
     },
@@ -87,6 +95,22 @@ export default {
           created: item.created_at
         }))
       );
-    }
+    },
+    async fetchSimilar({ commit }, id) {
+      const { data } = await axios.get(`${apiURL}/movie/${id}/recommendations`, {
+        params: {
+          api_key: apiKey,
+          language: apiLang
+        }
+      });
+      commit(
+        'SET_SIMILAR',
+        data.results.map(item => ({
+          posterPath: item.poster_path,
+          id: item.id,
+          title: item.title,
+        }))
+      );
+    },
   }
 };
