@@ -3,7 +3,7 @@
     v-show="!menuOpen"
     v-if="movies.length && !isLoading"
   >
-    <v-container class="d-flex flex-wrap justify-space-around pa-0 pt-3">
+    <v-container class="movie-list d-flex flex-wrap  pa-0 pt-3">
       <movie-list-item
         v-for="item in movies"
         :key="item.id"
@@ -22,7 +22,7 @@
 
   <v-container
     v-else-if="isLoading"
-    class="d-flex flex-wrap justify-space-around pa-0 pt-3 text-h2"
+    class="movie-list d-flex flex-wrap  pa-0 pt-3 text-h2"
   >
     <v-skeleton-loader
       v-for="i in 8"
@@ -90,6 +90,17 @@ export default {
 </script>
 
 <style>
+
+.v-skeleton-loader__image {
+  height: 317px;
+}
+.error-text {
+  width: 575px;
+  text-align: center;
+}
+.movie-list{
+	justify-content: space-between;
+}
 @media (min-width: 960px) {
   .container {
     max-width: 1170px;
@@ -99,14 +110,8 @@ export default {
 	.v-skeleton-loader{
 	margin-right: 15px;
     margin-left: 15px;
+}.movie-list{
+	justify-content: space-around;
 }
-}
-
-.v-skeleton-loader__image {
-  height: 317px;
-}
-.error-text {
-  width: 575px;
-  text-align: center;
 }
 </style>
