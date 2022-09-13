@@ -1,5 +1,6 @@
 <template>
   <v-container
+    v-if="!isLoading"
     v-show="!menuOpen"
     class="mt-2 mb-6 pa-4 rounded"
   >
@@ -97,10 +98,12 @@
       </v-slide-group>
     </v-row>
   </v-container>
+  <page-loader v-else />
 </template>
 
 <script>
 import { apiImg } from '../config/apiConfig';
+import PageLoader from '../components/PageLoader.vue';
 
 export default {
   data() {
@@ -113,12 +116,13 @@ export default {
     },
     filmography() {
       return this.$store.getters['person/filmography'];
+    },
+    isLoading() {
+      return this.$store.getters['person/isLoading'];
     }
   },
   methods: {
     filmID(mediaType, id) {
-      this.$store.commit('movie/RESET_STATE');
-      this.$store.commit('person/RESET_STATE');
       if (mediaType === 'movie' || mediaType === undefined) {
         this.$router.push({ path: '/movie/' + id });
       } else if (mediaType === 'tv') {
@@ -159,10 +163,14 @@ export default {
       }
     }
   },
-  mounted() {
-    this.$store.dispatch('person/fetchPerson', this.$route.params.id);
-    this.$store.dispatch('person/fetchFilmography', this.$route.params.id);
-  }
+  async mounted() {
+    await this.$store.dispatch('person/fetchPerson', this.$route.params.id);
+    await this.$store.dispatch(
+      'person/fetchFilmography',
+      this.$route.params.id
+    );
+  },
+  components: { PageLoader }
 };
 </script>
 

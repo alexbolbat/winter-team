@@ -5,6 +5,7 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
+    isLoading: false,
     person: {},
     filmography: []
   },
@@ -14,21 +15,26 @@ export default {
     },
     filmography(state) {
       return state.filmography;
+    },
+    isLoading(state) {
+      return state.isLoading;
     }
   },
   mutations: {
     SET_PERSON(state, data) {
       Vue.set(state, 'person', data);
     },
-    RESET_STATE(state) {
-      state.person = {};
-    },
+
     SET_FILMOGRAPHY(state, data) {
       Vue.set(state, 'filmography', data);
+    },
+    SET_LOADING(state) {
+      state.isLoading = !state.isLoading;
     }
   },
   actions: {
     async fetchPerson({ commit }, id) {
+      commit('SET_LOADING');
       const { data } = await axios.get(`${apiURL}/person/${id}`, {
         params: {
           api_key: apiKey,
@@ -45,12 +51,15 @@ export default {
       });
     },
     async fetchFilmography({ commit }, id) {
-      const { data } = await axios.get(`${apiURL}/person/${id}/combined_credits`, {
-        params: {
-          api_key: apiKey,
-          language: apiLang
+      const { data } = await axios.get(
+        `${apiURL}/person/${id}/combined_credits`,
+        {
+          params: {
+            api_key: apiKey,
+            language: apiLang
+          }
         }
-      });
+      );
       commit(
         'SET_FILMOGRAPHY',
         data.cast.map(item => ({
@@ -63,6 +72,7 @@ export default {
           creditID: item.credit_id
         }))
       );
+      commit('SET_LOADING');
     }
   }
 };

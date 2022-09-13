@@ -110,7 +110,8 @@ export default {
 	.v-skeleton-loader{
 	margin-right: 15px;
     margin-left: 15px;
-}.movie-list{
+}
+.movie-list{
 	justify-content: space-around;
 }
 }

@@ -239,11 +239,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 960px) {
-  .v-toolbar.v-sheet {
-    max-width: 1170px;
-  }
-}
 .dropdown {
   max-width: 1170px;
   margin: 0 auto;
@@ -255,34 +250,6 @@ export default {
 }
 .select {
   width: 110px;
-}
-@media (max-width: 1060px) {
-  .nav-desktop {
-    display: none !important;
-  }
-  .burger {
-    display: block;
-  }
-  .select {
-    flex: 0 1 auto;
-    width: 300px;
-  }
-  .inputField {
-    margin-top: 30px;
-  }
-  .v-btn.v-btn--has-bg {
-    margin-top: -2px;
-  }
-  .dropdown-after {
-    height: 100vh;
-    display: flex;
-  }
-  .menu {
-    height: 300px;
-  }
-  .banner {
-    display: none;
-  }
 }
 .v-btn.v-btn--has-bg {
   margin-left: -10px;
@@ -314,5 +281,38 @@ input[type='text']:focus {
 }
 input[type='text']::placeholder {
   color: #6bc6dab7;
+}
+@media (min-width: 960px) {
+  .v-toolbar.v-sheet {
+    max-width: 1170px;
+  }
+}
+@media (max-width: 1060px) {
+  .nav-desktop {
+    display: none !important;
+  }
+  .burger {
+    display: block;
+  }
+  .select {
+    flex: 0 1 auto;
+    width: 300px;
+  }
+  .inputField {
+    margin-top: 30px;
+  }
+  .v-btn.v-btn--has-bg {
+    margin-top: -2px;
+  }
+  .dropdown-after {
+    height: 100vh;
+    display: flex;
+  }
+  .menu {
+    height: 300px;
+  }
+  .banner {
+    display: none;
+  }
 }
 </style>
