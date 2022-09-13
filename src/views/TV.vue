@@ -62,7 +62,7 @@
       </v-col>
     </v-row>
     <h3
-      v-show="castDetails.length != 0"
+      v-show="castDetails != null"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
       Top Billed Cast
@@ -80,7 +80,7 @@
       </v-slide-group>
     </v-row>
     <h3
-      v-show="tvDetails.seasonsInfo.length != 0"
+      v-show="tvDetails.seasonsInfo != null"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
       Short seasons overviews
@@ -92,12 +92,15 @@
         v-for="item in tvDetails.seasonsInfo"
         :key="item.id"
         max-width="540px"
-        class="ma-2"
+        class="ma-2 seasonItem"
       >
         <v-row
           class="pa-3"
         >
-          <v-col cols="4">
+          <v-col 
+            cols="4"
+            class="d-none d-sm-block"
+          >
             <v-img
               v-if="item.poster_path"
               max-width="auto"
@@ -106,6 +109,7 @@
             />
             <img
               v-else
+              width="100%"
               height="280px"
               src="../assets/not-found.svg"
             />
@@ -115,7 +119,15 @@
               {{item.name}}
             </h2>
           </v-col>  
-          <v-col cols="8">  
+          <v-col 
+            cols="12"
+            sm="8"
+          >  
+            <span
+              class="d-sm-none font-weight-bold title"
+            >
+              {{item.name}}
+            </span>
             <p
               v-if="item.overview"
               class="review--text"
@@ -165,6 +177,12 @@ export default {
 @media (min-width: 960px) {
   .container {
     max-width: 1170px;
+  }
+}
+
+@media (max-width: 600px) {
+  .seasonItem {
+    width: 98%;
   }
 }
 

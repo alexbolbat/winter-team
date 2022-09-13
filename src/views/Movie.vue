@@ -95,7 +95,7 @@
           class="ma-4 rounded"
           @click="filmID(item.id)"
         >
-        <v-img
+          <v-img
             v-if="item.posterPath"
             max-width="auto"
             max-height="280px"
@@ -103,6 +103,7 @@
           />
           <img
             v-else
+            width="100%"
             height="280px"
             src="../assets/not-found.svg"
           />
@@ -220,6 +221,12 @@ export default {
 @media (min-width: 960px) {
   .container {
     max-width: 1170px;
+  }
+}
+
+@media (max-width: 600px) {
+  .v-card {
+    width: 180px;
   }
 }
 

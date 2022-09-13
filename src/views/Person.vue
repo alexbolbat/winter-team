@@ -73,6 +73,7 @@
           />
           <img
             v-else
+            width="100%"
             height="280px"
             src="../assets/not-found.svg"
           />
@@ -158,6 +159,12 @@ export default {
 @media (min-width: 960px) {
   .container {
     max-width: 1170px;
+  }
+}
+
+@media (max-width: 600px) {
+  .v-card {
+    width: 180px;
   }
 }
 
