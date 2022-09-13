@@ -260,7 +260,7 @@ export default {
     display: block !important;
   }
   .select {
-    width: 410px !important;
+    width: 300px !important;
     margin-top: 30px !important;
   }
   .inputField {
