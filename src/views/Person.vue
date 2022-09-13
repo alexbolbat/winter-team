@@ -23,7 +23,8 @@
         <h2 class="mb-2 font-weight-light display-1">
           {{ personDetails.birthPlace }}
         </h2>
-        <span
+
+        <p
           v-if="
             personDetails.birthday != null && personDetails.deathday === null
           "
@@ -32,8 +33,8 @@
           {{ `Age: ${calculatingAge()}` }}
           <br />
           {{ `Birthday: ${formattingDate(personDetails.birthday)}` }}
-        </span>
-        <span
+        </p>
+        <p
           v-if="personDetails.deathday != null"
           class="mb-2 font-weight-medium title"
         >
@@ -44,15 +45,16 @@
               personDetails.deathday
             )}`
           }}
-        </span>
-        <span
+        </p>
+        <p
           v-if="
             personDetails.birthday === null && personDetails.deathday === null
           "
           class="mb-2 font-weight-medium title"
         >
           Sorry, we have no information about this person 😔
-        </span>
+        </p>
+
         <p class="pr-10 mt-2 text-justify">
           {{ personDetails.biography }}
         </p>
@@ -180,7 +182,8 @@ h2 {
   color: #412631;
 }
 
-h3 {
+h3,
+p {
   color: #1a5769;
 }
 .v-item-group {
