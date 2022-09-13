@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-      width="242"
+      :width="width"
       class="movie-list-item mb-7"
       :loading="isLoading"
       @click="onClickItem(item.mediaType)"
@@ -14,8 +14,8 @@
       />
       <img
         v-else
-        height="318"
-        width="242"
+        height="309"
+        :width="width"
         src="../assets/not-found.svg"
         alt="not found"
       />
@@ -69,7 +69,10 @@ export default {
       apiImg
     };
   },
-  props: { item: { type: Object, required: true } },
+  props: {
+    item: { type: Object, required: true },
+    width: { type: Number, required: true }
+  },
   computed: {
     ...mapGetters(['genres']),
     currentItem() {
@@ -133,6 +136,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: 1060px) {
+  .movie-list-item {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+}
+
 .title {
   white-space: nowrap;
   width: 95%;

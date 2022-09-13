@@ -1,6 +1,8 @@
-<!-- eslint-disable vue/html-indent -->
 <template>
-  <v-container class="mt-2 mb-6 pa-4 rounded">
+  <v-container
+    v-show="!menuOpen"
+    class="mt-2 mb-6 pa-4 rounded"
+  >
     <v-row>
       <v-col 
         cols="4"
@@ -31,9 +33,9 @@
           {{
             movieDetails.genreIds
               ? movieDetails.genreIds
-                  .map(item => item.name)
-                  .join(', ')
-                  .toLowerCase()
+                .map(item => item.name)
+                .join(', ')
+                .toLowerCase()
               : 'No genres'
           }}
         </h3>
@@ -54,10 +56,10 @@
       </v-col>
     </v-row>
     <h3
-        class="font-weight-bold headline mb-4 text-center"
-      >
-        Top Billed Cast
-      </h3>
+      class="font-weight-bold headline mb-4 text-center"
+    >
+      Top Billed Cast
+    </h3>
     <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="movieDetails.id"
@@ -71,10 +73,10 @@
       </v-slide-group>
     </v-row>
     <h3
-        class="font-weight-bold headline mx-auto mb-4 text-center"
-      >
-        Users often search with {{movieDetails.title}}
-      </h3>
+      class="font-weight-bold headline mx-auto mb-4 text-center"
+    >
+      Users often search with {{movieDetails.title}}
+    </h3>
     <v-row
       class="justify-center"
     >
@@ -90,7 +92,7 @@
           class="ma-4 rounded"
           @click="filmID(item.id)"
         >
-        <v-img
+          <v-img
             v-if="item.posterPath"
             max-width="auto"
             max-height="280px"
@@ -166,6 +168,7 @@ export default {
     };
   },
   components: { CastComponent },
+  props: { menuOpen: { type: Boolean, required: true } },
   computed: {
     movieDetails() {
       return this.$store.getters['movie/movie'];
