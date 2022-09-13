@@ -1,7 +1,10 @@
 <template>
   <v-container class="mt-2 mb-6 pa-4 rounded">
     <v-row>
-      <v-col cols="4">
+      <v-col 
+        cols="4"
+        class="d-none d-sm-block"
+      >
         <v-img
           v-if="tvDetails.posterPath"
           max-width="350px"
@@ -13,8 +16,11 @@
           src="../assets/not-found.svg"
         />
       </v-col>
-      <v-col cols="8">
-        <h1 class="display-3 font-weight-medium">
+      <v-col 
+        cols="12" 
+        sm="8"
+      >
+        <h1 class="display-2 font-weight-medium">
           {{ tvDetails.name }}
         </h1>
         <h2 class="mb-2 font-weight-light display-1">
@@ -56,6 +62,7 @@
       </v-col>
     </v-row>
     <h3
+      v-show="castDetails.length != 0"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
       Top Billed Cast
@@ -73,9 +80,10 @@
       </v-slide-group>
     </v-row>
     <h3
+      v-show="tvDetails.seasonsInfo.length != 0"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
-      Short seasons overview
+      Short seasons overviews
     </h3>
     <v-row
       class="mx-auto justify-center"

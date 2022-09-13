@@ -57,6 +57,7 @@
       </v-col>
     </v-row>
     <h3
+        v-show="castDetails.length != 0"
         class="font-weight-bold headline mb-4 text-center"
       >
         Top Billed Cast
@@ -74,6 +75,7 @@
       </v-slide-group>
     </v-row>
     <h3
+        v-show="similar.length != 0"
         class="font-weight-bold headline mx-auto mb-4 text-center"
       >
         Users often search with {{movieDetails.title}}
@@ -113,6 +115,7 @@
     </v-row>
     <v-row>
       <h3
+        v-show="reviews.length != 0"
         class="font-weight-bold headline mx-auto mb-3"
       >
         Users reviews
@@ -148,7 +151,10 @@
               ...show full review
             </span>
           </p>
-          <p v-if="showAll[item.id]">
+          <p 
+            v-if="showAll[item.id]"
+            class="review--text"
+            >
             {{ item.content }}
           </p>
         </v-card-text>
@@ -217,11 +223,6 @@ export default {
   }
 }
 
-// @media (max-width: 599px) {
-//   .posterImg {
-//     display: none;
-//   }
-// }
 .container {
   background-color: #6bc6dad7;
 }
@@ -243,7 +244,7 @@ span {
 }
 
 .v-item-group {
-  background-color: #1a576980;
+  background-color: #1a576956;
   max-width: 98%;
 }
 
