@@ -2,7 +2,10 @@
 <template>
   <v-container class="mt-2 mb-6 pa-4 rounded">
     <v-row>
-      <v-col cols="4">
+      <v-col 
+        cols="4"
+        class="d-none d-sm-block"
+      >
         <v-img
           v-if="movieDetails.posterPath"
           max-width="350px"
@@ -14,8 +17,11 @@
           src="../assets/not-found.svg"
         />
       </v-col>
-      <v-col cols="8">
-        <h1 class="display-3 font-weight-medium">
+      <v-col 
+        cols="12" 
+        sm="8"
+      >
+        <h1 class="display-2 font-weight-medium ">
           {{ movieDetails.title }}
         </h1>
         <h2 class="mb-2 font-weight-light display-1">
@@ -150,6 +156,12 @@ export default {
     max-width: 1170px;
   }
 }
+
+// @media (max-width: 599px) {
+//   .posterImg {
+//     display: none;
+//   }
+// }
 .container {
   background-color: #6bc6dad7;
 }
@@ -172,7 +184,7 @@ span {
 
 .v-item-group {
   background-color: #1a576980;
-  max-width: 1145px;
+  max-width: 98%;
 }
 
 .showMore {
