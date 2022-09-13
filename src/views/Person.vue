@@ -47,10 +47,10 @@
         </p>
       </v-col>
     </v-row>
-    <v-row class="mb-4">
+    <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="personDetails.id"
-        class="rounded mx-2"
+        class="rounded mx-3"
       >
         <v-card
           v-for="item in filmography"
@@ -74,7 +74,7 @@
           <v-card-text class="font-weight-bold text-center text-truncate">
             {{(item.mediaType).toUpperCase()}}
             <br />
-            {{ item.title }}
+            {{ item.title || item.name }}
             <br />
             <span class="font-weight-light caption text-center">
               {{ item.character }}
@@ -150,7 +150,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 1185px) {
+@media (min-width: 960px) {
   .container {
     max-width: 1170px;
   }
@@ -169,7 +169,7 @@ h3 {
   color: #1a5769;
 }
 .v-item-group {
-  background-color: #1a576980;
-  max-width: 1145px;
+  background-color: #1a576956;
+  max-width: 98%;
 }
 </style>

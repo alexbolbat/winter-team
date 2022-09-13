@@ -56,10 +56,15 @@
         </p>
       </v-col>
     </v-row>
-    <v-row class="mb-4">
+    <h3
+        class="font-weight-bold headline mb-4 text-center"
+      >
+        Top Billed Cast
+      </h3>
+    <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="movieDetails.id"
-        class="rounded mx-2"
+        class="rounded mx-3"
       >
         <cast-component
           v-for="item in castDetails"
@@ -68,7 +73,50 @@
         />
       </v-slide-group>
     </v-row>
+    <h3
+        class="font-weight-bold headline mx-auto mb-4 text-center"
+      >
+        Users often search with {{movieDetails.title}}
+      </h3>
+    <v-row
+      class="justify-center"
+    >
+      <v-slide-group
+        :key="similar.id"
+        class="rounded mx-3 mb-4"
+      >
+        <v-card
+          v-for="item in similar"
+          :key="item.id"
+          :item="item"
+          max-width="230px"
+          class="ma-4 rounded"
+          @click="filmID(item.id)"
+        >
+        <v-img
+            v-if="item.posterPath"
+            max-width="auto"
+            max-height="280px"
+            :src="`${apiImg}/${item.posterPath}`"
+          />
+          <img
+            v-else
+            height="280px"
+            src="../assets/not-found.svg"
+          />
+          <v-card-text class="font-weight-bold text-center text-truncate">
+            {{ item.title }}
+            <br />
+          </v-card-text>
+        </v-card>
+      </v-slide-group>
+    </v-row>
     <v-row>
+      <h3
+        class="font-weight-bold headline mx-auto mb-3"
+      >
+        Users reviews
+      </h3>
       <v-card
         v-for="item in reviews"
         :key="item.id"
@@ -130,6 +178,9 @@ export default {
     },
     reviews() {
       return this.$store.getters['movie/reviews'];
+    },
+    similar() {
+      return this.$store.getters['movie/similar'];
     }
   },
   methods: {
@@ -137,6 +188,9 @@ export default {
       this.$store.commit('person/RESET_STATE');
       this.$store.commit('movie/RESET_STATE');
       this.$router.push({ path: '/person/' + id });
+    },
+    filmID(id) {
+      this.$router.push({ path: '/movie/' + id });
     },
     showMore(id) {
       this.$set(this.showAll, id, true);
@@ -146,7 +200,13 @@ export default {
     await this.$store.dispatch('movie/fetchMovie', this.$route.params.id);
     await this.$store.dispatch('movie/fetchCast', this.$route.params.id);
     this.$store.dispatch('movie/fetchRewiews', this.$route.params.id);
-  }
+    this.$store.dispatch('movie/fetchSimilar', this.$route.params.id);
+  },
+  beforeRouteUpdate(to, from) {
+    if (to.path !== from.path) {
+      window.location = to.path;
+    }
+  },
 };
 </script>
 

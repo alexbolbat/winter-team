@@ -55,6 +55,7 @@ export default {
         'SET_FILMOGRAPHY',
         data.cast.map(item => ({
           title: item.title,
+          name: item.name,
           posterPath: item.poster_path,
           id: item.id,
           character: item.character,
