@@ -1,5 +1,8 @@
 <template>
-  <v-container class="mt-2 mb-6 pa-4 rounded">
+  <v-container
+    v-show="!menuOpen"
+    class="mt-2 mb-6 pa-4 rounded"
+  >
     <v-row>
       <v-col cols="4">
         <v-img
@@ -21,23 +24,31 @@
           {{ personDetails.birthPlace }}
         </h2>
         <span
-          v-if="personDetails.birthday != null && personDetails.deathday === null"
+          v-if="
+            personDetails.birthday != null && personDetails.deathday === null
+          "
           class="font-weight-medium title"
         >
-          {{`Age: ${calculatingAge()}`}}
+          {{ `Age: ${calculatingAge()}` }}
           <br />
-          {{`Birthday: ${formattingDate(personDetails.birthday)}`}}
+          {{ `Birthday: ${formattingDate(personDetails.birthday)}` }}
         </span>
         <span
           v-if="personDetails.deathday != null"
           class="mb-2 font-weight-medium title"
         >
-          {{`Age: ${calculatingAge()}`}}
+          {{ `Age: ${calculatingAge()}` }}
           <br />
-          {{`${formattingDate(personDetails.birthday)} - ${formattingDate(personDetails.deathday)}`}}
+          {{
+            `${formattingDate(personDetails.birthday)} - ${formattingDate(
+              personDetails.deathday
+            )}`
+          }}
         </span>
         <span
-          v-if="personDetails.birthday === null && personDetails.deathday === null"
+          v-if="
+            personDetails.birthday === null && personDetails.deathday === null
+          "
           class="mb-2 font-weight-medium title"
         >
           Sorry, we have no information about this person 😔
@@ -72,7 +83,7 @@
             src="../assets/not-found.svg"
           />
           <v-card-text class="font-weight-bold text-center text-truncate">
-            {{(item.mediaType).toUpperCase()}}
+            {{ item.mediaType.toUpperCase() }}
             <br />
             {{ item.title || item.name }}
             <br />
@@ -93,6 +104,7 @@ export default {
   data() {
     return { apiImg };
   },
+  props: { menuOpen: { type: Boolean, required: true } },
   computed: {
     personDetails() {
       return this.$store.getters['person/person'];
@@ -102,9 +114,9 @@ export default {
     }
   },
   methods: {
-    filmID(mediaType, id) {  
+    filmID(mediaType, id) {
       this.$store.commit('movie/RESET_STATE');
-      this.$store.commit('person/RESET_STATE');  
+      this.$store.commit('person/RESET_STATE');
       if (mediaType === 'movie' || mediaType === undefined) {
         this.$router.push({ path: '/movie/' + id });
       } else if (mediaType === 'tv') {
@@ -132,15 +144,18 @@ export default {
     },
     calculatingAge() {
       if (this.personDetails.deathday === null) {
-        const ageMs = Date.now() - new Date(this.personDetails.birthday).getTime();
+        const ageMs =
+          Date.now() - new Date(this.personDetails.birthday).getTime();
         const ageDate = new Date(ageMs);
         return Math.abs(ageDate.getUTCFullYear() - 1970);
       } else {
-        const ageMs = new Date(this.personDetails.deathday) - new Date(this.personDetails.birthday);
+        const ageMs =
+          new Date(this.personDetails.deathday) -
+          new Date(this.personDetails.birthday);
         const ageDate = new Date(ageMs);
         return Math.abs(ageDate.getUTCFullYear() - 1970);
       }
-    } 
+    }
   },
   mounted() {
     this.$store.dispatch('person/fetchPerson', this.$route.params.id);

@@ -82,7 +82,7 @@
       </v-btn>
       <v-app-bar-nav-icon
         class="burger"
-        @click="switchMenu"
+        @click="switchMenuOpen(!menuOpen)"
       />
     </v-toolbar>
     <nav
@@ -103,7 +103,7 @@
           </v-row>
           <span>Theme</span>
         </div>
-        <v-spacer />
+
         <v-autocomplete
           v-model="region"
           class="select ma-0 pa-0 mr-4"
@@ -153,7 +153,7 @@
       </div>
     </nav>
     <v-img
-      class="mx-auto mt-2"
+      class="banner mx-auto mt-2"
       max-width="1170"
       src="../assets/main page banner.svg"
     />
@@ -168,7 +168,6 @@ export default {
   name: 'TheHeader',
   data() {
     return {
-      menuOpen: false,
       queryValue: '',
       multisearch: false,
       isoCodes,
@@ -177,7 +176,10 @@ export default {
       year: ''
     };
   },
-
+  props: {
+    menuOpen: { type: Boolean, required: true },
+    switchMenuOpen: { type: Function, required: true }
+  },
   methods: {
     ...mapMutations('searchMovies', ['removePreviosResult']),
     queryInput() {
@@ -199,11 +201,8 @@ export default {
           query
         });
       }
-      this.menuOpen = false;
+      this.switchMenuOpen(false);
       this.queryValue = '';
-    },
-    switchMenu() {
-      this.menuOpen = !this.menuOpen;
     }
   },
   computed: {
@@ -275,6 +274,9 @@ export default {
   }
   .menu {
     height: 400px;
+  }
+  .banner {
+    display: none;
   }
 }
 .v-btn.v-btn--has-bg {

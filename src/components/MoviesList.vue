@@ -1,10 +1,14 @@
 <template>
-  <div v-if="movies.length && !isLoading">
-    <v-container class="d-flex flex-wrap justify-space-between pa-0 pt-3">
+  <div
+    v-show="!menuOpen"
+    v-if="movies.length && !isLoading"
+  >
+    <v-container class="d-flex flex-wrap justify-space-around pa-0 pt-3">
       <movie-list-item
         v-for="item in movies"
         :key="item.id"
         :item="item"
+        :width="cardWidth"
       />
     </v-container>
     <v-pagination
@@ -18,12 +22,12 @@
 
   <v-container
     v-else-if="isLoading"
-    class="d-flex flex-wrap justify-space-between pa-0 pt-3 text-h2"
+    class="d-flex flex-wrap justify-space-around pa-0 pt-3 text-h2"
   >
     <v-skeleton-loader
       v-for="i in 8"
       :key="i"
-      width="242"
+      :width="cardWidth"
       height="495"
       type="image, article"
     />
@@ -58,7 +62,8 @@ export default {
   props: {
     totalPages: { type: Number, required: true },
     movies: { type: Array, required: true },
-    page: { type: Number, required: true }
+    page: { type: Number, required: true },
+    menuOpen: { type: Boolean, required: true }
   },
   components: { MovieListItem },
   methods: {
@@ -67,7 +72,23 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('resultsList', ['isLoading'])
+    ...mapGetters('resultsList', ['isLoading']),
+    cardWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+      case 'xs':
+        return 342;
+      case 'sm':
+        return 342;
+      case 'md':
+        return 242;
+      case 'lg':
+        return 242;
+      case 'xl':
+        return 242;
+      default:
+        return 242;
+      }
+    }
   }
 };
 </script>
@@ -78,6 +99,13 @@ export default {
     max-width: 1170px;
   }
 }
+@media (max-width: 1060px) {
+	.v-skeleton-loader{
+	margin-right: 15px;
+    margin-left: 15px;
+}
+}
+
 .v-skeleton-loader__image {
   height: 317px;
 }

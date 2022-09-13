@@ -1,5 +1,8 @@
 <template>
-  <v-container class="mt-2 mb-6 pa-4 rounded">
+  <v-container
+    v-show="!menuOpen"
+    class="mt-2 mb-6 pa-4 rounded"
+  >
     <v-row>
       <v-col cols="4">
         <v-img
@@ -137,7 +140,9 @@ export default {
       apiImg
     };
   },
-  components: { CastComponent },
+  components: { CastComponent }
+  ,
+  props: { menuOpen: { type: Boolean, required: true } },
   computed: {
     tvDetails() {
       return this.$store.getters['tv/tv'];

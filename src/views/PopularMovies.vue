@@ -4,6 +4,7 @@
       :totalPages="500"
       :page="page"
       :movies="searchedList[page] || []"
+      :menuOpen="menuOpen"
       @choose-page="choosePage"
     />
   </div>
@@ -20,6 +21,7 @@ export default {
     };
   },
   components: { MoviesList },
+  props: { menuOpen: { type: Boolean, required: true } },
   computed: {
     ...mapGetters('resultsList', ['searchedList'])
   },
