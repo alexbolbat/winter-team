@@ -156,9 +156,6 @@ export default {
         this.region = this.isRegion;
       }
     }
-  },
-  mounted() {
-    console.log(!this.$vuetify.theme.dark);
   }
 };
 </script>
