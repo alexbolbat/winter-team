@@ -12,6 +12,7 @@
     />
     <img
       v-else
+      width="100%"
       height="280px"
       src="../assets/not-found.svg"
       alt="not-found"
