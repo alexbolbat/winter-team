@@ -16,7 +16,8 @@
         />
         <img
           v-else
-          width="350px"
+          width="100%"
+          height="280px"
           src="../assets/not-found.svg"
         />
       </v-col>
