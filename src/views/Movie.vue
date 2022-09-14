@@ -1,5 +1,6 @@
 <template>
   <v-container
+    v-if="!isLoading"
     v-show="!menuOpen"
     class="mt-2 mb-6 pa-4 rounded"
   >
@@ -154,11 +155,13 @@
       </v-card>
     </v-row>
   </v-container>
+  <page-loader v-else />
 </template>
 
 <script>
 import { apiImg } from '../config/apiConfig';
 import CastComponent from '../components/СastComponent.vue';
+import PageLoader from '../components/PageLoader.vue';
 
 export default {
   data() {
@@ -167,7 +170,7 @@ export default {
       showAll: {}
     };
   },
-  components: { CastComponent },
+  components: { CastComponent, PageLoader },
   props: { menuOpen: { type: Boolean, required: true } },
   computed: {
     movieDetails() {
@@ -181,12 +184,13 @@ export default {
     },
     similar() {
       return this.$store.getters['movie/similar'];
+    },
+    isLoading() {
+      return this.$store.getters['movie/isLoading'];
     }
   },
   methods: {
     personID(id) {
-      this.$store.commit('person/RESET_STATE');
-      this.$store.commit('movie/RESET_STATE');
       this.$router.push({ path: '/person/' + id });
     },
     filmID(id) {
@@ -199,8 +203,8 @@ export default {
   async mounted() {
     await this.$store.dispatch('movie/fetchMovie', this.$route.params.id);
     await this.$store.dispatch('movie/fetchCast', this.$route.params.id);
-    this.$store.dispatch('movie/fetchRewiews', this.$route.params.id);
-    this.$store.dispatch('movie/fetchSimilar', this.$route.params.id);
+    await this.$store.dispatch('movie/fetchRewiews', this.$route.params.id);
+    await this.$store.dispatch('movie/fetchSimilar', this.$route.params.id);
   },
   beforeRouteUpdate(to, from) {
     if (to.path !== from.path) {

@@ -1,5 +1,6 @@
 <template>
   <v-container
+    v-if="!isLoading"
     v-show="!menuOpen"
     class="mt-2 mb-6 pa-4 rounded"
   >
@@ -128,11 +129,13 @@
       </v-card>
     </v-row>
   </v-container>
+  <page-loader v-else />
 </template>
 
 <script>
 import { apiImg } from '../config/apiConfig';
 import CastComponent from '../components/СastComponent.vue';
+import PageLoader from '../components/PageLoader.vue';
 
 export default {
   data() {
@@ -140,7 +143,7 @@ export default {
       apiImg
     };
   },
-  components: { CastComponent }
+  components: { CastComponent, PageLoader }
   ,
   props: { menuOpen: { type: Boolean, required: true } },
   computed: {
@@ -149,11 +152,14 @@ export default {
     },
     castDetails() {
       return this.$store.getters['tv/cast'];
+    },
+    isLoading() {
+      return this.$store.getters['tv/isLoading'];
     }
   },
-  mounted() {
-    this.$store.dispatch('tv/fetchTV', this.$route.params.id);
-    this.$store.dispatch('tv/fetchCast', this.$route.params.id);
+  async mounted() {
+    await  this.$store.dispatch('tv/fetchTV', this.$route.params.id);
+    await   this.$store.dispatch('tv/fetchCast', this.$route.params.id);
   }
 };
 </script>

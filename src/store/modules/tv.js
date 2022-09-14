@@ -5,6 +5,7 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
+    isLoading: false,
     cast: [],
     tv: {}
   },
@@ -14,6 +15,9 @@ export default {
     },
     tv(state) {
       return state.tv;
+    },
+    isLoading(state) {
+      return state.isLoading;
     }
   },
   mutations: {
@@ -22,6 +26,9 @@ export default {
     },
     SET_TV(state, data) {
       Vue.set(state, 'tv', data);
+    },
+    SET_LOADING(state) {
+      state.isLoading = !state.isLoading;
     }
   },
   actions: {
@@ -41,8 +48,10 @@ export default {
           character: item.character
         }))
       );
+      commit('SET_LOADING');
     },
     async fetchTV({ commit }, id) {
+      commit('SET_LOADING');
       const { data } = await axios.get(`${apiURL}/tv/${id}`, {
         params: {
           api_key: apiKey,

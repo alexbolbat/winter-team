@@ -154,4 +154,11 @@ export default {
   overflow: hidden;
   text-transform: capitalize;
 }
+
+@media (max-width: 1060px) {
+  .movie-list-item {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+}
 </style>

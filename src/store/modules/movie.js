@@ -5,6 +5,7 @@ import Vue from 'vue';
 export default {
   namespaced: true,
   state: {
+    isLoading: false,
     movie: {},
     cast: [],
     reviews: [],
@@ -22,15 +23,16 @@ export default {
     },
     similar(state) {
       return state.similar;
+    },
+    isLoading(state) {
+      return state.isLoading;
     }
   },
   mutations: {
     SET_MOVIE(state, data) {
       Vue.set(state, 'movie', data);
     },
-    RESET_STATE(state) {
-      state.movie = {};
-    },
+
     SET_CAST(state, data) {
       Vue.set(state, 'cast', data);
     },
@@ -39,10 +41,14 @@ export default {
     },
     SET_SIMILAR(state, data) {
       Vue.set(state, 'similar', data);
+    },
+    SET_LOADING(state) {
+      state.isLoading = !state.isLoading;
     }
   },
   actions: {
     async fetchMovie({ commit }, id) {
+      commit('SET_LOADING');
       const { data } = await axios.get(`${apiURL}/movie/${id}`, {
         params: {
           api_key: apiKey,
@@ -97,20 +103,24 @@ export default {
       );
     },
     async fetchSimilar({ commit }, id) {
-      const { data } = await axios.get(`${apiURL}/movie/${id}/recommendations`, {
-        params: {
-          api_key: apiKey,
-          language: apiLang
+      const { data } = await axios.get(
+        `${apiURL}/movie/${id}/recommendations`,
+        {
+          params: {
+            api_key: apiKey,
+            language: apiLang
+          }
         }
-      });
+      );
       commit(
         'SET_SIMILAR',
         data.results.map(item => ({
           posterPath: item.poster_path,
           id: item.id,
-          title: item.title,
+          title: item.title
         }))
       );
-    },
+      commit('SET_LOADING');
+    }
   }
 };
