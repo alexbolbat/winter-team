@@ -7,7 +7,7 @@
     <v-row>
       <v-col 
         cols="4"
-        class="posterTab"  
+        class="d-none d-sm-block"
       >
         <v-img
           v-if="movieDetails.posterPath"
@@ -20,8 +20,11 @@
           src="../assets/not-found.svg"
         />
       </v-col>
-      <v-col cols="8">
-        <h1 class="display-3 font-weight-medium">
+      <v-col 
+        cols="12" 
+        sm="8"
+      >
+        <h1 class="display-2 font-weight-medium ">
           {{ movieDetails.title }}
         </h1>
         <h2 class="mb-2 font-weight-light display-1">
@@ -57,6 +60,7 @@
       </v-col>
     </v-row>
     <h3
+      v-if="castDetails.length"
       class="font-weight-bold headline mb-4 text-center"
     >
       Top Billed Cast
@@ -74,6 +78,7 @@
       </v-slide-group>
     </v-row>
     <h3
+      v-if="similar.length"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
       Users often search with {{movieDetails.title}}
@@ -101,6 +106,7 @@
           />
           <img
             v-else
+            width="100%"
             height="280px"
             src="../assets/not-found.svg"
           />
@@ -113,6 +119,7 @@
     </v-row>
     <v-row>
       <h3
+        v-if="reviews.length"
         class="font-weight-bold headline mx-auto mb-3"
       >
         Users reviews
@@ -148,7 +155,10 @@
               ...show full review
             </span>
           </p>
-          <p v-if="showAll[item.id]">
+          <p 
+            v-if="showAll[item.id]"
+            class="review--text"
+          >
             {{ item.content }}
           </p>
         </v-card-text>
@@ -220,6 +230,13 @@ export default {
     max-width: 1170px;
   }
 }
+
+@media (max-width: 600px) {
+  .v-card {
+    width: 180px;
+  }
+}
+
 .container {
   background-color: #6bc6dad7;
 }

@@ -14,7 +14,7 @@
     <v-pagination
       :value="page"
       :length="totalPages"
-      :total-visible="7"
+      :total-visible="6"
       class="mb-7"
       @input="choosePage"
     />

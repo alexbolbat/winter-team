@@ -5,7 +5,10 @@
     class="mt-2 mb-6 pa-4 rounded"
   >
     <v-row>
-      <v-col cols="4">
+      <v-col 
+        cols="4"
+        class="d-none d-sm-block"
+      >
         <v-img
           v-if="personDetails.profilePath"
           max-width="350px"
@@ -17,7 +20,10 @@
           src="../assets/not-found.svg"
         />
       </v-col>
-      <v-col cols="8">
+      <v-col 
+        cols="12" 
+        sm="8"
+      >
         <h1 class="display-3 font-weight-medium">
           {{ personDetails.name }}
         </h1>
@@ -62,6 +68,12 @@
       </v-col>
     </v-row>
     <v-row class="mb-4 justify-center">
+      <h3
+        v-if="filmography.length"
+        class="font-weight-bold headline mx-auto mb-3"
+      >
+        Filmography
+      </h3>
       <v-slide-group
         :key="personDetails.id"
         class="rounded mx-3"
@@ -82,6 +94,7 @@
           />
           <img
             v-else
+            width="100%"
             height="280px"
             src="../assets/not-found.svg"
           />
@@ -178,6 +191,12 @@ export default {
 @media (min-width: 960px) {
   .container {
     max-width: 1170px;
+  }
+}
+
+@media (max-width: 600px) {
+  .v-card {
+    width: 180px;
   }
 }
 
