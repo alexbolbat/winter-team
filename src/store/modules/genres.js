@@ -20,11 +20,14 @@ export default {
   },
   actions: {
     async fetchGenres({ commit }) {
-      const genres = await axios.get(`${apiURL}/genre/movie/list`, {
-        params: { api_key: apiKey, language: apiLang }
-      });
-
-      commit('setGenres', genres.data.genres);
+      try {
+        const genres = await axios.get(`${apiURL}/genre/movie/list`, {
+          params: { api_key: apiKey, language: apiLang }
+        });
+        commit('setGenres', genres.data.genres);
+      } catch (e) {
+        alert('Can\'t download genres');
+      }
     }
   }
 };
