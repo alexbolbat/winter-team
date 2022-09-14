@@ -14,10 +14,10 @@ app.use(history({
 app.use(staticFileMiddleware);
 
 app.get('/', function (req, res) {
-  res.render(path.join(__dirname + '/dist/index.html'));
+  res.render(path.join(__dirname + '/index.html'));
 });
 
-const server = app.listen(process.env.PORT || 80, function () {
+const server = app.listen(process.env.PORT || 3000, function () {
   const port = server.address().port;
   console.log("App now running on port", port);
 });
