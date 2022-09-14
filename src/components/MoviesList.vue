@@ -38,15 +38,15 @@
   >
     <img
       class="mt-3"
-      width="774"
+      width="100%"
       height="337"
       src="../assets/no-results.svg"
       alt="no-results"
     />
-    <div class="text-h2 font-weight-bold mt-2">
+    <div class="text-h3 font-weight-bold mt-2">
       Oops!
     </div>
-    <p class="text-h4 mt-4 error-text">
+    <p class="text-h5 mt-4 error-text">
       Sorry, we can`t find the film you are searching for but you always can
       come back to main page
     </p>
@@ -95,7 +95,7 @@ export default {
   height: 317px;
 }
 .error-text {
-  width: 575px;
+  max-width: 575px;
   text-align: center;
 }
 .movie-list{
