@@ -81,6 +81,7 @@ export default {
       } catch (error) {
         alert('Can\'t download Filmography');
       }
+
     }
   }
 };
