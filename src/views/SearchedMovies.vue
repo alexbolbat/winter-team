@@ -4,6 +4,7 @@
       :totalPages="totalPages"
       :page="page"
       :movies="searchedList[page] || []"
+      :menuOpen="menuOpen"
       @choose-page="choosePage"
     />
   </div>
@@ -27,6 +28,7 @@ export default {
   computed: {
     ...mapGetters('resultsList', ['searchedList', 'totalPages'])
   },
+  props: { menuOpen: { type: Boolean, required: true } },
   methods: {
     ...mapActions('resultsList', ['fetchMovies', 'fetchMultisearch']),
     ...mapMutations('resultsList', ['removePreviosResult']),

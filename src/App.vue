@@ -1,7 +1,10 @@
 <template>
   <v-app>
-    <the-header />
-    <router-view />
+    <the-header
+      :menuOpen="menuOpen"
+      :switchMenuOpen="switchMenuOpen"
+    />
+    <router-view :menuOpen="menuOpen" />
   </v-app>
 </template>
 
@@ -13,8 +16,14 @@ export default {
   components: {
     TheHeader
   },
+  data() {
+    return { menuOpen: false };
+  },
   methods: {
-    ...mapActions(['fetchGenres'])
+    ...mapActions(['fetchGenres']),
+    switchMenuOpen(menuOpen) {
+      this.menuOpen = menuOpen;
+    }
   },
   async mounted() {
     await this.fetchGenres();

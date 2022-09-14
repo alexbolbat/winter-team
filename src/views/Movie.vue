@@ -1,6 +1,8 @@
-<!-- eslint-disable vue/html-indent -->
 <template>
-  <v-container class="mt-2 mb-6 pa-4 rounded">
+  <v-container
+    v-show="!menuOpen"
+    class="mt-2 mb-6 pa-4 rounded"
+  >
     <v-row>
       <v-col 
         cols="4"
@@ -34,9 +36,9 @@
           {{
             movieDetails.genreIds
               ? movieDetails.genreIds
-                  .map(item => item.name)
-                  .join(', ')
-                  .toLowerCase()
+                .map(item => item.name)
+                .join(', ')
+                .toLowerCase()
               : 'No genres'
           }}
         </h3>
@@ -176,6 +178,7 @@ export default {
     };
   },
   components: { CastComponent },
+  props: { menuOpen: { type: Boolean, required: true } },
   computed: {
     movieDetails() {
       return this.$store.getters['movie/movie'];
