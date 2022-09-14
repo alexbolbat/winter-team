@@ -68,7 +68,7 @@
     </v-row>
     <v-row class="mb-4 justify-center">
       <h3
-        v-show="filmography.length != 0"
+        v-if="filmography.length"
         class="font-weight-bold headline mx-auto mb-3"
       >
         Filmography

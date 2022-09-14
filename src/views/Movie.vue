@@ -59,11 +59,11 @@
       </v-col>
     </v-row>
     <h3
-        v-show="castDetails.length != 0"
-        class="font-weight-bold headline mb-4 text-center"
-      >
-        Top Billed Cast
-      </h3>
+      v-if="castDetails.length"
+      class="font-weight-bold headline mb-4 text-center"
+    >
+      Top Billed Cast
+    </h3>
     <v-row class="mb-4 justify-center">
       <v-slide-group
         :key="movieDetails.id"
@@ -77,11 +77,11 @@
       </v-slide-group>
     </v-row>
     <h3
-        v-show="similar.length != 0"
-        class="font-weight-bold headline mx-auto mb-4 text-center"
-      >
-        Users often search with {{movieDetails.title}}
-      </h3>
+      v-if="similar.length"
+      class="font-weight-bold headline mx-auto mb-4 text-center"
+    >
+      Users often search with {{movieDetails.title}}
+    </h3>
     <v-row
       class="justify-center"
     >
@@ -118,7 +118,7 @@
     </v-row>
     <v-row>
       <h3
-        v-show="reviews.length != 0"
+        v-if="reviews.length"
         class="font-weight-bold headline mx-auto mb-3"
       >
         Users reviews
@@ -157,7 +157,7 @@
           <p 
             v-if="showAll[item.id]"
             class="review--text"
-            >
+          >
             {{ item.content }}
           </p>
         </v-card-text>
