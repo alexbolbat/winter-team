@@ -16,7 +16,8 @@
         />
         <img
           v-else
-          width="350px"
+          width="100%"
+          height="280px"
           src="../assets/not-found.svg"
         />
       </v-col>
@@ -67,13 +68,13 @@
         </p>
       </v-col>
     </v-row>
+    <h3
+      v-if="filmography.length"
+      class="font-weight-bold headline mx-auto mb-3 text-center"
+    >
+      Filmography
+    </h3>
     <v-row class="mb-4 justify-center">
-      <h3
-        v-if="filmography.length"
-        class="font-weight-bold headline mx-auto mb-3"
-      >
-        Filmography
-      </h3>
       <v-slide-group
         :key="personDetails.id"
         class="rounded mx-3"
@@ -88,7 +89,7 @@
         >
           <v-img
             v-if="item.posterPath"
-            max-width="auto"
+            max-width="100%"
             max-height="280px"
             :src="`${apiImg}/${item.posterPath}`"
           />
