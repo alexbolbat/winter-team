@@ -65,7 +65,7 @@
       </v-col>
     </v-row>
     <h3
-      v-show="castDetails != null"
+      v-if="castDetails"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
       Top Billed Cast
@@ -83,7 +83,7 @@
       </v-slide-group>
     </v-row>
     <h3
-      v-show="tvDetails.seasonsInfo != null"
+      v-if="tvDetails.seasonsInfo"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
       Short seasons overviews
