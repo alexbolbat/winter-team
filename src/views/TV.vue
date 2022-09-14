@@ -5,7 +5,10 @@
     class="mt-2 mb-6 pa-4 rounded"
   >
     <v-row>
-      <v-col cols="4">
+      <v-col 
+        cols="4"
+        class="d-none d-sm-block"
+      >
         <v-img
           v-if="tvDetails.posterPath"
           max-width="350px"
@@ -17,8 +20,11 @@
           src="../assets/not-found.svg"
         />
       </v-col>
-      <v-col cols="8">
-        <h1 class="display-3 font-weight-medium">
+      <v-col 
+        cols="12" 
+        sm="8"
+      >
+        <h1 class="display-2 font-weight-medium">
           {{ tvDetails.name }}
         </h1>
         <h2 class="mb-2 font-weight-light display-1">
@@ -60,6 +66,7 @@
       </v-col>
     </v-row>
     <h3
+      v-if="castDetails"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
       Top Billed Cast
@@ -77,9 +84,10 @@
       </v-slide-group>
     </v-row>
     <h3
+      v-if="tvDetails.seasonsInfo"
       class="font-weight-bold headline mx-auto mb-4 text-center"
     >
-      Short seasons overview
+      Short seasons overviews
     </h3>
     <v-row
       class="mx-auto justify-center"
@@ -88,12 +96,15 @@
         v-for="item in tvDetails.seasonsInfo"
         :key="item.id"
         max-width="540px"
-        class="ma-2"
+        class="ma-2 seasonItem"
       >
         <v-row
           class="pa-3"
         >
-          <v-col cols="4">
+          <v-col 
+            cols="4"
+            class="d-none d-sm-block"
+          >
             <v-img
               v-if="item.poster_path"
               max-width="auto"
@@ -102,6 +113,7 @@
             />
             <img
               v-else
+              width="100%"
               height="280px"
               src="../assets/not-found.svg"
             />
@@ -111,7 +123,15 @@
               {{item.name}}
             </h2>
           </v-col>  
-          <v-col cols="8">  
+          <v-col 
+            cols="12"
+            sm="8"
+          >  
+            <span
+              class="d-sm-none font-weight-bold title"
+            >
+              {{item.name}}
+            </span>
             <p
               v-if="item.overview"
               class="review--text"
@@ -168,6 +188,12 @@ export default {
 @media (min-width: 960px) {
   .container {
     max-width: 1170px;
+  }
+}
+
+@media (max-width: 600px) {
+  .seasonItem {
+    width: 98%;
   }
 }
 
